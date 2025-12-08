@@ -1,202 +1,329 @@
-Website Rumah Sakit dengan Laravel 10
-📋 Deskripsi Proyek
-Website Rumah Sakit berbasis Laravel 10 dengan sistem manajemen konten lengkap untuk informasi rumah sakit, manajemen dokter, layanan, artikel kesehatan, galeri, dan sistem testimoni pasien.
+# 📘 Dokumentasi Proyek
 
-🚀 Fitur Utama
-🏥 Halaman Publik
-✅ Beranda dengan informasi utama
+# **Website Rumah Sakit Khusus Bedah Ropanasuri**
 
-✅ Tentang Kami (sejarah, visi, misi, struktur)
+---
 
-✅ Layanan Rumah Sakit
+# 1. **Overview Proyek**
 
-✅ Data Dokter dengan jadwal praktik
+Website Rumah Sakit Khusus Bedah Ropanasuri adalah sistem informasi berbasis **Laravel 10** yang dirancang untuk menyajikan informasi lengkap mengenai rumah sakit, termasuk manajemen dokter, layanan, artikel kesehatan, galeri, testimoni pasien, dan layanan homecare. Sistem ini juga dilengkapi **Admin Dashboard** untuk mengelola seluruh konten secara dinamis.
 
-✅ Berita & Artikel Kesehatan
+## 🎯 **Tujuan Proyek**
 
-✅ Galeri Foto
+* Mempermudah masyarakat mendapatkan informasi rumah sakit secara online.
+* Mempercepat proses pembaruan informasi melalui dashboard admin.
+* Memberikan layanan tambahan berupa homecare dengan paket layanan.
 
-✅ Sistem Testimoni Pasien
+## 🏗️ **Teknologi yang Digunakan**
 
-✅ Halaman Kontak
+* **Laravel 10** (Backend)
+* **Blade Template / TailwindCSS / Bootstrap** (Frontend)
+* **MySQL** (Database)
+* **Laravel Storage** (Upload gambar)
+* **Spatie Permission** (opsional untuk manajemen role admin)
 
-✅ NEW Layanan Homecare dengan paket-paket
+---
 
-🛠️ Admin Dashboard
-✅ Manajemen Profil Rumah Sakit
+# 2. **Fitur Utama**
 
-✅ CRUD Data Dokter (dengan upload foto)
+## 🏥 **Halaman Publik**
 
-✅ CRUD Layanan
+* Beranda
+* Tentang Kami
+* Layanan Rumah Sakit
+* Data Dokter + Jadwal Praktik
+* Artikel / Berita
+* Galeri Foto
+* Testimoni Pasien
+* Kontak
+* **Layanan Homecare (BARU)**
 
-✅ CRUD Artikel/Berita
+## 🛠️ **Admin Dashboard**
 
-✅ CRUD Galeri Foto
+* Manajemen Profil Rumah Sakit
+* CRUD Dokter
+* CRUD Layanan
+* CRUD Artikel / Berita
+* CRUD Galeri Foto
+* Approval Testimoni
+* **CRUD Paket Homecare (BARU)**
 
-✅ Manajemen Testimoni (approval system)
+---
 
-✅ NEW Manajemen Paket Homecare
+# 3. **Arsitektur Sistem**
 
-🛠️ Teknologi yang Digunakan
-Framework: Laravel 10
+## 📂 Struktur Direktori Utama
 
-Database: MySQL
+```
+app/
+bootstrap/
+config/
+database/
+public/
+resources/
+   views/
+   css/
+   js/
+routes/
+   web.php
+storage/
+vendor/
+```
 
-Frontend: Bootstrap 5, Font Awesome
+## 🧩 Diagram Alur Sederhana
 
-Text Editor: TinyMCE (untuk artikel)
+* User → Website Publik → Database
+* Admin → Dashboard → Kelola Konten → Database → Website Publik
 
-Storage: Local filesystem dengan symbolic link
+---
 
-Authentication: Laravel UI (Bootstrap)
+# 4. **Setup & Instalasi Proyek**
 
-⚙️ Instalasi dan Setup
-Prerequisites
-PHP >= 8.1
+## 1️⃣ Clone Repository
 
-Composer
+```
+git clone https://github.com/username/ropanasuri-hospital.git
+cd ropanasuri-hospital
+```
 
-MySQL
+## 2️⃣ Install Dependensi Composer
 
-Node.js & NPM
+```
+composer install
+```
 
-🔧 Fitur CRUD Detail
-1. Manajemen Dokter
-Tambah dokter dengan upload foto
+## 3️⃣ Copy Environment
 
-Edit data dokter
+```
+cp .env.example .env
+```
 
-Hapus dokter
+Atur database & storage:
 
-Toggle status aktif/non-aktif
+```
+APP_NAME="Ropanasuri Hospital"
+DB_DATABASE=ropanasuri
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Kelola jadwal praktik
+## 4️⃣ Generate Key
 
-2. Sistem Testimoni
-Form testimoni publik
+```
+php artisan key:generate
+```
 
-Approval system oleh admin
+## 5️⃣ Migrasi Database
 
-Pagination (10 testimoni per halaman)
+```
+php artisan migrate --seed
+```
 
-Rating stars interaktif
+## 6️⃣ Jalankan Server
 
-3. Layanan Homecare ✨
-Multiple package system
+```
+php artisan serve
+```
 
-Detail paket dengan informasi lengkap
+---
 
-WhatsApp integration untuk pemesanan
+# 5. **Dokumentasi Fitur (User Guide)**
 
-Admin management untuk paket
+## 🌐 Halaman Publik
 
-4. Artikel/Berita
-WYSIWYG editor (TinyMCE)
+### 1. Beranda
 
-Kategori artikel
+Menampilkan hero banner, informasi utama rumah sakit, layanan populer, dan artikel terbaru.
 
-Status draft/published
+### 2. Tentang Kami
 
-Upload gambar artikel
+Meliputi:
 
-5. Galeri Foto
-Multiple image upload
+* Sejarah rumah sakit
+* Visi dan misi
+* Struktur organisasi (opsional)
 
-Kategori foto (fasilitas, kegiatan, acara)
+### 3. Layanan
 
-Responsive gallery layout
+List layanan:
 
-📱 Fitur Responsif
-Mobile-friendly design
+* Bedah Umum
+* Bedah Tulang
+* Radiologi
+* Homecare (BARU)
 
-Bootstrap 5 responsive grid
+### 4. Data Dokter
 
-Touch-friendly interface
+* Nama dokter
+* Spesialis
+* Jadwal praktik
+* Foto profil
 
-Adaptive images
+### 5. Artikel / Berita
 
-🔒 Security Features
-Authentication system
+Artikel kesehatan, edukasi medis, update terbaru.
 
-Admin middleware protection
+### 6. Galeri
 
-CSRF protection
+Foto kegiatan, fasilitas, ruangan rumah sakit.
 
-Form validation
+### 7. Testimoni Pasien
 
-Rate limiting
+Testimoni yang sudah disetujui oleh admin.
 
-Secure file upload
+### 8. Layanan Homecare
 
-🚨 Troubleshooting
-Common Issues
-Error 429 Too Many Requests
+Berisi paket homecare seperti:
 
-bash
-php artisan cache:clear
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
-Storage Link Error
+* Paket Perawatan Luka
+* Paket Perawatan Lansia
+* Paket Infus
 
-bash
-php artisan storage:link
-chmod -R 775 storage/
-chmod -R 775 bootstrap/cache/
-Migration Error
+---
 
-bash
-php artisan migrate:fresh --seed
-📊 Database Schema
-Tabel Utama
-users - Tabel user untuk authentication
+# 6. **Admin Dashboard Guide**
 
-hospital_profiles - Profil rumah sakit
+## 🔐 Login Admin
 
-doctors - Data dokter
+Masukkan email & password admin (dibuat melalui seeder).
 
-doctor_schedules - Jadwal praktik dokter
+## 1️⃣ Manajemen Profil Rumah Sakit
 
-services - Layanan rumah sakit
+* Ubah nama rumah sakit, alamat, kontak, jam operasional.
 
-testimonials - Testimoni pasien
+## 2️⃣ CRUD Dokter
 
-articles - Artikel berita
+* Tambah dokter baru
+* Upload foto dokter
+* Atur jadwal praktik
+* Edit / hapus dokter
 
-galleries - Galeri foto
+## 3️⃣ CRUD Layanan
 
-homecare_packages - Paket homecare
+* Tambah layanan lengkap dengan deskripsi dan gambar
 
-📞 Kontak & Support
-Untuk masalah atau pertanyaan:
+## 4️⃣ CRUD Artikel
 
-Check documentation terlebih dahulu
+* Menulis artikel kesehatan
+* Upload thumbnail
+* Kategori opsional
 
-Cek logs di storage/logs/laravel.log
+## 5️⃣ CRUD Galeri Foto
 
-Gunakan debugging routes yang tersedia
+Upload foto kegiatan atau fasilitas.
 
-📄 License
-Proyek ini dikembangkan untuk keperluan pendidikan dan komersial. Silakan sesuaikan dengan kebutuhan Anda.
+## 6️⃣ Manajemen Testimoni
 
-🔄 Update Log
-v1.0.0 - Initial Release
-Basic website rumah sakit
+* Setujui / tolak testimoni
+* Hapus jika perlu
 
-Admin dashboard
+## 7️⃣ Manajemen Homecare
 
-CRUD semua fitur utama
+* Tambah paket homecare
+* Nama paket
+* Deskripsi
+* Fasilitas yang didapat
+* Harga paket
 
-v1.1.0 - Homecare Feature
-✅ Sistem paket homecare
+---
 
-✅ WhatsApp integration
+# 7. **Skema Database**
 
-✅ Enhanced UI/UX
+## 🧱 Tabel Utama
 
-✅ Responsive design
+* doctors
+* services
+* articles
+* galleries
+* testimonials
+* homecare_packages
+* hospital_profiles
+* users (admin)
+* migrations
 
-Dikembangkan dengan ❤️ menggunakan Laravel 10
+## 📊 ERD Sederhana
 
-Documentation terakhir diperbarui: November 2024
+```
+users ───< articles
+users ───< services
+users ───< homecare_packages
+services ───< galleries
+```
 
+---
+
+# 8. **API / Route Dokumentasi**
+
+## 🛣️ Routes Publik
+
+```
+GET /
+GET /tentang
+GET /layanan
+GET /dokter
+GET /artikel
+GET /galeri
+GET /testimoni
+GET /homecare
+```
+
+## 🛡️ Routes Admin
+
+```
+/admin
+/admin/dokter
+/admin/layanan
+/admin/artikel
+/admin/galeri
+/admin/testimoni
+/admin/homecare
+```
+
+---
+
+# 9. **Deployment Guide**
+
+## 🚀 Langkah Deploy ke Hosting / VPS
+
+1. Upload semua file
+2. Jalankan `composer install --no-dev`
+3. Atur `.env` server produksi
+4. Jalankan migrasi database
+5. Atur permission folder storage & bootstrap
+6. Konfigurasi domain & SSL
+
+---
+
+# 10. **Testing & QA**
+
+Checklist:
+
+* [ ] Layanan tampil dengan benar
+* [ ] Jadwal dokter tampil lengkap
+* [ ] Artikel bisa dibaca
+* [ ] Galeri muncul
+* [ ] Testimoni dapat ditambah dan di-approve
+* [ ] Homecare paket tampil
+
+---
+
+# 11. **Changelog**
+
+## v1.0
+
+* Rilis awal
+* Website publik lengkap
+* Dashboard admin
+
+## v1.1
+
+* Penambahan fitur Homecare
+* Manajemen Paket Homecare di Dashboard
+
+---
+
+# 12. **Catatan Maintenance**
+
+* Backup database setiap minggu
+* Update Laravel setiap 6 bulan
+* Kompres gambar untuk optimasi
