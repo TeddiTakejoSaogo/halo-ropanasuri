@@ -50,66 +50,145 @@ Storage: Laravel Storage dengan symbolic link
 
 Authentication: Laravel UI dengan role-based (admin/user)
 
-hospital-website/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── AdminController.php
-│   │   ├── ArticleController.php
-│   │   ├── DoctorController.php
-│   │   ├── GalleryController.php
-│   │   ├── HomeController.php
-│   │   ├── HomecareController.php   
-│   │   ├── ServiceController.php
-│   │   └── TestimonialController.php
-│   ├── Models/
-│   │   ├── Article.php
-│   │   ├── Doctor.php
-│   │   ├── Gallery.php
-│   │   ├── HomecarePackage.php       
-│   │   ├── HospitalProfile.php       
-│   │   ├── Service.php
-│   │   └── Testimonial.php
-├── database/
-│   ├── migrations/
-│   │   ├── 2014_10_12_000000_create_users_table.php
-│   │   ├── 2024_01_01_create_doctors_table.php
-│   │   ├── 2024_01_02_create_services_table.php
-│   │   ├── 2024_01_03_create_articles_table.php
-│   │   ├── 2024_01_04_create_galleries_table.php
-│   │   ├── 2024_01_05_create_testimonials_table.php
-│   │   ├── 2024_01_06_create_homecare_packages_table.php 
-│   │   └── 2024_01_07_create_hospital_profiles_table.php 
-│   └── seeders/
-│       ├── AdminUserSeeder.php
-│       ├── ArticleSeeder.php
-│       ├── DoctorSeeder.php
-│       ├── HomecarePackageSeeder.php 
-│       ├── HospitalProfileSeeder.php 
-│       ├── ServiceSeeder.php
-│       └── TestimonialSeeder.php
-├── resources/views/
-│   ├── layouts/
-│   │   └── app.blade.php
-│   ├── admin/
-│   │   ├── dashboard.blade.php
-│   │   ├── doctors.blade.php
-│   │   ├── homecare/              
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── profile.blade.php
-│   │   ├── testimonials.blade.php
-│   │   └── ...
-│   ├── homecare/                  
-│   │   ├── index.blade.php
-│   │   └── show.blade.php
-│   ├── home.blade.php
-│   ├── about.blade.php
-│   ├── services.blade.php
-│   ├── doctors.blade.php
-│   ├── news.blade.php
-│   ├── gallery.blade.php
-│   ├── testimonials.blade.php
-│   └── contact.blade.php
-└── routes/
-    └── web.php
+🌟 Fitur Spesial
+🏡 Homecare System
+Paket layanan perawatan di rumah
+
+Detail lengkap: deskripsi, persiapan, prosedur
+
+Booking langsung via WhatsApp
+
+Admin CRUD lengkap
+
+Design responsif dan modern
+
+💬 Testimoni System
+Form publik untuk kirim testimoni
+
+Sistem approval admin
+
+Pagination (10 testimoni per halaman)
+
+Rating system dengan bintang interaktif
+
+Design modern dengan card layout
+
+📱 Responsive Design
+Mobile-friendly design
+
+Bootstrap 5 components
+
+Optimized images
+
+Fast loading
+
+🔧 CRUD Operations
+Dokter
+Tambah dokter dengan foto
+
+Edit data dokter
+
+Hapus dokter
+
+Toggle status aktif/non-aktif
+
+Layanan
+Kelola poli-poli rumah sakit
+
+Custom icons untuk setiap layanan
+
+Jam operasional
+
+Berita/Artikel
+WYSIWYG editor (TinyMCE)
+
+Upload gambar artikel
+
+Kategori dan status (draft/published)
+
+Galeri
+Multiple image upload
+
+Kategori: fasilitas, kegiatan, acara
+
+Auto image optimization
+
+Homecare Packages
+Multiple package types
+
+WhatsApp integration
+
+Detail features with lists
+
+Price formatting
+
+📞 Kontak & Support
+WhatsApp Integration
+Semua paket homecare terintegrasi dengan WhatsApp untuk:
+
+Booking langsung
+
+Konsultasi cepat
+
+Respon dalam 5 menit
+
+Emergency Contact
+IGD: 119 (24 jam)
+
+Telepon: (021) 123-4567
+
+Email: info@rumahsakit.com
+
+🔒 Keamanan
+Role-based authentication
+
+Admin routes protection
+
+Form validation
+
+CSRF protection
+
+Secure file uploads
+
+SQL injection prevention
+
+📈 Future Enhancements
+Appointment system
+
+Online payment integration
+
+Patient portal
+
+Mobile app
+
+Analytics dashboard
+
+Multi-language support
+
+Email notifications
+
+🤝 Kontribusi
+Fork repository
+
+Create feature branch
+
+Commit changes
+
+Push to branch
+
+Create Pull Request
+
+📄 Lisensi
+Proprietary - Rumah Sakit Khusus Bedah Ropanasuri
+
+👨‍💻 Developer
+Rumah Sakit Website Team
+
+Laravel Development
+
+UI/UX Design
+
+System Architecture
+
+Database Design
+
