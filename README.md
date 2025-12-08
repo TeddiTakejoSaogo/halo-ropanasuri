@@ -55,19 +55,74 @@ Website Rumah Sakit Khusus Bedah Ropanasuri adalah sistem informasi berbasis **L
 ## 📂 Struktur Direktori Utama
 
 ```
-app/
-bootstrap/
-config/
-database/
-public/
-resources/
-   views/
-   css/
-   js/
-routes/
-   web.php
-storage/
-vendor/
+hospital-website/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── AdminController.php
+│   │   ├── ArticleController.php
+│   │   ├── DoctorController.php
+│   │   ├── GalleryController.php
+│   │   ├── HomecareController.php      
+│   │   ├── HomeController.php
+│   │   ├── HospitalProfileController.php
+│   │   ├── ServiceController.php
+│   │   └── TestimonialController.php
+│   ├── Models/
+│   │   ├── Article.php
+│   │   ├── Doctor.php
+│   │   ├── DoctorSchedule.php
+│   │   ├── Gallery.php
+│   │   ├── HomecarePackage.php        
+│   │   ├── HospitalProfile.php
+│   │   ├── Service.php
+│   │   └── Testimonial.php
+│   └── ...
+├── database/
+│   ├── migrations/
+│   │   ├── 2014_10_12_000000_create_users_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_hospital_profiles_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_doctors_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_doctor_schedules_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_services_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_testimonials_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_articles_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_galleries_table.php
+│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php  # NEW
+│   └── seeders/
+│       ├── AdminUserSeeder.php
+│       ├── DoctorSeeder.php
+│       ├── ServiceSeeder.php
+│       ├── TestimonialSeeder.php
+│       ├── ArticleSeeder.php
+│       ├── HospitalProfileSeeder.php
+│       └── HomecarePackageSeeder.php    
+├── resources/views/
+│   ├── layouts/
+│   │   └── app.blade.php
+│   ├── admin/
+│   │   ├── layouts/
+│   │   │   └── app.blade.php
+│   │   ├── dashboard.blade.php
+│   │   ├── doctors/
+│   │   │   ├── index.blade.php
+│   │   │   ├── create.blade.php
+│   │   │   └── edit.blade.php
+│   │   ├── homecare/                 
+│   │   │   ├── index.blade.php
+│   │   │   ├── create.blade.php
+│   │   │   └── edit.blade.php
+│   │   ├── services/
+│   │   ├── news/
+│   │   ├── gallery/
+│   │   ├── testimonials/
+│   │   └── profile/
+│   └── homecare/                      
+│       ├── index.blade.php
+│       └── show.blade.php
+├── public/
+├── routes/
+│   └── web.php
+└── ...
 ```
 
 ## 🧩 Diagram Alur Sederhana
