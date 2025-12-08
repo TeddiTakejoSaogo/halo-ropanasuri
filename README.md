@@ -1,90 +1,172 @@
-Website rumah sakit lengkap dengan admin panel untuk mengelola data rumah sakit, dokter, layanan, berita, galeri, testimoni, dan homecare.
+Website Rumah Sakit dengan Laravel 10
+📋 Deskripsi Proyek
+Website Rumah Sakit berbasis Laravel 10 dengan sistem manajemen konten lengkap untuk informasi rumah sakit, manajemen dokter, layanan, artikel kesehatan, galeri, dan sistem testimoni pasien.
 
-📋 Fitur Utama
-🏠 Halaman Publik
-✅ Beranda dengan slider dan informasi cepat
+🚀 Fitur Utama
+🏥 Halaman Publik
+✅ Beranda dengan informasi utama
 
-✅ Tentang Kami (sejarah, visi misi, struktur)
+✅ Tentang Kami (sejarah, visi, misi, struktur)
 
-✅ Layanan Rumah Sakit (poli-poli)
+✅ Layanan Rumah Sakit
 
 ✅ Data Dokter dengan jadwal praktik
 
-✅ Berita & Artikel kesehatan
+✅ Berita & Artikel Kesehatan
 
-✅ Galeri foto kegiatan
+✅ Galeri Foto
 
-✅ Testimoni pasien dengan sistem approval
+✅ Sistem Testimoni Pasien
 
-✅ Halaman kontak dengan Google Maps
+✅ Halaman Kontak
 
-✅ Homecare - Paket layanan perawatan di rumah
+✅ NEW Layanan Homecare dengan paket-paket
 
-🛠️ Admin Panel
-✅ Dashboard admin dengan statistik
+🛠️ Admin Dashboard
+✅ Manajemen Profil Rumah Sakit
 
-✅ CRUD Data Dokter dengan upload foto
+✅ CRUD Data Dokter (dengan upload foto)
 
-✅ CRUD Layanan Rumah Sakit
+✅ CRUD Layanan
 
-✅ CRUD Berita/Artikel dengan WYSIWYG editor
+✅ CRUD Artikel/Berita
 
-✅ CRUD Galeri dengan multiple image upload
+✅ CRUD Galeri Foto
 
-✅ Sistem persetujuan testimoni pasien
+✅ Manajemen Testimoni (approval system)
 
-✅ Kelola profil rumah sakit
+✅ NEW Manajemen Paket Homecare
 
-✅ CRUD Paket Homecare
-
-🚀 Teknologi yang Digunakan
+📁 Struktur Proyek
+text
+hospital-website/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── AdminController.php
+│   │   ├── ArticleController.php
+│   │   ├── DoctorController.php
+│   │   ├── GalleryController.php
+│   │   ├── HomecareController.php      
+│   │   ├── HomeController.php
+│   │   ├── HospitalProfileController.php
+│   │   ├── ServiceController.php
+│   │   └── TestimonialController.php
+│   ├── Models/
+│   │   ├── Article.php
+│   │   ├── Doctor.php
+│   │   ├── DoctorSchedule.php
+│   │   ├── Gallery.php
+│   │   ├── HomecarePackage.php         
+│   │   ├── HospitalProfile.php
+│   │   ├── Service.php
+│   │   └── Testimonial.php
+│   └── ...
+├── database/
+│   ├── migrations/
+│   │   ├── 2014_10_12_000000_create_users_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_hospital_profiles_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_doctors_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_doctor_schedules_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_services_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_testimonials_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_articles_table.php
+│   │   ├── 2025_11_20_xxxxxx_create_galleries_table.php
+│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php  
+│   └── seeders/
+│       ├── AdminUserSeeder.php
+│       ├── DoctorSeeder.php
+│       ├── ServiceSeeder.php
+│       ├── TestimonialSeeder.php
+│       ├── ArticleSeeder.php
+│       ├── HospitalProfileSeeder.php
+│       └── HomecarePackageSeeder.php   
+├── resources/views/
+│   ├── layouts/
+│   │   └── app.blade.php
+│   ├── admin/
+│   │   ├── layouts/
+│   │   │   └── app.blade.php
+│   │   ├── dashboard.blade.php
+│   │   ├── doctors/
+│   │   │   ├── index.blade.php
+│   │   │   ├── create.blade.php
+│   │   │   └── edit.blade.php
+│   │   ├── homecare/                   
+│   │   │   ├── index.blade.php
+│   │   │   ├── create.blade.php
+│   │   │   └── edit.blade.php
+│   │   ├── services/
+│   │   ├── news/
+│   │   ├── gallery/
+│   │   ├── testimonials/
+│   │   └── profile/
+│   └── homecare/                       
+│       ├── index.blade.php
+│       └── show.blade.php
+├── public/
+├── routes/
+│   └── web.php
+└── ...
+🛠️ Teknologi yang Digunakan
 Framework: Laravel 10
 
 Database: MySQL
 
 Frontend: Bootstrap 5, Font Awesome
 
-Text Editor: TinyMCE
+Text Editor: TinyMCE (untuk artikel)
 
-Storage: Laravel Storage dengan symbolic link
+Storage: Local filesystem dengan symbolic link
 
-Authentication: Laravel UI dengan role-based (admin/user)
+Authentication: Laravel UI (Bootstrap)
 
-🌟 Fitur Spesial
-🏡 Homecare System
-Paket layanan perawatan di rumah
+⚙️ Instalasi dan Setup
+Prerequisites
+PHP >= 8.1
 
-Detail lengkap: deskripsi, persiapan, prosedur
+Composer
 
-Booking langsung via WhatsApp
+MySQL
 
-Admin CRUD lengkap
+Node.js & NPM
 
-Design responsif dan modern
+Langkah Instalasi
+Clone Repository
 
-💬 Testimoni System
-Form publik untuk kirim testimoni
+bash
+git clone [repository-url]
+cd hospital-website
+Install Dependencies
 
-Sistem approval admin
+bash
+composer install
+npm install
+npm run dev
+Setup Environment
 
-Pagination (10 testimoni per halaman)
+bash
+cp .env.example .env
+php artisan key:generate
+Konfigurasi Database
+Edit file .env:
 
-Rating system dengan bintang interaktif
+env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hospital_db
+DB_USERNAME=root
+DB_PASSWORD=
+Jalankan Migrasi dan Seeder
 
-Design modern dengan card layout
+bash
+php artisan migrate --seed
+php artisan storage:link
+Jalankan Development Server
 
-📱 Responsive Design
-Mobile-friendly design
-
-Bootstrap 5 components
-
-Optimized images
-
-Fast loading
-
-🔧 CRUD Operations
-Dokter
-Tambah dokter dengan foto
+🔧 Fitur CRUD Detail
+1. Manajemen Dokter
+Tambah dokter dengan upload foto
 
 Edit data dokter
 
@@ -92,103 +174,133 @@ Hapus dokter
 
 Toggle status aktif/non-aktif
 
-Layanan
-Kelola poli-poli rumah sakit
+Kelola jadwal praktik
 
-Custom icons untuk setiap layanan
+2. Sistem Testimoni
+Form testimoni publik
 
-Jam operasional
+Approval system oleh admin
 
-Berita/Artikel
+Pagination (10 testimoni per halaman)
+
+Rating stars interaktif
+
+3. Layanan Homecare ✨
+Multiple package system
+
+Detail paket dengan informasi lengkap
+
+WhatsApp integration untuk pemesanan
+
+Admin management untuk paket
+
+4. Artikel/Berita
 WYSIWYG editor (TinyMCE)
+
+Kategori artikel
+
+Status draft/published
 
 Upload gambar artikel
 
-Kategori dan status (draft/published)
-
-Galeri
+5. Galeri Foto
 Multiple image upload
 
-Kategori: fasilitas, kegiatan, acara
+Kategori foto (fasilitas, kegiatan, acara)
 
-Auto image optimization
+Responsive gallery layout
 
-Homecare Packages
-Multiple package types
+📱 Fitur Responsif
+Mobile-friendly design
 
-WhatsApp integration
+Bootstrap 5 responsive grid
 
-Detail features with lists
+Touch-friendly interface
 
-Price formatting
+Adaptive images
 
-📞 Kontak & Support
-WhatsApp Integration
-Semua paket homecare terintegrasi dengan WhatsApp untuk:
+🔒 Security Features
+Authentication system
 
-Booking langsung
-
-Konsultasi cepat
-
-Respon dalam 5 menit
-
-Emergency Contact
-IGD: 119 (24 jam)
-
-Telepon: (021) 123-4567
-
-Email: info@rumahsakit.com
-
-🔒 Keamanan
-Role-based authentication
-
-Admin routes protection
-
-Form validation
+Admin middleware protection
 
 CSRF protection
 
-Secure file uploads
+Form validation
 
-SQL injection prevention
+Rate limiting
 
-📈 Future Enhancements
-Appointment system
+Secure file upload
 
-Online payment integration
+🚨 Troubleshooting
+Common Issues
+Error 429 Too Many Requests
 
-Patient portal
+bash
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+Storage Link Error
 
-Mobile app
+bash
+php artisan storage:link
+chmod -R 775 storage/
+chmod -R 775 bootstrap/cache/
+Migration Error
 
-Analytics dashboard
+bash
+php artisan migrate:fresh --seed
+📊 Database Schema
+Tabel Utama
+users - Tabel user untuk authentication
 
-Multi-language support
+hospital_profiles - Profil rumah sakit
 
-Email notifications
+doctors - Data dokter
 
-🤝 Kontribusi
-Fork repository
+doctor_schedules - Jadwal praktik dokter
 
-Create feature branch
+services - Layanan rumah sakit
 
-Commit changes
+testimonials - Testimoni pasien
 
-Push to branch
+articles - Artikel berita
 
-Create Pull Request
+galleries - Galeri foto
 
-📄 Lisensi
-Proprietary - Rumah Sakit Khusus Bedah Ropanasuri
+homecare_packages - Paket homecare
 
-👨‍💻 Developer
-Rumah Sakit Website Team
+📞 Kontak & Support
+Untuk masalah atau pertanyaan:
 
-Laravel Development
+Check documentation terlebih dahulu
 
-UI/UX Design
+Cek logs di storage/logs/laravel.log
 
-System Architecture
+Gunakan debugging routes yang tersedia
 
-Database Design
+📄 License
+Proyek ini dikembangkan untuk keperluan pendidikan dan komersial. Silakan sesuaikan dengan kebutuhan Anda.
+
+🔄 Update Log
+v1.0.0 - Initial Release
+Basic website rumah sakit
+
+Admin dashboard
+
+CRUD semua fitur utama
+
+v1.1.0 - Homecare Feature
+✅ Sistem paket homecare
+
+✅ WhatsApp integration
+
+✅ Enhanced UI/UX
+
+✅ Responsive design
+
+Dikembangkan dengan ❤️ menggunakan Laravel 10
+
+Documentation terakhir diperbarui: November 2024
 
