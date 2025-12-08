@@ -87,7 +87,7 @@ hospital-website/
 │   │   ├── 2025_11_20_xxxxxx_create_testimonials_table.php
 │   │   ├── 2025_11_20_xxxxxx_create_articles_table.php
 │   │   ├── 2025_11_20_xxxxxx_create_galleries_table.php
-│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php  # NEW
+│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php 
 │   └── seeders/
 │       ├── AdminUserSeeder.php
 │       ├── DoctorSeeder.php
