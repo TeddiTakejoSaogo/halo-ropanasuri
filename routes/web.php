@@ -7,6 +7,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomecareController;
 use App\Http\Controllers\HospitalProfileController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Route::get('/news', [ArticleController::class, 'index'])->name('news');
 Route::get('/news/{slug}', [ArticleController::class, 'show'])->name('news.detail');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactMessageController::class, 'store'])->name('contact.store'); // Pastikan ini ada
+
+Route::get('/homecare', [HomecareController::class, 'index'])->name('homecare');
+Route::get('/homecare/{slug}', [HomecareController::class, 'show'])->name('homecare.detail');
 
 // Admin Routes
 Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function (){
@@ -97,11 +101,21 @@ Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function ()
     Route::post('/testimonials/{id}/reject', [TestimonialController::class, 'reject'])->name('admin.testimonials.reject');
     Route::post('/testimonials/{id}/restore', [TestimonialController::class, 'restore'])->name('admin.testimonials.restore'); // Tambahkan ini
     Route::delete('/testimonials/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
+    // Homecare CRUD
+    Route::get('/homecare', [HomecareController::class, 'adminIndex'])->name('admin.homecare.index');
+    Route::get('/homecare/create', [HomecareController::class, 'create'])->name('admin.homecare.create');
+    Route::post('/homecare', [HomecareController::class, 'store'])->name('admin.homecare.store');
+    Route::get('/homecare/{id}/edit', [HomecareController::class, 'edit'])->name('admin.homecare.edit');
+    Route::put('/homecare/{id}', [HomecareController::class, 'update'])->name('admin.homecare.update');
+    Route::delete('/homecare/{id}', [HomecareController::class, 'destroy'])->name('admin.homecare.destroy');
 });
 
 // Public API Routes untuk doctors
 Route::get('/api/doctors/{id}', [DoctorController::class, 'getDoctorDetails'])->name('api.doctors.details');
-Auth::routes();
+// Custom Auth Routes (gantikan Auth::routes())
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 // Fallback route
 Route::fallback(function () {

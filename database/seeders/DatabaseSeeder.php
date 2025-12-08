@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             TestimonialSeeder::class,
             ArticleSeeder::class,
+            HomecarePackageSeeder::class,
         ]);
     }
 }

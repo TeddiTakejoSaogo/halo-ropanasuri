@@ -275,6 +275,11 @@
                     <a class="nav-link {{ request()->routeIs('services') ? 'active' : '' }}" href="{{ route('services') }}">Layanan</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ request()->is('homecare*') ? 'active' : '' }}" href="{{ route('homecare') }}">
+                        Homecare
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('doctors') ? 'active' : '' }}" href="{{ route('doctors') }}">Dokter</a>
                 </li>
                 <li class="nav-item">
