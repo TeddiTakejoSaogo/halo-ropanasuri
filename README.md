@@ -37,76 +37,6 @@ Website Rumah Sakit berbasis Laravel 10 dengan sistem manajemen konten lengkap u
 
 ✅ NEW Manajemen Paket Homecare
 
-📁 Struktur Proyek
-text
-hospital-website/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── AdminController.php
-│   │   ├── ArticleController.php
-│   │   ├── DoctorController.php
-│   │   ├── GalleryController.php
-│   │   ├── HomecareController.php      
-│   │   ├── HomeController.php
-│   │   ├── HospitalProfileController.php
-│   │   ├── ServiceController.php
-│   │   └── TestimonialController.php
-│   ├── Models/
-│   │   ├── Article.php
-│   │   ├── Doctor.php
-│   │   ├── DoctorSchedule.php
-│   │   ├── Gallery.php
-│   │   ├── HomecarePackage.php         
-│   │   ├── HospitalProfile.php
-│   │   ├── Service.php
-│   │   └── Testimonial.php
-│   └── ...
-├── database/
-│   ├── migrations/
-│   │   ├── 2014_10_12_000000_create_users_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_hospital_profiles_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_doctors_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_doctor_schedules_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_services_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_testimonials_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_articles_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_galleries_table.php
-│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php  
-│   └── seeders/
-│       ├── AdminUserSeeder.php
-│       ├── DoctorSeeder.php
-│       ├── ServiceSeeder.php
-│       ├── TestimonialSeeder.php
-│       ├── ArticleSeeder.php
-│       ├── HospitalProfileSeeder.php
-│       └── HomecarePackageSeeder.php   
-├── resources/views/
-│   ├── layouts/
-│   │   └── app.blade.php
-│   ├── admin/
-│   │   ├── layouts/
-│   │   │   └── app.blade.php
-│   │   ├── dashboard.blade.php
-│   │   ├── doctors/
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── homecare/                   
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── services/
-│   │   ├── news/
-│   │   ├── gallery/
-│   │   ├── testimonials/
-│   │   └── profile/
-│   └── homecare/                       
-│       ├── index.blade.php
-│       └── show.blade.php
-├── public/
-├── routes/
-│   └── web.php
-└── ...
 🛠️ Teknologi yang Digunakan
 Framework: Laravel 10
 
@@ -129,40 +59,6 @@ Composer
 MySQL
 
 Node.js & NPM
-
-Langkah Instalasi
-Clone Repository
-
-bash
-git clone [repository-url]
-cd hospital-website
-Install Dependencies
-
-bash
-composer install
-npm install
-npm run dev
-Setup Environment
-
-bash
-cp .env.example .env
-php artisan key:generate
-Konfigurasi Database
-Edit file .env:
-
-env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=hospital_db
-DB_USERNAME=root
-DB_PASSWORD=
-Jalankan Migrasi dan Seeder
-
-bash
-php artisan migrate --seed
-php artisan storage:link
-Jalankan Development Server
 
 🔧 Fitur CRUD Detail
 1. Manajemen Dokter
