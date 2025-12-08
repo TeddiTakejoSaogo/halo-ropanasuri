@@ -151,13 +151,16 @@ composer install
 
 ```
 cp .env.example .env
+php artisan key:generate
 ```
 
 Atur database & storage:
 
 ```
-APP_NAME="Ropanasuri Hospital"
-DB_DATABASE=ropanasuri
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hospital_db
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -172,6 +175,7 @@ php artisan key:generate
 
 ```
 php artisan migrate --seed
+php artisan storage:link
 ```
 
 ## 6️⃣ Jalankan Server
