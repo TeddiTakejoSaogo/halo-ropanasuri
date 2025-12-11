@@ -36,7 +36,7 @@ Website Rumah Sakit Khusus Bedah Ropanasuri adalah sistem informasi berbasis **L
 * Galeri Foto
 * Testimoni Pasien
 * Kontak
-* **Layanan Homecare (BARU)**
+* Layanan Homecare
 
 ## 🛠️ **Admin Dashboard**
 
@@ -46,7 +46,7 @@ Website Rumah Sakit Khusus Bedah Ropanasuri adalah sistem informasi berbasis **L
 * CRUD Artikel / Berita
 * CRUD Galeri Foto
 * Approval Testimoni
-* **CRUD Paket Homecare (BARU)**
+* CRUD Paket Homecare
 
 ---
 
