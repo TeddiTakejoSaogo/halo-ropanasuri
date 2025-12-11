@@ -209,7 +209,7 @@ List layanan:
 * Bedah Umum
 * Bedah Tulang
 * Radiologi
-* Homecare (BARU)
+* Homecare
 
 ### 4. Data Dokter
 
