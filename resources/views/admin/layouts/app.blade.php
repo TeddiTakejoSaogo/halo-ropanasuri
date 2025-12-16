@@ -60,6 +60,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ request()->is('admin/individual-services*') ? 'active' : '' }}" 
+                            href="{{ route('admin.individual-services.index') }}">
+                                <i class="fas fa-gem"></i> Paket Layanan
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ request()->is('admin/services*') ? 'active' : '' }}" 
                                href="{{ route('admin.services') }}">
                                 <i class="fas fa-procedures"></i> Layanan

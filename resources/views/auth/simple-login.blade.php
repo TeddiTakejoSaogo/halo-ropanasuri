@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - RS Sehat Sentosa</title>
+    <title>Admin Login - RS Khusus Bedah Ropanasuri</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -28,7 +28,7 @@
                         <div class="text-center mb-4">
                             <i class="fas fa-hospital fa-3x text-primary mb-3"></i>
                             <h4>Admin Access</h4>
-                            <p class="text-muted">Rumah Sakit Sehat Sentosa</p>
+                            <p class="text-muted">Rumah Sakit Khusus Bedah Ropanasuri</p>
                         </div>
                         
                         <form method="POST" action="{{ route('login') }}">

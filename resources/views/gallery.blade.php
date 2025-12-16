@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Galeri - Rumah Sakit Sehat Sentosa')
+@section('title', 'Galeri - Rumah Sakit Khusus Bedah Ropanasuri')
 
 @section('content')
 <!-- Hero Section -->

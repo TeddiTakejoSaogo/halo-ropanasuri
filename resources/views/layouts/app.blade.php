@@ -257,7 +257,7 @@
             @if(isset($hospitalProfile))
                 {{ $hospitalProfile->name }}
             @else
-                RS Sehat Sentosa
+                RS Khusus Bedah Ropanasuri
             @endif
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -277,6 +277,12 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('homecare*') ? 'active' : '' }}" href="{{ route('homecare') }}">
                         Homecare
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('individual-services*') ? 'active' : '' }}" 
+                    href="{{ route('individual-services.index') }}">
+                        <i class="fas fa-gem me-1"></i>Paket Layanan
                     </a>
                 </li>
                 <li class="nav-item">

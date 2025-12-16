@@ -10,8 +10,8 @@ class HospitalProfileSeeder extends Seeder
     public function run()
     {
         HospitalProfile::create([
-            'name' => 'Rumah Sakit Sehat Sentosa',
-            'address' => 'Jl. Kesehatan No. 123, Jakarta Pusat 10110',
+            'name' => 'Rumah Sakit Khusu Bedah Ropanasuri',
+            'address' => 'Jl. Aur No.8, Ujung Gurun, Kec. Padang Bar., Kota Padang, Sumatera Barat 25142',
             'phone' => '(021) 123-4567',
             'email' => 'info@rumahsakit.com',
             'description' => 'Rumah Sakit kami telah melayani masyarakat dengan dedikasi tinggi dalam memberikan pelayanan kesehatan yang berkualitas. Dengan tim medis yang profesional dan fasilitas yang lengkap, kami berkomitmen untuk memberikan perawatan terbaik bagi pasien.',

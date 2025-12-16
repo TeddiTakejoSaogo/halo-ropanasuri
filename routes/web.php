@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomecareController;
 use App\Http\Controllers\HospitalProfileController;
+use App\Http\Controllers\IndividualServiceController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -32,9 +33,13 @@ Route::get('/news', [ArticleController::class, 'index'])->name('news');
 Route::get('/news/{slug}', [ArticleController::class, 'show'])->name('news.detail');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactMessageController::class, 'store'])->name('contact.store'); // Pastikan ini ada
-
+//homecare
 Route::get('/homecare', [HomecareController::class, 'index'])->name('homecare');
 Route::get('/homecare/{slug}', [HomecareController::class, 'show'])->name('homecare.detail');
+// Individual Services Routes (Public)
+Route::get('/individual-services', [IndividualServiceController::class, 'index'])->name('individual-services.index');
+Route::get('/individual-services/{slug}', [IndividualServiceController::class, 'show'])->name('individual-services.show');
+Route::post('/individual-services/{id}/order', [IndividualServiceController::class, 'order'])->name('individual-services.order');
 
 // Admin Routes
 Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function (){
@@ -108,6 +113,15 @@ Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function ()
     Route::get('/homecare/{id}/edit', [HomecareController::class, 'edit'])->name('admin.homecare.edit');
     Route::put('/homecare/{id}', [HomecareController::class, 'update'])->name('admin.homecare.update');
     Route::delete('/homecare/{id}', [HomecareController::class, 'destroy'])->name('admin.homecare.destroy');
+
+    // Individual Services CRUD
+    Route::get('/individual-services', [IndividualServiceController::class, 'adminIndex'])->name('admin.individual-services.index');
+    Route::get('/individual-services/create', [IndividualServiceController::class, 'create'])->name('admin.individual-services.create');
+    Route::post('/individual-services', [IndividualServiceController::class, 'store'])->name('admin.individual-services.store');
+    Route::get('/individual-services/{id}/edit', [IndividualServiceController::class, 'edit'])->name('admin.individual-services.edit');
+    Route::put('/individual-services/{id}', [IndividualServiceController::class, 'update'])->name('admin.individual-services.update');
+    Route::delete('/individual-services/{id}', [IndividualServiceController::class, 'destroy'])->name('admin.individual-services.destroy');
+    Route::post('/individual-services/{id}/toggle-status', [IndividualServiceController::class, 'toggleStatus'])->name('admin.individual-services.toggle-status');
 });
 
 // Public API Routes untuk doctors
