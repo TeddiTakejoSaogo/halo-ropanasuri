@@ -3,19 +3,301 @@
 @section('title', 'Paket Layanan Individual')
 
 @section('content')
+<style>
+    :root {
+        --color-navy: #0F3460;
+        --color-teal: #16a085;
+        --color-teal-light: #e8f6f3;
+        --glass-bg: rgba(255, 255, 255, 0.9);
+        --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Hero Section */
+    .ind-hero-section {
+        position: relative;
+        padding: 120px 0 100px 0;
+        background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a2e 100%);
+        color: white;
+        overflow: hidden;
+    }
+    
+    .ind-hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: url('{{ asset("storage/gallery/bgberanda.jpg") }}') center/cover;
+        opacity: 0.2;
+        z-index: 1;
+    }
+    
+    .ind-hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 40px;
+        background: #f8f9fa; /* matches Why Choose Us section bg */
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        z-index: 2;
+        transform: scaleX(1.1);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Section Typography */
+    .section-title {
+        color: var(--color-navy);
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Why Choose Us Cards */
+    .feature-box {
+        padding: 2.5rem 1.5rem;
+        border-radius: 20px;
+        background: white;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        transition: all 0.3s ease;
+        height: 100%;
+        border: 1px solid #f0f0f0;
+    }
+
+    .feature-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(15, 52, 96, 0.08);
+        border-color: var(--color-teal);
+    }
+
+    .feature-icon-wrapper {
+        width: 70px; height: 70px;
+        background: var(--color-teal-light);
+        border-radius: 18px;
+        display: inline-flex;
+        align-items: center; justify-content: center;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .feature-box:hover .feature-icon-wrapper {
+        background: var(--color-teal);
+        transform: scale(1.05) rotate(5deg);
+    }
+
+    .feature-icon-wrapper i {
+        font-size: 1.8rem;
+        color: var(--color-teal);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-box:hover .feature-icon-wrapper i {
+        color: white;
+    }
+
+    /* Featured & All Packages Cards */
+    .package-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        transition: all 0.3s ease;
+        height: 100%;
+        position: relative;
+    }
+
+    .package-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(15, 52, 96, 0.1);
+        border-color: var(--color-teal);
+    }
+
+    .badge-floating {
+        position: absolute;
+        top: 20px; right: 20px;
+        z-index: 10;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    .badge-discount-float {
+        background-color: #e74c3c !important; /* Soft red for discount */
+        color: white;
+    }
+    
+    .badge-featured-float {
+        position: absolute;
+        top: 20px; left: 20px;
+        z-index: 10;
+        background: rgba(255, 193, 7, 0.95);
+        color: #333;
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Featured Card Specifics */
+    .featured-header {
+        background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a2e 100%);
+        color: white;
+        text-align: center;
+        padding: 2.5rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .featured-header::after {
+        content: '';
+        position: absolute;
+        bottom: -20px; left: -10%; width: 120%; height: 40px;
+        background: white;
+        border-radius: 50%;
+    }
+
+    /* Image Wrapper for All Packages */
+    .package-img-wrapper {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+    
+    .package-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    
+    .package-card:hover .package-img-wrapper img {
+        transform: scale(1.08);
+    }
+    
+    .package-img-overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+    }
+
+    /* Price Styling */
+    .price-strike {
+        color: #95a5a6;
+        text-decoration: line-through;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    .price-current {
+        color: var(--color-teal);
+        font-size: 2.2rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0;
+    }
+
+    /* Features List */
+    .package-feature-list {
+        padding: 0;
+        list-style: none;
+    }
+    .package-feature-list li {
+        margin-bottom: 12px;
+        color: #555;
+        display: flex;
+        align-items: flex-start;
+    }
+    .package-feature-list li i {
+        color: var(--color-teal);
+        margin-right: 12px;
+        margin-top: 4px;
+    }
+
+    /* CTA Section */
+    .cta-wrapper {
+        background: linear-gradient(135deg, var(--color-navy) 0%, #1a1a2e 100%);
+        border-radius: 20px;
+        padding: 3.5rem 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-wrapper::after {
+        content: '';
+        position: absolute;
+        top: -50%; right: -20%; width: 50%; height: 200%;
+        background: radial-gradient(circle, rgba(22, 160, 133, 0.3) 0%, rgba(0,0,0,0) 70%);
+        z-index: 1;
+    }
+
+    /* FAQ Section */
+    .accordion-item {
+        border: 1px solid #f0f0f0;
+        border-radius: 12px !important;
+        margin-bottom: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+    .accordion-button {
+        padding: 1.25rem 1.5rem;
+        font-weight: 600;
+        color: var(--color-navy);
+        background: white;
+    }
+    .accordion-button:not(.collapsed) {
+        color: var(--color-navy);
+        background: var(--color-teal-light);
+        box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+    }
+    .accordion-button:focus {
+        border-color: rgba(22, 160, 133, 0.2);
+        box-shadow: 0 0 0 0.25rem rgba(22, 160, 133, 0.1);
+    }
+    .accordion-body {
+        padding: 1.5rem;
+        color: #6c757d;
+        line-height: 1.7;
+    }
+
+    /* Animations */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
 <!-- Hero Section -->
-<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; padding: 100px 0;">
-    <div class="container">
+<section class="ind-hero-section">
+    <div class="container hero-content">
         <div class="row">
-            <div class="col-lg-8 mx-auto text-center text-white">
-                <h1 class="display-4 mb-3">Paket Layanan Individual</h1>
-                <p class="lead mb-4">Layanan kesehatan premium yang dirancang khusus untuk kebutuhan pribadi Anda. Dapatkan perawatan terbaik dengan dokter spesialis berpengalaman.</p>
+            <div class="col-lg-8 mx-auto text-center">
+                <h6 class="text-uppercase fw-bold mb-3" style="color: var(--color-teal); letter-spacing: 3px;">Perawatan Premium</h6>
+                <h1 class="display-4 fw-bold mb-4">Paket Layanan Individual</h1>
+                <p class="lead opacity-75 mb-5 mx-auto" style="line-height: 1.8; max-width: 700px;">
+                    Layanan kesehatan eksklusif yang dirancang khusus untuk kebutuhan personal Anda. Dapatkan penanganan medis komprehensif bersama dokter spesialis berpengalaman.
+                </p>
                 <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <a href="#packages" class="btn btn-primary btn-lg">
-                        <i class="fas fa-gem me-2"></i>Lihat Paket
+                    <a href="#packages" class="btn text-white px-4 py-2" style="background-color: var(--color-teal); border-radius: 8px; font-weight: 500;">
+                        <i class="fas fa-gem me-2"></i> Lihat Paket
                     </a>
-                    <a href="#why-choose" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-question-circle me-2"></i>Mengapa Memilih Kami?
+                    <a href="#why-choose" class="btn btn-outline-light px-4 py-2" style="border-radius: 8px; font-weight: 500;">
+                        <i class="fas fa-info-circle me-2"></i> Mengapa Kami?
                     </a>
                 </div>
             </div>
@@ -25,56 +307,41 @@
 
 <!-- Why Choose Us -->
 <section id="why-choose" class="py-5 bg-light">
-    <div class="container">
-        <div class="row mb-5">
+    <div class="container py-4">
+        <div class="row mb-5 reveal">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3">Mengapa Memilih Layanan Individual?</h2>
-                <p class="lead text-muted">Kami memberikan pengalaman perawatan kesehatan yang berbeda</p>
+                <h6 class="text-uppercase fw-bold mb-2" style="color: var(--color-teal); letter-spacing: 2px;">Keistimewaan Kami</h6>
+                <h2 class="section-title">Mengapa Layanan Individual?</h2>
+                <p class="section-subtitle">Menghadirkan standar baru dalam pengalaman perawatan medis personal.</p>
             </div>
         </div>
         <div class="row g-4">
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100 text-center">
-                    <div class="card-body p-4">
-                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
-                            <i class="fas fa-user-md fa-2x text-white"></i>
-                        </div>
-                        <h5 class="card-title">Dokter Spesialis</h5>
-                        <p class="card-text text-muted">Konsultasi langsung dengan dokter spesialis berpengalaman</p>
-                    </div>
+            <div class="col-lg-3 col-sm-6 reveal" style="transition-delay: 0.1s;">
+                <div class="feature-box text-center">
+                    <div class="feature-icon-wrapper"><i class="fas fa-user-md"></i></div>
+                    <h5 class="fw-bold" style="color: var(--color-navy);">Dokter Spesialis</h5>
+                    <p class="text-muted mb-0 small">Sesi konsultasi intensif langsung dengan ahlinya secara eksklusif.</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100 text-center">
-                    <div class="card-body p-4">
-                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
-                            <i class="fas fa-clock fa-2x text-white"></i>
-                        </div>
-                        <h5 class="card-title">Fleksibel</h5>
-                        <p class="card-text text-muted">Jadwal konsultasi sesuai kebutuhan Anda</p>
-                    </div>
+            <div class="col-lg-3 col-sm-6 reveal" style="transition-delay: 0.2s;">
+                <div class="feature-box text-center">
+                    <div class="feature-icon-wrapper"><i class="fas fa-clock"></i></div>
+                    <h5 class="fw-bold" style="color: var(--color-navy);">Waktu Fleksibel</h5>
+                    <p class="text-muted mb-0 small">Penyesuaian jadwal konsultasi dan tindakan sesuai aktivitas Anda.</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100 text-center">
-                    <div class="card-body p-4">
-                        <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
-                            <i class="fas fa-home fa-2x text-white"></i>
-                        </div>
-                        <h5 class="card-title">Home Care</h5>
-                        <p class="card-text text-muted">Layanan home visit untuk kenyamanan Anda</p>
-                    </div>
+            <div class="col-lg-3 col-sm-6 reveal" style="transition-delay: 0.3s;">
+                <div class="feature-box text-center">
+                    <div class="feature-icon-wrapper"><i class="fas fa-home"></i></div>
+                    <h5 class="fw-bold" style="color: var(--color-navy);">Home Care</h5>
+                    <p class="text-muted mb-0 small">Opsi kunjungan rawat di rumah untuk kenyamanan pasien dan keluarga.</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100 text-center">
-                    <div class="card-body p-4">
-                        <div class="bg-info rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
-                            <i class="fas fa-headset fa-2x text-white"></i>
-                        </div>
-                        <h5 class="card-title">24/7 Support</h5>
-                        <p class="card-text text-muted">Dukungan penuh selama masa perawatan</p>
-                    </div>
+            <div class="col-lg-3 col-sm-6 reveal" style="transition-delay: 0.4s;">
+                <div class="feature-box text-center">
+                    <div class="feature-icon-wrapper"><i class="fas fa-headset"></i></div>
+                    <h5 class="fw-bold" style="color: var(--color-navy);">Dukungan 24/7</h5>
+                    <p class="text-muted mb-0 small">Asistensi darurat dan pemantauan terus-menerus selama masa terapi.</p>
                 </div>
             </div>
         </div>
@@ -84,61 +351,62 @@
 <!-- Featured Packages -->
 @if($featuredServices->count() > 0)
 <section class="py-5 bg-white">
-    <div class="container">
-        <div class="row mb-5">
+    <div class="container py-4">
+        <div class="row mb-5 reveal">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3">Paket Unggulan</h2>
-                <p class="lead text-muted">Paket terbaik yang paling banyak dipilih</p>
+                <h6 class="text-uppercase fw-bold mb-2" style="color: var(--color-teal); letter-spacing: 2px;">Rekomendasi Utama</h6>
+                <h2 class="section-title">Paket Unggulan</h2>
+                <p class="section-subtitle">Pilihan layanan komprehensif yang paling banyak dipercaya oleh pasien kami.</p>
             </div>
         </div>
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             @foreach($featuredServices as $service)
-            <div class="col-lg-4">
-                <div class="card package-card border-0 shadow-lg h-100">
+            <div class="col-lg-4 col-md-6 reveal" style="transition-delay: {{ $loop->index * 0.1 }}s;">
+                <div class="package-card d-flex flex-column">
                     @if($service->discount_percentage > 0)
-                    <div class="badge-discount">
-                        <span class="badge bg-danger">{{ $service->discount_percentage }}% OFF</span>
+                    <div class="badge-floating badge-discount-float">
+                        <i class="fas fa-tag me-1"></i> {{ $service->discount_percentage }}% OFF
                     </div>
                     @endif
                     @if($service->is_featured)
-                    <div class="badge-featured">
-                        <span class="badge bg-warning">🔥 Unggulan</span>
+                    <div class="badge-featured-float">
+                        <i class="fas fa-star text-dark me-1"></i> Pilihan
                     </div>
                     @endif
-                    <div class="card-header bg-primary text-white text-center py-4">
-                        <i class="{{ $service->icon_class }} fa-3x mb-3"></i>
-                        <h3 class="h4 mb-0">{{ $service->name }}</h3>
+                    
+                    <div class="featured-header">
+                        <i class="{{ $service->icon_class }} fa-3x mb-3 text-white opacity-75"></i>
+                        <h3 class="h4 mb-0 fw-bold">{{ $service->name }}</h3>
                     </div>
-                    <div class="card-body p-4">
+                    
+                    <div class="card-body p-4 d-flex flex-column flex-grow-1">
                         <div class="text-center mb-4">
                             @if($service->discount_price)
-                            <div class="text-muted text-decoration-line-through">
-                                {{ $service->formatted_price }}
-                            </div>
-                            <h2 class="text-primary">{{ $service->formatted_discount_price }}</h2>
+                                <div class="price-strike">{{ $service->formatted_price }}</div>
+                                <div class="price-current">{{ $service->formatted_discount_price }}</div>
                             @else
-                            <h2 class="text-primary">{{ $service->formatted_price }}</h2>
+                                <div class="price-current mt-4">{{ $service->formatted_price }}</div>
                             @endif
+                            
                             @if($service->duration_days)
-                            <p class="text-muted mb-0">{{ $service->duration_days }} hari perawatan</p>
+                                <span class="badge bg-light text-dark border mt-3 px-3 py-2">
+                                    <i class="far fa-calendar-alt me-1" style="color: var(--color-teal);"></i> {{ $service->duration_days }} Hari
+                                </span>
                             @endif
                         </div>
                         
-                        <ul class="list-unstyled mb-4">
+                        <ul class="package-feature-list flex-grow-1 border-top pt-4">
                             @foreach($service->features_array as $feature)
-                            <li class="mb-2">
-                                <i class="fas fa-check text-success me-2"></i>
-                                {{ $feature }}
-                            </li>
+                            <li><i class="fas fa-check-circle"></i> {{ $feature }}</li>
                             @endforeach
                         </ul>
                         
-                        <div class="text-center mt-4">
-                            <a href="{{ route('individual-services.show', $service->slug) }}" class="btn btn-outline-primary w-100 mb-2">
-                                <i class="fas fa-info-circle me-2"></i>Detail
+                        <div class="mt-4 pt-4 border-top d-flex gap-2">
+                            <a href="{{ route('individual-services.show', $service->slug) }}" class="btn btn-outline-secondary w-50" style="border-radius: 8px;">
+                                <i class="fas fa-info-circle me-1"></i> Detail
                             </a>
-                            <a href="{{ route('individual-services.order', $service->id) }}" class="btn btn-primary w-100">
-                                <i class="fab fa-whatsapp me-2"></i>Pesan via WhatsApp
+                            <a href="https://wa.me/628116600013?text={{ urlencode($service->whatsapp_message ?? 'Halo RSKB Ropanasuri, saya tertarik dengan layanan ' . $service->name . '. Mohon informasi lebih lanjut.') }}" target="_blank" class="btn text-white w-50" style="background-color: var(--color-teal); border-radius: 8px;">
+                                <i class="fab fa-whatsapp me-1"></i> Pesan
                             </a>
                         </div>
                     </div>
@@ -152,120 +420,142 @@
 
 <!-- All Packages -->
 <section id="packages" class="py-5 bg-light">
-    <div class="container">
-        <div class="row mb-5">
+    <div class="container py-4">
+        <div class="row mb-5 reveal">
             <div class="col-12 text-center">
-                <h2 class="display-5 mb-3">Semua Paket Layanan</h2>
-                <p class="lead text-muted">Pilih paket yang sesuai dengan kebutuhan Anda</p>
+                <h6 class="text-uppercase fw-bold mb-2" style="color: var(--color-teal); letter-spacing: 2px;">Eksplorasi Lengkap</h6>
+                <h2 class="section-title">Semua Paket Layanan</h2>
+                <p class="section-subtitle">Temukan modul perawatan yang dirancang sesuai dengan spesifikasi kondisi medis Anda.</p>
             </div>
         </div>
         
         @if($services->count() > 0)
         <div class="row g-4">
             @foreach($services as $service)
-            <div class="col-lg-4 col-md-6">
-                <div class="card package-card border-0 shadow-sm h-100">
+            <div class="col-lg-4 col-md-6 reveal" style="transition-delay: {{ $loop->index * 0.1 }}s;">
+                <div class="package-card h-100 d-flex flex-column">
                     @if($service->discount_percentage > 0)
-                    <div class="badge-discount">
-                        <span class="badge bg-danger">{{ $service->discount_percentage }}% OFF</span>
+                    <div class="badge-floating badge-discount-float">
+                        {{ $service->discount_percentage }}% OFF
                     </div>
                     @endif
                     
-                    <div class="card-img-top position-relative" style="height: 200px; overflow: hidden;">
-                        <img src="{{ $service->image_url }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ $service->name }}">
-                        <div class="package-overlay"></div>
+                    <div class="package-img-wrapper">
+                        <img src="{{ $service->image_url }}" alt="{{ $service->name }}">
+                        <div class="package-img-overlay d-flex align-items-end p-3">
+                            <h3 class="h5 text-white mb-0 fw-bold">{{ $service->name }}</h3>
+                        </div>
                     </div>
                     
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h3 class="h5 mb-1">{{ $service->name }}</h3>
-                                @if($service->duration_days)
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar me-1"></i>{{ $service->duration_days }} hari
-                                </small>
-                                @endif
-                            </div>
-                            <i class="{{ $service->icon_class }} fa-2x text-primary"></i>
+                    <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            @if($service->duration_days)
+                            <span class="badge bg-light text-secondary border px-2 py-1">
+                                <i class="far fa-clock me-1"></i>{{ $service->duration_days }} Hari
+                            </span>
+                            @else
+                            <span></span>
+                            @endif
+                            <i class="{{ $service->icon_class }} fs-4" style="color: var(--color-teal);"></i>
                         </div>
                         
-                        <p class="card-text text-muted mb-3">{{ Str::limit($service->description, 100) }}</p>
+                        <p class="text-muted mb-4 small flex-grow-1" style="line-height: 1.6;">{{ Str::limit($service->description, 100) }}</p>
                         
-                        <div class="mb-3">
+                        <div class="mb-4 bg-light p-3 rounded-3 text-center">
                             @if($service->discount_price)
-                            <div class="text-muted text-decoration-line-through small">
-                                {{ $service->formatted_price }}
-                            </div>
-                            <h4 class="text-primary mb-0">{{ $service->formatted_discount_price }}</h4>
+                            <div class="text-muted text-decoration-line-through small">{{ $service->formatted_price }}</div>
+                            <h4 class="mb-0 fw-bold" style="color: var(--color-navy);">{{ $service->formatted_discount_price }}</h4>
                             @else
-                            <h4 class="text-primary mb-0">{{ $service->formatted_price }}</h4>
+                            <h4 class="mb-0 fw-bold" style="color: var(--color-navy);">{{ $service->formatted_price }}</h4>
                             @endif
                         </div>
                         
-                        <div class="d-grid gap-2">
-                            <a href="{{ route('individual-services.show', $service->slug) }}" class="btn btn-outline-primary">
-                                <i class="fas fa-eye me-2"></i>Lihat Detail
-                            </a>
-                        </div>
+                        <a href="{{ route('individual-services.show', $service->slug) }}" class="btn btn-outline-secondary w-100" style="border-radius: 8px;">
+                            Lihat Detail Lengkap <i class="fas fa-arrow-right ms-2 fs-6"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
         @else
-        <div class="text-center py-5">
-            <i class="fas fa-gem fa-3x text-muted mb-3"></i>
-            <h4 class="text-muted">Belum ada paket layanan tersedia</h4>
-            <p class="text-muted">Silakan hubungi kami untuk informasi lebih lanjut</p>
+        <div class="text-center py-5 reveal">
+            <div class="d-inline-flex justify-content-center align-items-center mb-4" style="width: 100px; height: 100px; background: white; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <i class="fas fa-box-open fa-3x" style="color: #dee2e6;"></i>
+            </div>
+            <h4 class="fw-bold" style="color: var(--color-navy);">Belum ada paket tersedia</h4>
+            <p class="text-muted">Silakan hubungi administrator kami untuk informasi layanan kustom.</p>
         </div>
         @endif
     </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="py-5 bg-white">
+<!-- CTA Section -->
+<section class="py-5 bg-white reveal">
     <div class="container">
+        <div class="cta-wrapper shadow-lg">
+            <div class="row align-items-center position-relative" style="z-index: 2;">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <h2 class="fw-bold mb-3">Butuh Konsultasi Khusus?</h2>
+                    <p class="lead mb-0 opacity-75">Bicarakan keluhan dan kebutuhan Anda. Tim spesialis kami siap menyusun program perawatan yang paling optimal untuk Anda.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="https://wa.me/628116600013" class="btn btn-light btn-lg px-4" target="_blank" style="border-radius: 8px; font-weight: 600; color: var(--color-navy);">
+                        <i class="fab fa-whatsapp me-2" style="color: #25D366;"></i> Chat Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 bg-light reveal">
+    <div class="container py-4">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h6 class="text-uppercase fw-bold mb-2" style="color: var(--color-teal); letter-spacing: 2px;">Pusat Bantuan</h6>
+                <h2 class="section-title">Pertanyaan Umum</h2>
+                <p class="section-subtitle">Informasi penting dan jawaban cepat mengenai paket Layanan Individual kami.</p>
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="text-center mb-5">
-                    <h2 class="display-5 mb-3">Pertanyaan Umum</h2>
-                    <p class="lead text-muted">Informasi penting tentang paket layanan individual</p>
-                </div>
-                
                 <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item">
+                    <div class="accordion-item border-0 shadow-sm mb-3">
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                Bagaimana cara memesan paket layanan?
+                            <button class="accordion-button rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Bagaimana prosedur memesan paket layanan individual ini?
                             </button>
                         </h2>
                         <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Pilih paket yang diinginkan, klik tombol "Pesan via WhatsApp", isi formulir pemesanan, dan Anda akan diarahkan ke WhatsApp untuk konfirmasi lebih lanjut.
+                            <div class="accordion-body border-top">
+                                Anda cukup memilih paket yang paling sesuai, lalu tekan tombol "Pesan via WhatsApp" atau "Pesan". Anda akan diarahkan untuk mengisi format pemesanan singkat sebelum terhubung dengan admin kami untuk konfirmasi ketersediaan jadwal.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
+                    <div class="accordion-item border-0 shadow-sm mb-3">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                Apakah ada pembatalan paket?
+                            <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Apakah paket yang sudah dipesan bisa dibatalkan?
                             </button>
                         </h2>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Pembatalan dapat dilakukan maksimal 24 jam sebelum jadwal layanan dengan biaya administrasi 10% dari harga paket.
+                            <div class="accordion-body border-top">
+                                Pembatalan jadwal dimungkinkan dan dapat dilakukan paling lambat 24 jam sebelum jadwal tindakan/kunjungan. Akan dikenakan pemotongan biaya administrasi sebesar 10% dari total tagihan paket.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
+                    <div class="accordion-item border-0 shadow-sm mb-3">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                Bagaimana metode pembayaran?
+                            <button class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Metode pembayaran apa saja yang tersedia?
                             </button>
                         </h2>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Pembayaran dapat dilakukan via transfer bank, e-wallet, atau cash di tempat. Detail pembayaran akan dikirim via WhatsApp.
+                            <div class="accordion-body border-top">
+                                Demi kenyamanan Anda, kami menerima berbagai saluran pembayaran yang aman, meliputi Transfer Bank (Virtual Account), E-Wallet terpilih, hingga pembayaran tunai atau debit langsung di lokasi (jika di Rumah Sakit).
                             </div>
                         </div>
                     </div>
@@ -275,114 +565,42 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-5 bg-primary text-white">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h2 class="h1 mb-3">Butuh Konsultasi Khusus?</h2>
-                <p class="lead mb-0">Hubungi kami untuk informasi lebih lanjut tentang paket layanan individual.</p>
-            </div>
-            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                <a href="https://wa.me/628116600013" class="btn btn-success btn-lg" target="_blank">
-                    <i class="fab fa-whatsapp me-2"></i>Chat via WhatsApp
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<style>
-.package-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.package-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
-}
-
-.badge-discount {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 2;
-}
-
-.badge-featured {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 2;
-}
-
-.badge-discount .badge,
-.badge-featured .badge {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-}
-
-.package-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3));
-}
-
-.accordion-button:not(.collapsed) {
-    background-color: #e7f1ff;
-    color: var(--primary-color);
-}
-
-.hero-section {
-    background-attachment: fixed;
-}
-
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 80px 0;
-        background-attachment: scroll;
-    }
-    
-    .display-4 {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .hero-section {
-        padding: 60px 0;
-    }
-    
-    .display-4 {
-        font-size: 2rem;
-    }
-}
-</style>
-
+<!-- Scroll Animation Script -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Smooth scroll untuk anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId !== '#') {
-                e.preventDefault();
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const reveals = document.querySelectorAll(".reveal");
+        
+        function revealOnScroll() {
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
                 }
             }
+        }
+        
+        window.addEventListener("scroll", revealOnScroll);
+        revealOnScroll(); // Trigger immediately on load
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
         });
     });
-});
 </script>
 @endsection

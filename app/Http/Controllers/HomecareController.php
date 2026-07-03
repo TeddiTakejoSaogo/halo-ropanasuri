@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\HomecarePackage;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreHomecareRequest;
+use App\Http\Requests\UpdateHomecareRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Encoders\JpegEncoder;
 
 class HomecareController extends Controller
 {
@@ -54,23 +59,9 @@ class HomecareController extends Controller
     }
 
     // Admin: Store new package
-    public function store(Request $request)
+    public function store(StoreHomecareRequest $request)
     {
         Log::info('Storing homecare package', $request->all());
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'preparation' => 'nullable|string',
-            'procedure' => 'nullable|string',
-            'price' => 'nullable|numeric|min:0',
-            'duration' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'features' => 'nullable|string',
-            'whatsapp_message' => 'nullable|string',
-            'order' => 'nullable|integer',
-            'status' => 'required|in:active,inactive'
-        ]);
 
         try {
             $package = new HomecarePackage();
@@ -86,8 +77,15 @@ class HomecareController extends Controller
             $package->status = $request->status;
 
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('homecare', 'public');
-                $package->image = $imagePath;
+                $manager = new ImageManager(new Driver());
+                $imageFile = $manager->decode($request->file('image'));
+                $imageFile->scaleDown(width: 800);
+                
+                $filename = uniqid() . '.jpg';
+                $path = 'homecare/' . $filename;
+                Storage::disk('public')->put($path, (string) $imageFile->encode(new JpegEncoder(85)));
+                
+                $package->image = $path;
             }
 
             $package->save();
@@ -111,23 +109,9 @@ class HomecareController extends Controller
     }
 
     // Admin: Update package
-    public function update(Request $request, $id)
+    public function update(UpdateHomecareRequest $request, $id)
     {
         Log::info('Updating homecare package', $request->all());
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'preparation' => 'nullable|string',
-            'procedure' => 'nullable|string',
-            'price' => 'nullable|numeric|min:0',
-            'duration' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'features' => 'nullable|string',
-            'whatsapp_message' => 'nullable|string',
-            'order' => 'nullable|integer',
-            'status' => 'required|in:active,inactive'
-        ]);
 
         try {
             $package = HomecarePackage::findOrFail($id);
@@ -143,12 +127,19 @@ class HomecareController extends Controller
             $package->status = $request->status;
 
             if ($request->hasFile('image')) {
-                // Delete old image
                 if ($package->image) {
                     Storage::disk('public')->delete($package->image);
                 }
-                $imagePath = $request->file('image')->store('homecare', 'public');
-                $package->image = $imagePath;
+                
+                $manager = new ImageManager(new Driver());
+                $imageFile = $manager->decode($request->file('image'));
+                $imageFile->scaleDown(width: 800);
+                
+                $filename = uniqid() . '.jpg';
+                $path = 'homecare/' . $filename;
+                Storage::disk('public')->put($path, (string) $imageFile->encode(new JpegEncoder(85)));
+                
+                $package->image = $path;
             }
 
             $package->save();

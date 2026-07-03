@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Gallery;
 use App\Models\HospitalProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -16,8 +17,10 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        // Load hospital profile once for all methods
-        $this->hospitalProfile = HospitalProfile::first();
+        // Load hospital profile once for all methods with cache
+        $this->hospitalProfile = Cache::remember('hospital_profile', 3600, function () {
+            return HospitalProfile::first();
+        });
     }
 
     public function index()

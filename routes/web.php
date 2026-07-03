@@ -24,36 +24,28 @@ Route::get('/news/{slug}', [ArticleController::class, 'show'])->name('news.detai
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('testimonials');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::view('/privacy', 'privacy')->name('privacy');
+Route::view('/terms', 'terms')->name('terms');
 
 // Testimonial Submit (Public)
-Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store');
+Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store')->middleware('throttle:5,1');
 
 // Public routes untuk articles
-Route::get('/news', [ArticleController::class, 'index'])->name('news');
-Route::get('/news/{slug}', [ArticleController::class, 'show'])->name('news.detail');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-Route::post('/contact', [ContactMessageController::class, 'store'])->name('contact.store'); // Pastikan ini ada
+Route::post('/contact', [ContactMessageController::class, 'store'])->name('contact.store')->middleware('throttle:5,1'); // Pastikan ini ada
 //homecare
 Route::get('/homecare', [HomecareController::class, 'index'])->name('homecare');
 Route::get('/homecare/{slug}', [HomecareController::class, 'show'])->name('homecare.detail');
 // Individual Services Routes (Public)
 Route::get('/individual-services', [IndividualServiceController::class, 'index'])->name('individual-services.index');
 Route::get('/individual-services/{slug}', [IndividualServiceController::class, 'show'])->name('individual-services.show');
-Route::post('/individual-services/{id}/order', [IndividualServiceController::class, 'order'])->name('individual-services.order');
+Route::post('/individual-services/{id}/order', [IndividualServiceController::class, 'order'])->name('individual-services.order')->middleware('throttle:5,1');
 
 // Admin Routes
 Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function (){
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
-    // Doctors CRUD
-    Route::get('/doctors', [DoctorController::class, 'index'])->name('admin.doctors');
-    Route::get('/doctors/create', [DoctorController::class, 'create'])->name('admin.doctors.create');
-    Route::post('/doctors', [DoctorController::class, 'store'])->name('admin.doctors.store');
-    Route::get('/doctors/{id}/edit', [DoctorController::class, 'edit'])->name('admin.doctors.edit');
-    Route::post('/doctors/{id}', [DoctorController::class, 'update'])->name('admin.doctors.update'); 
-    Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('admin.doctors.destroy');
-    Route::post('/doctors/{id}/toggle-status', [DoctorController::class, 'toggleStatus'])->name('admin.doctors.toggle-status');    
+
     // Services CRUD
     Route::get('/services', [ServiceController::class, 'index'])->name('admin.services');
     Route::get('/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
@@ -75,19 +67,15 @@ Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function ()
     Route::get('/gallery/create', [GalleryController::class, 'create'])->name('admin.gallery.create');
     Route::post('/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
     Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
-    // Testimonials Management
-    Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
-    Route::post('/testimonials/{id}/approve', [TestimonialController::class, 'approve'])->name('admin.testimonials.approve');
-    Route::post('/testimonials/{id}/reject', [TestimonialController::class, 'reject'])->name('admin.testimonials.reject');
-    Route::delete('/testimonials/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
 
-    // Doctors CRUD - PASTIKAN INI ADA
+
+    // Doctors CRUD
     Route::get('/doctors', [DoctorController::class, 'index'])->name('admin.doctors');
     Route::get('/doctors/create', [DoctorController::class, 'create'])->name('admin.doctors.create');
     Route::post('/doctors', [DoctorController::class, 'store'])->name('admin.doctors.store');
     Route::get('/doctors/{id}/edit', [DoctorController::class, 'edit'])->name('admin.doctors.edit');
-    Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('admin.doctors.update');
-    Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('admin.doctors.destroy');
+    Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('admin.doctors.update'); // PUT method
+    Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('admin.doctors.destroy'); // DELETE method
     Route::post('/doctors/{id}/toggle-status', [DoctorController::class, 'toggleStatus'])->name('admin.doctors.toggle-status');
 
     // Hospital Profile
@@ -124,9 +112,8 @@ Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function ()
     Route::post('/individual-services/{id}/toggle-status', [IndividualServiceController::class, 'toggleStatus'])->name('admin.individual-services.toggle-status');
 });
 
-// Public API Routes untuk doctors
-Route::get('/api/doctors/{id}', [DoctorController::class, 'getDoctorDetails'])->name('api.doctors.details');
-// Custom Auth Routes (gantikan Auth::routes())
+
+// Custom Auth Routes
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');

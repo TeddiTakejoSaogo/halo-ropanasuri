@@ -55,7 +55,7 @@
             </div>
             <div class="card-body text-center">
                 @if($profile->logo)
-                    <img src="{{ asset('storage/' . $profile->logo) }}" alt="Logo" class="img-fluid mb-3" style="max-height: 200px;">
+                    <img src="{{ asset('storage/' . $profile->logo) }}" alt="Logo" class="img-fluid mb-3" style="max-height: 200px;" onerror="this.style.display='none'">
                 @else
                     <div class="bg-light rounded d-flex align-items-center justify-content-center mb-3" style="height: 200px;">
                         <span class="text-muted">No Logo</span>

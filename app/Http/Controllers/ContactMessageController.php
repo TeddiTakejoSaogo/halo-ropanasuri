@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreContactMessageRequest;
 use Illuminate\Support\Facades\Log;
 
 class ContactMessageController extends Controller
@@ -16,22 +17,8 @@ class ContactMessageController extends Controller
     /**
      * Store a newly created resource in storage (Public)
      */
-    public function store(Request $request)
+    public function store(StoreContactMessageRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|min:10',
-        ], [
-            'name.required' => 'Nama lengkap wajib diisi',
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
-            'subject.required' => 'Subjek wajib dipilih',
-            'message.required' => 'Pesan wajib diisi',
-            'message.min' => 'Pesan minimal 10 karakter',
-        ]);
 
         try {
             ContactMessage::create([

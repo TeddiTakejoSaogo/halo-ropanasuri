@@ -49,8 +49,6 @@ class HospitalProfileController extends Controller
      */
     public function update(Request $request)
     {
-        Log::info('Updating hospital profile');
-        
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string',
@@ -68,6 +66,12 @@ class HospitalProfileController extends Controller
         ]);
 
         try {
+            try {
+                Log::info('Updating hospital profile');
+            } catch (\Throwable $logException) {
+                // Ignore
+            }
+
             $profile = HospitalProfile::first();
             
             if (!$profile) {
@@ -90,7 +94,7 @@ class HospitalProfileController extends Controller
 
             // Handle logo upload
             if ($request->hasFile('logo')) {
-                Log::info('Logo file detected');
+                try { Log::info('Logo file detected'); } catch (\Throwable $e) {}
                 
                 // Delete old logo if exists
                 if ($profile->logo) {
@@ -99,16 +103,21 @@ class HospitalProfileController extends Controller
                 
                 $logoPath = $request->file('logo')->store('hospital', 'public');
                 $profile->logo = $logoPath;
-                Log::info('Logo stored at: ' . $logoPath);
+                try { Log::info('Logo stored at: ' . $logoPath); } catch (\Throwable $e) {}
             }
 
             $profile->save();
-            Log::info('Hospital profile updated successfully');
+            \Illuminate\Support\Facades\Cache::forget('hospital_profile');
+            try { Log::info('Hospital profile updated successfully'); } catch (\Throwable $e) {}
 
             return redirect()->route('admin.profile')->with('success', 'Profil rumah sakit berhasil diperbarui.');
 
-        } catch (\Exception $e) {
-            Log::error('Error updating hospital profile: ' . $e->getMessage());
+        } catch (\Throwable $e) {
+            try {
+                Log::error('Error updating hospital profile: ' . $e->getMessage());
+            } catch (\Throwable $logException) {
+                // Ignore logging failures to ensure the user still gets the redirect and error message
+            }
             return redirect()->back()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage())
                 ->withInput();

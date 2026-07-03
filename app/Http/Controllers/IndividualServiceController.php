@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\IndividualService;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreIndividualServiceRequest;
+use App\Http\Requests\UpdateIndividualServiceRequest;
+use App\Services\WhatsAppNotificationService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Encoders\JpegEncoder;
 
 class IndividualServiceController extends Controller
 {
-    public function __construct()
+    protected $whatsappService;
+
+    public function __construct(WhatsAppNotificationService $whatsappService)
     {
         $this->middleware('auth')->except(['index', 'show', 'order']);
+        $this->whatsappService = $whatsappService;
     }
 
     // Public methods
@@ -56,39 +65,16 @@ class IndividualServiceController extends Controller
         $service = IndividualService::findOrFail($id);
         
         // Format WhatsApp message
-        $whatsappMessage = $this->formatWhatsAppMessage($service, $request);
+        $whatsappMessage = $this->whatsappService->formatOrderMessage($service, $request);
         
         // Redirect to WhatsApp
         $phoneNumber = '628116600013'; // Ganti dengan nomor WhatsApp rumah sakit
-        $url = "https://wa.me/{$phoneNumber}?text=" . urlencode($whatsappMessage);
+        $url = $this->whatsappService->generateUrl($phoneNumber, $whatsappMessage);
         
         return redirect($url);
     }
 
-    private function formatWhatsAppMessage($service, $request)
-    {
-        $defaultMessage = "Halo, saya ingin memesan paket layanan:\n\n";
-        $defaultMessage .= "📋 *{$service->name}*\n";
-        $defaultMessage .= "💵 Harga: {$service->formatted_price}\n";
-        
-        if ($service->discount_price) {
-            $defaultMessage .= "💵 Harga Diskon: {$service->formatted_discount_price}\n";
-            $defaultMessage .= "🎁 Diskon: {$service->discount_percentage}%\n";
-        }
-        
-        $defaultMessage .= "\n📝 *Data Pemesan:*\n";
-        $defaultMessage .= "👤 Nama: {$request->name}\n";
-        $defaultMessage .= "📞 Telepon: {$request->phone}\n";
-        $defaultMessage .= "📧 Email: {$request->email}\n";
-        
-        if ($request->message) {
-            $defaultMessage .= "\n💬 Pesan Tambahan:\n{$request->message}\n";
-        }
-        
-        $defaultMessage .= "\n_Saya memesan melalui website RS Sehat Sentosa_";
-        
-        return $defaultMessage;
-    }
+
 
     // Admin methods
     public function adminIndex()
@@ -102,20 +88,8 @@ class IndividualServiceController extends Controller
         return view('admin.individual-services.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreIndividualServiceRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'benefits' => 'nullable|string',
-            'features' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0',
-            'duration_days' => 'nullable|integer|min:1',
-            'icon' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'whatsapp_message' => 'nullable|string',
-        ]);
 
         try {
             $service = new IndividualService();
@@ -134,8 +108,15 @@ class IndividualServiceController extends Controller
             $service->whatsapp_message = $request->whatsapp_message;
 
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('individual-services', 'public');
-                $service->image = $imagePath;
+                $manager = new ImageManager(new Driver());
+                $imageFile = $manager->decode($request->file('image'));
+                $imageFile->scaleDown(width: 800);
+                
+                $filename = uniqid() . '.jpg';
+                $path = 'individual-services/' . $filename;
+                Storage::disk('public')->put($path, (string) $imageFile->encode(new JpegEncoder(85)));
+                
+                $service->image = $path;
             }
 
             $service->save();
@@ -157,20 +138,8 @@ class IndividualServiceController extends Controller
         return view('admin.individual-services.edit', compact('service'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateIndividualServiceRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'benefits' => 'nullable|string',
-            'features' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0',
-            'duration_days' => 'nullable|integer|min:1',
-            'icon' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'whatsapp_message' => 'nullable|string',
-        ]);
 
         try {
             $service = IndividualService::findOrFail($id);
@@ -189,12 +158,19 @@ class IndividualServiceController extends Controller
             $service->whatsapp_message = $request->whatsapp_message;
 
             if ($request->hasFile('image')) {
-                // Delete old image
                 if ($service->image) {
                     Storage::disk('public')->delete($service->image);
                 }
-                $imagePath = $request->file('image')->store('individual-services', 'public');
-                $service->image = $imagePath;
+                
+                $manager = new ImageManager(new Driver());
+                $imageFile = $manager->decode($request->file('image'));
+                $imageFile->scaleDown(width: 800);
+                
+                $filename = uniqid() . '.jpg';
+                $path = 'individual-services/' . $filename;
+                Storage::disk('public')->put($path, (string) $imageFile->encode(new JpegEncoder(85)));
+                
+                $service->image = $path;
             }
 
             $service->save();

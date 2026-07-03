@@ -1,123 +1,128 @@
 @extends('layouts.app')
 
-@section('title', $article->title)
+@section('title', $article->title . ' - Berita')
 
 @section('content')
-<div class="container py-5">
-    <div class="row">
-        <!-- Main Content -->
-        <div class="col-lg-8">
-            <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('news') }}">Berita</a></li>
-                    <li class="breadcrumb-item active">{{ $article->category }}</li>
+<div class="news-detail-page bg-light pb-5">
+    <!-- Breadcrumb Section -->
+    <div class="bg-navy py-4 border-bottom border-teal">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white-50 text-decoration-none hover-teal">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('news') }}" class="text-white-50 text-decoration-none hover-teal">Berita</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">{{ Str::limit($article->title, 40) }}</li>
                 </ol>
             </nav>
+        </div>
+    </div>
 
-            <!-- Article Content -->
-            <article class="card shadow-sm">
-                @if($article->image)
-                <img src="{{ $article->image_url }}" class="card-img-top" 
-                     alt="{{ $article->title }}" style="max-height: 400px; object-fit: cover;">
-                @endif
-                
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="badge bg-primary">{{ $article->category }}</span>
-                        <small class="text-muted">
-                            <i class="fas fa-calendar me-1"></i>
-                            {{ $article->created_at->translatedFormat('d F Y') }}
-                        </small>
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Article Content -->
+                <article class="card border-0 rounded-4 shadow-sm overflow-hidden mb-5">
+                    @if($article->image)
+                    <div class="position-relative">
+                        <img src="{{ $article->image_url }}" class="w-100" 
+                             alt="{{ $article->title }}" style="max-height: 500px; object-fit: cover;">
+                        <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(to top, rgba(15, 52, 96, 0.9), transparent);">
+                            <span class="badge bg-teal px-3 py-2 rounded-pill fs-6 mb-2">{{ $article->category }}</span>
+                        </div>
                     </div>
+                    @endif
                     
-                    <h1 class="card-title h2 mb-4">{{ $article->title }}</h1>
-                    
-                    <div class="article-content">
-                        {!! $article->content !!}
+                    <div class="card-body p-4 p-md-5 bg-white">
+                        <div class="d-flex flex-wrap gap-4 align-items-center mb-4 text-muted small fw-medium pb-4 border-bottom">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-teal-light rounded-circle p-2 me-2">
+                                    <i class="fas fa-calendar-alt text-teal"></i>
+                                </div>
+                                {{ $article->created_at->translatedFormat('d F Y') }}
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-teal-light rounded-circle p-2 me-2">
+                                    <i class="fas fa-user-edit text-teal"></i>
+                                </div>
+                                Oleh Admin RS
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-teal-light rounded-circle p-2 me-2">
+                                    <i class="fas fa-eye text-teal"></i>
+                                </div>
+                                1.2k Kali Dibaca
+                            </div>
+                        </div>
+                        
+                        <h1 class="card-title fw-bold text-navy mb-4 lh-base">{{ $article->title }}</h1>
+                        
+                        <div class="article-content text-muted">
+                            {!! $article->content !!}
+                        </div>
                     </div>
-                    
-                    <!-- Article Meta -->
-                    <div class="mt-5 pt-4 border-top">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <small class="text-muted">
-                                    <i class="fas fa-user-edit me-1"></i>
-                                    Ditulis oleh Admin
-                                </small>
-                            </div>
-                            <div class="col-md-6 text-md-end">
-                                <small class="text-muted">
-                                    <i class="fas fa-clock me-1"></i>
-                                    Dibaca: 1.2k kali
-                                </small>
-                            </div>
+                </article>
+
+                <!-- Share Buttons -->
+                <div class="card border-0 rounded-4 shadow-sm mb-4 bg-white">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="fw-bold text-navy mb-4">Bagikan Artikel Ini</h5>
+                        <div class="d-flex justify-content-center flex-wrap gap-3 share-buttons">
+                            <a href="#" class="btn btn-outline-primary rounded-pill px-4 hover-lift">
+                                <i class="fab fa-facebook-f me-2"></i> Facebook
+                            </a>
+                            <a href="#" class="btn btn-outline-info rounded-pill px-4 hover-lift">
+                                <i class="fab fa-twitter me-2"></i> Twitter
+                            </a>
+                            <a href="#" class="btn btn-outline-success rounded-pill px-4 hover-lift">
+                                <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                            </a>
+                            <a href="#" class="btn btn-outline-navy rounded-pill px-4 hover-lift" id="copyLinkBtn">
+                                <i class="fas fa-link me-2"></i> Salin Link
+                            </a>
                         </div>
                     </div>
                 </div>
-            </article>
-
-            <!-- Share Buttons -->
-            <div class="card shadow-sm mt-4">
-                <div class="card-body text-center">
-                    <h6 class="card-title mb-3">Bagikan Artikel</h6>
-                    <div class="share-buttons">
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fab fa-facebook me-1"></i> Facebook
-                        </a>
-                        <a href="#" class="btn btn-outline-info btn-sm me-2">
-                            <i class="fab fa-twitter me-1"></i> Twitter
-                        </a>
-                        <a href="#" class="btn btn-outline-danger btn-sm me-2">
-                            <i class="fab fa-whatsapp me-1"></i> WhatsApp
-                        </a>
-                        <a href="#" class="btn btn-outline-dark btn-sm">
-                            <i class="fas fa-link me-1"></i> Copy Link
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="col-lg-4">
-            <!-- Recent Articles -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h6 class="mb-0"><i class="fas fa-newspaper me-2"></i>Artikel Terbaru</h6>
-                </div>
-                <div class="card-body">
-                    @foreach($recentArticles as $recent)
-                    <div class="mb-3 pb-3 border-bottom">
-                        <h6 class="card-title">
-                            <a href="{{ route('news.detail', $recent->slug) }}" 
-                               class="text-decoration-none">{{ $recent->title }}</a>
-                        </h6>
-                        <small class="text-muted">
-                            {{ $recent->created_at->diffForHumans() }}
-                        </small>
-                    </div>
-                    @endforeach
-                    
-                    @if($recentArticles->isEmpty())
-                    <p class="text-muted text-center">Belum ada artikel lainnya.</p>
-                    @endif
-                </div>
             </div>
 
-            <!-- Categories -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-success text-white">
-                    <h6 class="mb-0"><i class="fas fa-tags me-2"></i>Kategori</h6>
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Recent Articles -->
+                <div class="card border-0 rounded-4 shadow-sm mb-5 position-sticky" style="top: 100px;">
+                    <div class="card-header bg-navy text-white p-4 border-0 rounded-top-4">
+                        <h5 class="mb-0 fw-bold"><i class="fas fa-newspaper text-teal me-2"></i>Artikel Terbaru</h5>
+                    </div>
+                    <div class="card-body p-0 bg-white">
+                        <div class="list-group list-group-flush rounded-bottom-4">
+                            @forelse($recentArticles as $recent)
+                            <a href="{{ route('news.detail', $recent->slug) }}" class="list-group-item list-group-item-action p-4 border-bottom hover-bg-light transition-all">
+                                <h6 class="fw-bold text-navy mb-2 lh-base">{{ $recent->title }}</h6>
+                                <small class="text-teal fw-medium">
+                                    <i class="far fa-clock me-1"></i> {{ $recent->created_at->diffForHumans() }}
+                                </small>
+                            </a>
+                            @empty
+                            <div class="p-4 text-center text-muted">
+                                Belum ada artikel lainnya.
+                            </div>
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark">Kesehatan Umum</span>
-                        <span class="badge bg-light text-dark">Kesehatan Anak</span>
-                        <span class="badge bg-light text-dark">Kesehatan Jantung</span>
-                        <span class="badge bg-light text-dark">Penyakit Dalam</span>
-                        <span class="badge bg-light text-dark">Gizi & Diet</span>
+
+                <!-- Categories -->
+                <div class="card border-0 rounded-4 shadow-sm mb-4">
+                    <div class="card-header bg-white p-4 border-0 border-bottom">
+                        <h5 class="mb-0 fw-bold text-navy"><i class="fas fa-tags text-teal me-2"></i>Kategori Populer</h5>
+                    </div>
+                    <div class="card-body p-4 bg-white rounded-bottom-4">
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-teal-light text-navy border hover-lift-subtle px-3 py-2 rounded-pill cursor-pointer">Kesehatan Umum</span>
+                            <span class="badge bg-teal-light text-navy border hover-lift-subtle px-3 py-2 rounded-pill cursor-pointer">Kesehatan Anak</span>
+                            <span class="badge bg-teal-light text-navy border hover-lift-subtle px-3 py-2 rounded-pill cursor-pointer">Kesehatan Jantung</span>
+                            <span class="badge bg-teal-light text-navy border hover-lift-subtle px-3 py-2 rounded-pill cursor-pointer">Penyakit Dalam</span>
+                            <span class="badge bg-teal-light text-navy border hover-lift-subtle px-3 py-2 rounded-pill cursor-pointer">Gizi & Diet</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,24 +131,59 @@
 </div>
 
 <style>
+/* Theme Variables */
+:root {
+    --color-navy: #0F3460;
+    --color-teal: #16a085;
+    --color-teal-light: #e8f6f3;
+}
+
+.text-navy { color: var(--color-navy) !important; }
+.text-teal { color: var(--color-teal) !important; }
+.bg-navy { background-color: var(--color-navy) !important; }
+.bg-teal-light { background-color: var(--color-teal-light) !important; }
+.bg-teal { background-color: var(--color-teal) !important; }
+.border-teal { border-color: var(--color-teal) !important; border-width: 4px !important; }
+
+/* Utilities */
+.hover-teal:hover { color: var(--color-teal) !important; }
+.transition-all { transition: all 0.3s ease; }
+.hover-bg-light:hover { background-color: #f8f9fa; }
+.cursor-pointer { cursor: pointer; }
+
+/* Hover Effects */
+.hover-lift {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(15, 52, 96, 0.1) !important;
+}
+
+.hover-lift-subtle {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift-subtle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(15, 52, 96, 0.08) !important;
+}
+
+/* Article Content Formatting */
 .article-content {
-    line-height: 1.8;
-    font-size: 1.1rem;
+    line-height: 1.9;
+    font-size: 1.05rem;
+    color: #4a5568 !important;
 }
 
-.article-content h2 {
-    color: #2c3e50;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
+.article-content h2, .article-content h3, .article-content h4 {
+    color: var(--color-navy);
+    margin-top: 2.5rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
 }
 
-.article-content h3 {
-    color: #34495e;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-}
+.article-content h2 { font-size: 1.8rem; }
+.article-content h3 { font-size: 1.5rem; }
 
 .article-content p {
     margin-bottom: 1.5rem;
@@ -152,52 +192,54 @@
 
 .article-content ul, .article-content ol {
     margin-bottom: 1.5rem;
-    padding-left: 2rem;
+    padding-left: 1.5rem;
 }
 
 .article-content li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.article-content li::marker {
+    color: var(--color-teal);
+    font-weight: bold;
 }
 
 .article-content blockquote {
-    border-left: 4px solid var(--primary-color);
-    padding-left: 1rem;
-    margin: 1.5rem 0;
+    background-color: var(--color-teal-light);
+    border-left: 4px solid var(--color-teal);
+    border-radius: 0 8px 8px 0;
+    padding: 1.5rem;
+    margin: 2rem 0;
     font-style: italic;
-    color: #6c757d;
+    color: var(--color-navy);
+    font-weight: 500;
 }
 
 .article-content img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin: 1.5rem 0;
+    border-radius: 12px;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
-.article-content table {
-    width: 100%;
-    margin: 1.5rem 0;
-    border-collapse: collapse;
+/* Share Buttons Override */
+.btn-outline-navy {
+    color: var(--color-navy);
+    border-color: var(--color-navy);
 }
-
-.article-content table th,
-.article-content table td {
-    padding: 0.75rem;
-    border: 1px solid #dee2e6;
-    text-align: left;
-}
-
-.article-content table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
+.btn-outline-navy:hover {
+    color: #fff;
+    background-color: var(--color-navy);
+    border-color: var(--color-navy);
 }
 
 @media (max-width: 768px) {
     .article-content {
         font-size: 1rem;
     }
-    
     .share-buttons .btn {
+        width: 100%;
         margin-bottom: 0.5rem;
     }
 }
@@ -206,7 +248,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Copy link functionality
-    const copyLinkBtn = document.querySelector('.btn-outline-dark');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
     if (copyLinkBtn) {
         copyLinkBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -214,14 +256,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             navigator.clipboard.writeText(url).then(function() {
                 const originalText = copyLinkBtn.innerHTML;
-                copyLinkBtn.innerHTML = '<i class="fas fa-check me-1"></i> Copied!';
-                copyLinkBtn.classList.remove('btn-outline-dark');
-                copyLinkBtn.classList.add('btn-outline-success');
+                copyLinkBtn.innerHTML = '<i class="fas fa-check me-2"></i> Tersalin!';
+                copyLinkBtn.classList.remove('btn-outline-navy');
+                copyLinkBtn.classList.add('btn-success', 'text-white');
                 
                 setTimeout(function() {
                     copyLinkBtn.innerHTML = originalText;
-                    copyLinkBtn.classList.remove('btn-outline-success');
-                    copyLinkBtn.classList.add('btn-outline-dark');
+                    copyLinkBtn.classList.remove('btn-success', 'text-white');
+                    copyLinkBtn.classList.add('btn-outline-navy');
                 }, 2000);
             });
         });

@@ -1,706 +1,254 @@
-<<<<<<< HEAD
-Website Rumah Sakit dengan Laravel 10
-📋 Deskripsi Proyek
-Website Rumah Sakit berbasis Laravel 10 dengan sistem manajemen konten lengkap untuk informasi rumah sakit, manajemen dokter, layanan, artikel kesehatan, galeri, dan sistem testimoni pasien.
+# 🏥 Website Rumah Sakit Khusus Bedah Ropanasuri
 
-🚀 Fitur Utama
-🏥 Halaman Publik
-✅ Beranda dengan informasi utama
-
-✅ Tentang Kami (sejarah, visi, misi, struktur)
-
-✅ Layanan Rumah Sakit
-
-✅ Data Dokter dengan jadwal praktik
-
-✅ Berita & Artikel Kesehatan
-
-✅ Galeri Foto
-
-✅ Sistem Testimoni Pasien
-
-✅ Halaman Kontak
-
-✅ NEW Layanan Homecare dengan paket-paket
-
-🛠️ Admin Dashboard
-✅ Manajemen Profil Rumah Sakit
-
-✅ CRUD Data Dokter (dengan upload foto)
-
-✅ CRUD Layanan
-
-✅ CRUD Artikel/Berita
-
-✅ CRUD Galeri Foto
-
-✅ Manajemen Testimoni (approval system)
-
-✅ NEW Manajemen Paket Homecare
-
-📁 Struktur Proyek
-text
-hospital-website/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── AdminController.php
-│   │   ├── ArticleController.php
-│   │   ├── DoctorController.php
-│   │   ├── GalleryController.php
-│   │   ├── HomecareController.php      # NEW
-│   │   ├── HomeController.php
-│   │   ├── HospitalProfileController.php
-│   │   ├── ServiceController.php
-│   │   └── TestimonialController.php
-│   ├── Models/
-│   │   ├── Article.php
-│   │   ├── Doctor.php
-│   │   ├── DoctorSchedule.php
-│   │   ├── Gallery.php
-│   │   ├── HomecarePackage.php         # NEW
-│   │   ├── HospitalProfile.php
-│   │   ├── Service.php
-│   │   └── Testimonial.php
-│   └── ...
-├── database/
-│   ├── migrations/
-│   │   ├── 2014_10_12_000000_create_users_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_hospital_profiles_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_doctors_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_doctor_schedules_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_services_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_testimonials_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_articles_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_galleries_table.php
-│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php  # NEW
-│   └── seeders/
-│       ├── AdminUserSeeder.php
-│       ├── DoctorSeeder.php
-│       ├── ServiceSeeder.php
-│       ├── TestimonialSeeder.php
-│       ├── ArticleSeeder.php
-│       ├── HospitalProfileSeeder.php
-│       └── HomecarePackageSeeder.php    # NEW
-├── resources/views/
-│   ├── layouts/
-│   │   └── app.blade.php
-│   ├── admin/
-│   │   ├── layouts/
-│   │   │   └── app.blade.php
-│   │   ├── dashboard.blade.php
-│   │   ├── doctors/
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── homecare/                    # NEW
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── services/
-│   │   ├── news/
-│   │   ├── gallery/
-│   │   ├── testimonials/
-│   │   └── profile/
-│   └── homecare/                        # NEW
-│       ├── index.blade.php
-│       └── show.blade.php
-├── public/
-├── routes/
-│   └── web.php
-└── ...
-🛠️ Teknologi yang Digunakan
-Framework: Laravel 10
-
-Database: MySQL
-
-Frontend: Bootstrap 5, Font Awesome
-
-Text Editor: TinyMCE (untuk artikel)
-
-Storage: Local filesystem dengan symbolic link
-
-Authentication: Laravel UI (Bootstrap)
-
-⚙️ Instalasi dan Setup
-Prerequisites
-PHP >= 8.1
-
-Composer
-
-MySQL
-
-Node.js & NPM
-
-Langkah Instalasi
-Clone Repository
-
-bash
-git clone [repository-url]
-cd hospital-website
-Install Dependencies
-
-bash
-composer install
-npm install
-npm run dev
-Setup Environment
-
-bash
-cp .env.example .env
-php artisan key:generate
-Konfigurasi Database
-Edit file .env:
-
-env
-=======
-# 📘 Dokumentasi Proyek
-
-# **Website Rumah Sakit Khusus Bedah Ropanasuri**
+Website Sistem Informasi Rumah Sakit berbasis **Laravel 10** dengan sistem manajemen konten lengkap untuk informasi rumah sakit, manajemen dokter, layanan, artikel kesehatan, galeri, sistem testimoni pasien, dan layanan homecare. Sistem ini juga dilengkapi **Admin Dashboard** untuk mengelola seluruh konten secara dinamis.
 
 ---
 
-# 1. **Overview Proyek**
+## ✨ Fitur Utama
 
-Website Rumah Sakit Khusus Bedah Ropanasuri adalah sistem informasi berbasis **Laravel 10** yang dirancang untuk menyajikan informasi lengkap mengenai rumah sakit, termasuk manajemen dokter, layanan, artikel kesehatan, galeri, testimoni pasien, dan layanan homecare. Sistem ini juga dilengkapi **Admin Dashboard** untuk mengelola seluruh konten secara dinamis.
+### 🏥 Halaman Publik
+- ✅ **Beranda** - Informasi utama rumah sakit dan layanan populer.
+- ✅ **Tentang Kami** - Sejarah, visi, misi, dan struktur organisasi.
+- ✅ **Layanan Rumah Sakit** - Informasi layanan seperti Bedah Umum, Bedah Tulang, Radiologi, dll.
+- ✅ **Data Dokter** - Profil dokter beserta spesialisasi dan jadwal praktik.
+- ✅ **Artikel & Berita Kesehatan** - Blog dan berita terkini.
+- ✅ **Galeri Foto** - Dokumentasi fasilitas dan kegiatan.
+- ✅ **Testimoni Pasien** - Ulasan dari pasien.
+- ✅ **Kontak** - Informasi kontak dan lokasi.
+- ✅ **Layanan Homecare** ✨ *(NEW)* - Detail paket homecare (Perawatan Luka, Lansia, Infus) dengan integrasi pemesanan via WhatsApp.
 
-## 🎯 **Tujuan Proyek**
-
-* Mempermudah masyarakat mendapatkan informasi rumah sakit secara online.
-* Mempercepat proses pembaruan informasi melalui dashboard admin.
-* Memberikan layanan tambahan berupa homecare dengan paket layanan.
-
-## 🏗️ **Teknologi yang Digunakan**
-
-* **Laravel 10** (Backend)
-* **Blade Template / TailwindCSS / Bootstrap** (Frontend)
-* **MySQL** (Database)
-* **Laravel Storage** (Upload gambar)
-* **Spatie Permission** (opsional untuk manajemen role admin)
-
----
-
-# 2. **Fitur Utama**
-
-## 🏥 **Halaman Publik**
-
-* Beranda
-* Tentang Kami
-* Layanan Rumah Sakit
-* Data Dokter + Jadwal Praktik
-* Artikel / Berita
-* Galeri Foto
-* Testimoni Pasien
-* Kontak
-* Layanan Homecare
-
-## 🛠️ **Admin Dashboard**
-
-* Manajemen Profil Rumah Sakit
-* CRUD Dokter
-* CRUD Layanan
-* CRUD Artikel / Berita
-* CRUD Galeri Foto
-* Approval Testimoni
-* CRUD Paket Homecare
+### 🛠️ Admin Dashboard
+- 🔒 **Manajemen Profil Rumah Sakit**
+- 🧑‍⚕️ **CRUD Data Dokter** (beserta upload foto dan jadwal praktik)
+- 💉 **CRUD Layanan**
+- 📰 **CRUD Artikel/Berita** (dengan WYSIWYG Editor - TinyMCE)
+- 🖼️ **CRUD Galeri Foto**
+- ⭐ **Manajemen Testimoni** (Sistem persetujuan/approval)
+- 🏠 **Manajemen Paket Homecare** ✨ *(NEW)*
 
 ---
 
-# 3. **Arsitektur Sistem**
+## 🛠️ Teknologi yang Digunakan
 
-## 📂 Struktur Direktori Utama
-
-```
-hospital-website/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── AdminController.php
-│   │   ├── ArticleController.php
-│   │   ├── DoctorController.php
-│   │   ├── GalleryController.php
-│   │   ├── HomecareController.php      
-│   │   ├── HomeController.php
-│   │   ├── HospitalProfileController.php
-│   │   ├── ServiceController.php
-│   │   └── TestimonialController.php
-│   ├── Models/
-│   │   ├── Article.php
-│   │   ├── Doctor.php
-│   │   ├── DoctorSchedule.php
-│   │   ├── Gallery.php
-│   │   ├── HomecarePackage.php        
-│   │   ├── HospitalProfile.php
-│   │   ├── Service.php
-│   │   └── Testimonial.php
-│   └── ...
-├── database/
-│   ├── migrations/
-│   │   ├── 2014_10_12_000000_create_users_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_hospital_profiles_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_doctors_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_doctor_schedules_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_services_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_testimonials_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_articles_table.php
-│   │   ├── 2025_11_20_xxxxxx_create_galleries_table.php
-│   │   └── 2025_11_20_xxxxxx_create_homecare_packages_table.php 
-│   └── seeders/
-│       ├── AdminUserSeeder.php
-│       ├── DoctorSeeder.php
-│       ├── ServiceSeeder.php
-│       ├── TestimonialSeeder.php
-│       ├── ArticleSeeder.php
-│       ├── HospitalProfileSeeder.php
-│       └── HomecarePackageSeeder.php    
-├── resources/views/
-│   ├── layouts/
-│   │   └── app.blade.php
-│   ├── admin/
-│   │   ├── layouts/
-│   │   │   └── app.blade.php
-│   │   ├── dashboard.blade.php
-│   │   ├── doctors/
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── homecare/                 
-│   │   │   ├── index.blade.php
-│   │   │   ├── create.blade.php
-│   │   │   └── edit.blade.php
-│   │   ├── services/
-│   │   ├── news/
-│   │   ├── gallery/
-│   │   ├── testimonials/
-│   │   └── profile/
-│   └── homecare/                      
-│       ├── index.blade.php
-│       └── show.blade.php
-├── public/
-├── routes/
-│   └── web.php
-└── ...
-```
-
-## 🧩 Diagram Alur Sederhana
-
-* User → Website Publik → Database
-* Admin → Dashboard → Kelola Konten → Database → Website Publik
+- **Framework:** Laravel 10
+- **Database:** MySQL
+- **Frontend:** Bootstrap 5, TailwindCSS, Blade Template, Font Awesome
+- **Text Editor:** TinyMCE (untuk penulisan artikel)
+- **Storage:** Local filesystem dengan symbolic link
+- **Authentication:** Laravel UI (Bootstrap) / Spatie Permission
 
 ---
 
-# 4. **Setup & Instalasi Proyek**
+## ⚙️ Kebutuhan Sistem (Prerequisites)
 
-## 1️⃣ Clone Repository
+Pastikan sistem Anda memenuhi persyaratan berikut sebelum melakukan instalasi:
+- PHP >= 8.1
+- Composer
+- MySQL / MariaDB
+- Node.js & NPM
 
-```
+---
+
+## 🚀 Instalasi dan Setup
+
+Ikuti langkah-langkah di bawah ini untuk menjalankan proyek di komputer lokal Anda:
+
+### 1️⃣ Clone Repository
+```bash
 git clone https://github.com/username/ropanasuri-hospital.git
 cd ropanasuri-hospital
 ```
 
-## 2️⃣ Install Dependensi Composer
-
-```
+### 2️⃣ Install Dependencies
+```bash
 composer install
+npm install
+npm run dev
 ```
 
-## 3️⃣ Copy Environment
-
-```
+### 3️⃣ Setup Environment Variables
+Copy file `.env.example` menjadi `.env` dan atur konfigurasi database.
+```bash
 cp .env.example .env
 php artisan key:generate
 ```
-
-Atur database & storage:
-
-```
->>>>>>> 6e15cd0a0441c7d9ed8d252be843e24fd66be85a
+Edit file `.env` dan sesuaikan kredensial database Anda:
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=hospital_db
 DB_USERNAME=root
 DB_PASSWORD=
-<<<<<<< HEAD
-Jalankan Migrasi dan Seeder
+```
 
-bash
+### 4️⃣ Migrasi & Seeding Database
+Jalankan migrasi untuk membuat tabel dan seeder untuk memasukkan data awal (termasuk akun admin).
+```bash
 php artisan migrate --seed
 php artisan storage:link
-Jalankan Development Server
+```
 
-bash
+### 5️⃣ Jalankan Server Development
+```bash
 php artisan serve
-👨‍💼 Akun Default
-Admin
-Email: admin@rumahsakit.com
+```
+Akses website di browser: `http://localhost:8000`
 
-Password: password123
+---
 
-User Biasa
-Email: user@example.com
+## 🌐 Panduan Deployment
 
-Password: password123
+### Opsi 1: Shared Hosting (cPanel)
 
-🔧 Fitur CRUD Detail
-1. Manajemen Dokter
-Tambah dokter dengan upload foto
+Jika Anda ingin mendeploy website ini ke cPanel / Shared Hosting, ikuti langkah berikut:
 
-Edit data dokter
+1. **Build Assets:**
+   Sebelum memindahkan file, pastikan aset frontend sudah di-build.
+   ```bash
+   npm run build
+   ```
 
-Hapus dokter
+2. **Zip File Proyek:**
+   Compress (Zip) seluruh folder proyek Laravel Anda (kecuali folder `node_modules` untuk menghemat ukuran file).
 
-Toggle status aktif/non-aktif
+3. **Upload ke cPanel:**
+   - Login ke akun cPanel Anda.
+   - Buka **File Manager**.
+   - Upload file zip tersebut ke direktori di luar `public_html` (misal: di home directory).
+   - Ekstrak file zip tersebut dan ganti nama foldernya jika perlu (misal: `ropanasuri-app`).
 
-Kelola jadwal praktik
+4. **Konfigurasi Folder Public:**
+   - Pindahkan seluruh isi dari folder `public/` (dari dalam folder proyek) ke dalam folder `public_html/` (atau folder addon domain Anda).
+   - Edit file `index.php` yang sekarang berada di `public_html/`. Sesuaikan path untuk memanggil file autoload dan aplikasi.
+     ```php
+     // Ubah baris berikut (sesuaikan 'ropanasuri-app' dengan nama folder Anda):
+     require __DIR__.'/../ropanasuri-app/vendor/autoload.php';
+     $app = require_once __DIR__.'/../ropanasuri-app/bootstrap/app.php';
+     ```
 
-2. Sistem Testimoni
-Form testimoni publik
+5. **Setup Database:**
+   - Buat database MySQL baru, user, dan berikan semua hak akses kepada user tersebut melalui menu **MySQL® Databases** di cPanel.
+   - Export database lokal Anda (melalui phpMyAdmin lokal) menjadi file `.sql`.
+   - Buka phpMyAdmin di cPanel dan import file `.sql` tersebut ke database yang baru dibuat.
 
-Approval system oleh admin
+6. **Konfigurasi Environment (.env):**
+   - Edit file `.env` di folder proyek (`ropanasuri-app`).
+   - Ubah `APP_ENV=production` dan `APP_DEBUG=false`.
+   - Ubah `APP_URL` dengan domain Anda (misal: `https://rumahsakit.com`).
+   - Sesuaikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).
 
-Pagination (10 testimoni per halaman)
+7. **Storage Link:**
+   - Gambar yang diupload tersimpan di `storage/app/public`. Karena di cPanel biasanya tidak ada akses SSH langsung untuk `php artisan storage:link`, Anda bisa membuat symlink dengan skrip PHP.
+   - Buat file `symlink.php` di dalam `public_html/` dengan isi:
+     ```php
+     <?php
+     $targetFolder = __DIR__.'/../ropanasuri-app/storage/app/public';
+     $linkFolder = __DIR__.'/storage';
+     symlink($targetFolder, $linkFolder);
+     echo 'Symlink berhasil dibuat';
+     ?>
+     ```
+   - Akses via browser: `https://domainanda.com/symlink.php`.
+   - Jika berhasil, akan muncul folder `storage` di dalam `public_html`. Setelah itu, hapus file `symlink.php`.
 
-Rating stars interaktif
+### Opsi 2: VPS (Ubuntu / Nginx)
 
-3. Layanan Homecare ✨
-Multiple package system
+Untuk deployment menggunakan VPS, alur kerjanya lebih bersih:
 
-Detail paket dengan informasi lengkap
+1. Clone atau upload proyek ke server (misal: `/var/www/ropanasuri-hospital`).
+2. Install dependencies (tanpa dev):
+   ```bash
+   composer install --optimize-autoloader --no-dev
+   npm install && npm run build
+   ```
+3. Set perizinan folder (Storage & Cache):
+   ```bash
+   sudo chown -R www-data:www-data /var/www/ropanasuri-hospital
+   sudo chmod -R 775 /var/www/ropanasuri-hospital/storage
+   sudo chmod -R 775 /var/www/ropanasuri-hospital/bootstrap/cache
+   ```
+4. Buat symlink untuk storage:
+   ```bash
+   php artisan storage:link
+   ```
+5. Konfigurasi virtual host Nginx untuk mengarahkan direktori `root` ke `/var/www/ropanasuri-hospital/public`.
 
-WhatsApp integration untuk pemesanan
+---
 
-Admin management untuk paket
+## 👨‍💼 Akun Default
 
-4. Artikel/Berita
-WYSIWYG editor (TinyMCE)
+Gunakan kredensial berikut untuk login ke dashboard admin (jika menggunakan seeder):
 
-Kategori artikel
+- **Admin Email:** `admin@rumahsakit.com` | **Password:** `password123`
+- **User Email:** `user@example.com` | **Password:** `password123`
 
-Status draft/published
+---
 
-Upload gambar artikel
+## 📂 Struktur Direktori Utama
 
-5. Galeri Foto
-Multiple image upload
+```text
+hospital-website/
+├── app/
+│   ├── Http/Controllers/
+│   └── Models/
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── resources/views/
+│   ├── layouts/
+│   ├── admin/      # View untuk Dashboard Admin
+│   ├── homecare/   # View untuk Layanan Homecare
+│   └── ...
+├── public/
+├── routes/
+│   └── web.php
+└── ...
+```
 
-Kategori foto (fasilitas, kegiatan, acara)
+---
 
-Responsive gallery layout
+## 🚨 Troubleshooting
 
-📱 Fitur Responsif
-Mobile-friendly design
-
-Bootstrap 5 responsive grid
-
-Touch-friendly interface
-
-Adaptive images
-
-🔒 Security Features
-Authentication system
-
-Admin middleware protection
-
-CSRF protection
-
-Form validation
-
-Rate limiting
-
-Secure file upload
-
-🚨 Troubleshooting
-Common Issues
-Error 429 Too Many Requests
-
-bash
+### Error 429 Too Many Requests
+```bash
 php artisan cache:clear
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
-Storage Link Error
+```
 
-bash
+### Storage Link Error (Gambar tidak muncul)
+```bash
 php artisan storage:link
 chmod -R 775 storage/
 chmod -R 775 bootstrap/cache/
-Migration Error
+```
 
-bash
+### Migration Error
+```bash
 php artisan migrate:fresh --seed
-📊 Database Schema
-Tabel Utama
-users - Tabel user untuk authentication
-
-hospital_profiles - Profil rumah sakit
-
-doctors - Data dokter
-
-doctor_schedules - Jadwal praktik dokter
-
-services - Layanan rumah sakit
-
-testimonials - Testimoni pasien
-
-articles - Artikel berita
-
-galleries - Galeri foto
-
-homecare_packages - Paket homecare
-
-📞 Kontak & Support
-Untuk masalah atau pertanyaan:
-
-Check documentation terlebih dahulu
-
-Cek logs di storage/logs/laravel.log
-
-Gunakan debugging routes yang tersedia
-
-📄 License
-Proyek ini dikembangkan untuk keperluan pendidikan dan komersial. Silakan sesuaikan dengan kebutuhan Anda.
-
-🔄 Update Log
-v1.0.0 - Initial Release
-Basic website rumah sakit
-
-Admin dashboard
-
-CRUD semua fitur utama
-
-v1.1.0 - Homecare Feature
-✅ Sistem paket homecare
-
-✅ WhatsApp integration
-
-✅ Enhanced UI/UX
-
-✅ Responsive design
-
-Dikembangkan dengan ❤️ menggunakan Laravel 10
-
-Documentation terakhir diperbarui: November 2024
-=======
-```
-
-## 4️⃣ Generate Key
-
-```
-php artisan key:generate
-```
-
-## 5️⃣ Migrasi Database
-
-```
-php artisan migrate --seed
-php artisan storage:link
-```
-
-## 6️⃣ Jalankan Server
-
-```
-php artisan serve
 ```
 
 ---
 
-# 5. **Dokumentasi Fitur (User Guide)**
+## 🔄 Changelog
 
-## 🌐 Halaman Publik
+### v1.1.0 - Homecare Feature
+- ✅ Sistem paket homecare
+- ✅ WhatsApp integration
+- ✅ Enhanced UI/UX
+- ✅ Responsive design
 
-### 1. Beranda
-
-Menampilkan hero banner, informasi utama rumah sakit, layanan populer, dan artikel terbaru.
-
-### 2. Tentang Kami
-
-Meliputi:
-
-* Sejarah rumah sakit
-* Visi dan misi
-* Struktur organisasi (opsional)
-
-### 3. Layanan
-
-List layanan:
-
-* Bedah Umum
-* Bedah Tulang
-* Radiologi
-* Homecare
-
-### 4. Data Dokter
-
-* Nama dokter
-* Spesialis
-* Jadwal praktik
-* Foto profil
-
-### 5. Artikel / Berita
-
-Artikel kesehatan, edukasi medis, update terbaru.
-
-### 6. Galeri
-
-Foto kegiatan, fasilitas, ruangan rumah sakit.
-
-### 7. Testimoni Pasien
-
-Testimoni yang sudah disetujui oleh admin.
-
-### 8. Layanan Homecare
-
-Berisi paket homecare seperti:
-
-* Paket Perawatan Luka
-* Paket Perawatan Lansia
-* Paket Infus
+### v1.0.0 - Initial Release
+- Basic website rumah sakit
+- Admin dashboard
+- CRUD semua fitur utama
 
 ---
 
-# 6. **Admin Dashboard Guide**
+## 📄 License
 
-## 🔐 Login Admin
+Proyek ini dikembangkan untuk keperluan rumah sakit dan komersial. Silakan sesuaikan dengan kebutuhan Anda.
 
-Masukkan email & password admin (dibuat melalui seeder).
-
-## 1️⃣ Manajemen Profil Rumah Sakit
-
-* Ubah nama rumah sakit, alamat, kontak, jam operasional.
-
-## 2️⃣ CRUD Dokter
-
-* Tambah dokter baru
-* Upload foto dokter
-* Atur jadwal praktik
-* Edit / hapus dokter
-
-## 3️⃣ CRUD Layanan
-
-* Tambah layanan lengkap dengan deskripsi dan gambar
-
-## 4️⃣ CRUD Artikel
-
-* Menulis artikel kesehatan
-* Upload thumbnail
-* Kategori opsional
-
-## 5️⃣ CRUD Galeri Foto
-
-Upload foto kegiatan atau fasilitas.
-
-## 6️⃣ Manajemen Testimoni
-
-* Setujui / tolak testimoni
-* Hapus jika perlu
-
-## 7️⃣ Manajemen Homecare
-
-* Tambah paket homecare
-* Nama paket
-* Deskripsi
-* Fasilitas yang didapat
-* Harga paket
-
----
-
-# 7. **Skema Database**
-
-## 🧱 Tabel Utama
-
-* doctors
-* services
-* articles
-* galleries
-* testimonials
-* homecare_packages
-* hospital_profiles
-* users (admin)
-* migrations
-
-## 📊 ERD Sederhana
-
-```
-users ───< articles
-users ───< services
-users ───< homecare_packages
-services ───< galleries
-```
-
----
-
-# 8. **API / Route Dokumentasi**
-
-## 🛣️ Routes Publik
-
-```
-GET /
-GET /tentang
-GET /layanan
-GET /dokter
-GET /artikel
-GET /galeri
-GET /testimoni
-GET /homecare
-```
-
-## 🛡️ Routes Admin
-
-```
-/admin
-/admin/dokter
-/admin/layanan
-/admin/artikel
-/admin/galeri
-/admin/testimoni
-/admin/homecare
-```
-
----
-
-# 9. **Deployment Guide**
-
-## 🚀 Langkah Deploy ke Hosting / VPS
-
-1. Upload semua file
-2. Jalankan `composer install --no-dev`
-3. Atur `.env` server produksi
-4. Jalankan migrasi database
-5. Atur permission folder storage & bootstrap
-6. Konfigurasi domain & SSL
-
----
-
-# 10. **Testing & QA**
-
-Checklist:
-
-* [ ] Layanan tampil dengan benar
-* [ ] Jadwal dokter tampil lengkap
-* [ ] Artikel bisa dibaca
-* [ ] Galeri muncul
-* [ ] Testimoni dapat ditambah dan di-approve
-* [ ] Homecare paket tampil
-
----
-
-# 11. **Changelog**
-
-## v1.0
-
-* Rilis awal
-* Website publik lengkap
-* Dashboard admin
-
-## v1.1
-
-* Penambahan fitur Homecare
-* Manajemen Paket Homecare di Dashboard
-
----
-
-# 12. **Catatan Maintenance**
-
-* Backup database setiap minggu
-* Update Laravel setiap 6 bulan
-* Kompres gambar untuk optimasi
->>>>>>> 6e15cd0a0441c7d9ed8d252be843e24fd66be85a
+<p align="center">Dikembangkan dengan ❤️ menggunakan Laravel 10</p>

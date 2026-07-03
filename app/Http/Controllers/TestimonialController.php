@@ -16,6 +16,11 @@ class TestimonialController extends Controller
     // Public method untuk submit testimoni
     public function store(Request $request)
     {
+        // Honeypot check
+        if ($request->filled('website_url')) {
+            abort(403, 'Spam detected.');
+        }
+
         $request->validate([
             'patient_name' => 'required|string|max:255',
             'patient_email' => 'required|email',
@@ -23,7 +28,12 @@ class TestimonialController extends Controller
             'rating' => 'required|integer|between:1,5'
         ]);
 
-        Testimonial::create($request->all());
+        Testimonial::create($request->only([
+            'patient_name', 
+            'patient_email', 
+            'message', 
+            'rating'
+        ]));
 
         return redirect()->route('testimonials')
             ->with('success', 'Terima kasih! Testimoni Anda berhasil dikirim dan sedang menunggu persetujuan admin.');

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\DoctorSchedule;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDoctorRequest;
+use App\Http\Requests\UpdateDoctorRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Encoders\JpegEncoder;
 class DoctorController extends Controller
 {
     public function __construct()
@@ -47,22 +51,10 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDoctorRequest $request)
     {
         Log::info('Doctor store method called');
         Log::info('Request data:', $request->all());
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'specialization' => 'required|string|max:255',
-            'education' => 'required|string',
-            'description' => 'nullable|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'experience' => 'nullable|string',
-            'schedules.*.day' => 'sometimes|required|string',
-            'schedules.*.start_time' => 'sometimes|required|date_format:H:i',
-            'schedules.*.end_time' => 'sometimes|required|date_format:H:i|after:schedules.*.start_time',
-        ]);
 
         try {
             $doctor = new Doctor();
@@ -75,10 +67,17 @@ class DoctorController extends Controller
 
             // Handle photo upload
             if ($request->hasFile('photo')) {
-                Log::info('Photo file detected');
-                $photoPath = $request->file('photo')->store('doctors', 'public');
-                $doctor->photo = $photoPath;
-                Log::info('Photo stored at: ' . $photoPath);
+                Log::info('Processing photo upload');
+                $manager = new ImageManager(new Driver());
+                $image = $manager->decode($request->file('photo'));
+                $image->scaleDown(width: 800);
+                
+                $filename = uniqid() . '.jpg';
+                $path = 'doctors/' . $filename;
+                Storage::disk('public')->put($path, (string) $image->encode(new JpegEncoder(85)));
+                
+                $doctor->photo = $path;
+                Log::info('Photo processed and stored at: ' . $path);
             }
 
             $doctor->save();
@@ -112,9 +111,7 @@ class DoctorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    /**
- * Show the form for editing the specified resource.
- */
+
     public function edit($id)
     {
         try {
@@ -131,25 +128,12 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDoctorRequest $request, $id)
     {
         Log::info('=== DOCTOR UPDATE METHOD CALLED ===');
         Log::info('Doctor ID: ' . $id);
         Log::info('Request Method: ' . $request->method());
         Log::info('Request Data:', $request->all());
-
-        // Validasi
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'specialization' => 'required|string|max:255',
-            'education' => 'required|string',
-            'description' => 'nullable|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'experience' => 'nullable|string',
-            'schedules.*.day' => 'sometimes|required|string',
-            'schedules.*.start_time' => 'sometimes|required|date_format:H:i',
-            'schedules.*.end_time' => 'sometimes|required|date_format:H:i|after:schedules.*.start_time',
-        ]);
 
         try {
             Log::info('Finding doctor with ID: ' . $id);
@@ -167,14 +151,23 @@ class DoctorController extends Controller
 
             // Handle photo upload
             if ($request->hasFile('photo')) {
-                Log::info('Photo file detected');
-                // Delete old photo if exists
+                Log::info('Processing new photo upload');
+                // Hapus foto lama jika ada
                 if ($doctor->photo) {
+                    Log::info('Deleting old photo: ' . $doctor->photo);
                     Storage::disk('public')->delete($doctor->photo);
                 }
-                $photoPath = $request->file('photo')->store('doctors', 'public');
-                $doctor->photo = $photoPath;
-                Log::info('New photo stored at: ' . $photoPath);
+                
+                $manager = new ImageManager(new Driver());
+                $image = $manager->decode($request->file('photo'));
+                $image->scaleDown(width: 800);
+                
+                $filename = uniqid() . '.jpg';
+                $path = 'doctors/' . $filename;
+                Storage::disk('public')->put($path, (string) $image->encode(new JpegEncoder(85)));
+                
+                $doctor->photo = $path;
+                Log::info('New photo processed and stored at: ' . $path);
             }
 
             // Save doctor data

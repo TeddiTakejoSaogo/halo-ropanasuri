@@ -32,7 +32,12 @@ class ServiceController extends Controller
             'operational_hours' => 'required|string|max:255',
         ]);
 
-        Service::create($request->all());
+        Service::create($request->only([
+            'name',
+            'icon',
+            'description',
+            'operational_hours'
+        ]));
 
         return redirect()->route('admin.services')->with('success', 'Layanan berhasil ditambahkan.');
     }
@@ -53,7 +58,12 @@ class ServiceController extends Controller
         ]);
 
         $service = Service::findOrFail($id);
-        $service->update($request->all());
+        $service->update($request->only([
+            'name',
+            'icon',
+            'description',
+            'operational_hours'
+        ]));
 
         return redirect()->route('admin.services')->with('success', 'Layanan berhasil diperbarui.');
     }

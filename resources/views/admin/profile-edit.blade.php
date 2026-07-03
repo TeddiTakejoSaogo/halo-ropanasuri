@@ -101,7 +101,7 @@
                             <p class="text-muted mb-1">Logo Saat Ini:</p>
                             <img src="{{ asset('storage/' . $profile->logo) }}" 
                                  alt="Logo" 
-                                 class="img-thumbnail" width="150">
+                                 class="img-thumbnail" width="150" onerror="this.style.display='none'">
                             <br>
                             <small class="text-muted">Biarkan kosong jika tidak ingin mengubah logo</small>
                         </div>
