@@ -54,6 +54,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ request()->is('admin/jobs*') || request()->is('admin/applications*') ? 'active' : '' }}" 
+                               href="{{ route('admin.jobs.index') }}">
+                                <i class="fas fa-briefcase"></i> Kelola Lowongan
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ request()->is('admin/homecare*') ? 'active' : '' }}" 
                             href="{{ route('admin.homecare.index') }}">
                                 <i class="fas fa-home"></i> Homecare

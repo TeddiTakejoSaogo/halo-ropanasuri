@@ -307,6 +307,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('testimonials') ? 'active' : '' }}" href="{{ route('testimonials') }}">Testimoni</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('career.*') ? 'active' : '' }}" href="{{ route('career.index') }}">Karir</a>
+                    </li>
                     <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
                         <a class="btn btn-teal w-100 text-nowrap" href="{{ route('contact') }}">Hubungi Kami</a>
                     </li>

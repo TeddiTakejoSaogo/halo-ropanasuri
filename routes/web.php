@@ -11,6 +11,9 @@ use App\Http\Controllers\HomecareController;
 use App\Http\Controllers\HospitalProfileController;
 use App\Http\Controllers\IndividualServiceController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobApplicationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +29,11 @@ Route::get('/testimonials', [HomeController::class, 'testimonials'])->name('test
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::view('/privacy', 'privacy')->name('privacy');
 Route::view('/terms', 'terms')->name('terms');
+
+// Job Portal / Career Routes (Public)
+Route::get('/career', [CareerController::class, 'index'])->name('career.index');
+Route::get('/career/{job}', [CareerController::class, 'show'])->name('career.show');
+Route::post('/career/{job}/apply', [CareerController::class, 'apply'])->name('career.apply');
 
 // Testimonial Submit (Public)
 Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store')->middleware('throttle:5,1');
@@ -45,6 +53,12 @@ Route::prefix('admin')->middleware(['auth', 'throttle:60,1'])->group(function ()
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+
+    // Jobs CRUD
+    Route::resource('jobs', JobController::class)->names('admin.jobs');
+    Route::get('jobs/{job}/applications', [JobApplicationController::class, 'index'])->name('admin.jobs.applications.index');
+    Route::get('applications/{application}/download-cv', [JobApplicationController::class, 'downloadCv'])->name('admin.applications.download_cv');
+    Route::patch('applications/{application}/status', [JobApplicationController::class, 'updateStatus'])->name('admin.applications.update_status');
 
     // Services CRUD
     Route::get('/services', [ServiceController::class, 'index'])->name('admin.services');
