@@ -11,69 +11,101 @@ class ServiceSeeder extends Seeder
     {
         $services = [
             [
-                'name' => 'Poli Umum',
-                'icon' => 'stethoscope',
-                'description' => 'Pelayanan kesehatan umum untuk berbagai keluhan penyakit dengan dokter yang berpengalaman dan peralatan medis lengkap.',
-                'operational_hours' => 'Senin - Minggu: 07:00 - 21:00',
+                'name' => 'Poli THT',
+                'icon' => 'ear',
+                'description' => 'Pelayanan kesehatan spesialis telinga, hidung, dan tenggorokan dengan peralatan medis yang lengkap.',
+                'operational_hours' => 'Senin - Sabtu: 08:00 - 15:00',
                 'status' => 'active'
             ],
             [
-                'name' => 'Poli Gigi & Mulut',
-                'icon' => 'tooth',
-                'description' => 'Perawatan dan pengobatan kesehatan gigi dan mulut dengan teknologi modern dan dokter gigi spesialis.',
-                'operational_hours' => 'Senin - Sabtu: 08:00 - 17:00',
+                'name' => 'Poli Orthopedi',
+                'icon' => 'bone',
+                'description' => 'Pelayanan khusus bedah tulang dan persendian dengan penanganan dari dokter spesialis orthopedi terbaik.',
+                'operational_hours' => 'Senin - Jumat: 09:00 - 16:00',
                 'status' => 'active'
             ],
             [
-                'name' => 'Poli Anak',
-                'icon' => 'baby',
-                'description' => 'Pelayanan kesehatan khusus untuk bayi, balita, dan anak-anak dengan pendekatan yang ramah dan menyenangkan.',
-                'operational_hours' => 'Setiap Hari: 08:00 - 20:00',
+                'name' => 'Poli Onkologi',
+                'icon' => 'ribbon',
+                'description' => 'Pelayanan untuk deteksi dini, pencegahan, dan pengobatan penyakit kanker secara komprehensif.',
+                'operational_hours' => 'Senin, Rabu, Jumat: 08:00 - 14:00',
                 'status' => 'active'
             ],
             [
-                'name' => 'Poli Bedah',
+                'name' => 'Poli Urologi',
+                'icon' => 'droplet',
+                'description' => 'Penanganan masalah sistem saluran kemih dan sistem reproduksi pria dengan teknologi terkini.',
+                'operational_hours' => 'Selasa & Kamis: 09:00 - 15:00',
+                'status' => 'active'
+            ],
+            [
+                'name' => 'Poli Bedah Umum',
                 'icon' => 'syringe',
-                'description' => 'Pelayanan bedah umum dan khusus dengan teknologi modern dan tim bedah berpengalaman.',
-                'operational_hours' => '24 Jam (IGD)',
+                'description' => 'Pelayanan bedah umum dengan fasilitas ruang operasi modern dan tim medis profesional.',
+                'operational_hours' => 'Senin - Sabtu: 08:00 - 16:00',
                 'status' => 'active'
             ],
             [
-                'name' => 'IGD (Gawat Darurat)',
-                'icon' => 'ambulance',
-                'description' => 'Unit Gawat Darurat yang siap melayani 24 jam dengan tim medis yang sigap, profesional, dan peralatan lengkap.',
-                'operational_hours' => '24 Jam Non-Stop',
-                'status' => 'active'
-            ],
-            [
-                'name' => 'Laboratorium',
-                'icon' => 'flask',
-                'description' => 'Pemeriksaan laboratorium lengkap dan akurat dengan peralatan medis terbaru untuk diagnosis yang tepat.',
-                'operational_hours' => 'Senin - Minggu: 06:00 - 22:00',
+                'name' => 'Poli Penyakit Dalam',
+                'icon' => 'stethoscope',
+                'description' => 'Pelayanan diagnosis dan penanganan masalah kesehatan organ dalam tubuh orang dewasa.',
+                'operational_hours' => 'Senin - Sabtu: 08:00 - 17:00',
                 'status' => 'active'
             ],
             [
                 'name' => 'Poli Jantung',
                 'icon' => 'heart',
-                'description' => 'Pelayanan spesialis jantung dengan EKG, treadmill test, dan pemeriksaan jantung komprehensif.',
-                'operational_hours' => 'Senin - Jumat: 08:00 - 16:00',
+                'description' => 'Pelayanan spesialis jantung komprehensif dengan dukungan fasilitas rekam jantung (EKG).',
+                'operational_hours' => 'Senin - Jumat: 08:00 - 15:00',
                 'status' => 'active'
             ],
             [
-                'name' => 'Poli Mata',
-                'icon' => 'eye',
-                'description' => 'Pelayanan kesehatan mata lengkap mulai dari pemeriksaan mata hingga tindakan operasi.',
-                'operational_hours' => 'Senin - Sabtu: 08:00 - 17:00',
+                'name' => 'Farmasi',
+                'icon' => 'pills',
+                'description' => 'Instalasi farmasi yang menyediakan obat-obatan berkualitas untuk pasien rawat inap maupun rawat jalan.',
+                'operational_hours' => '24 Jam',
                 'status' => 'active'
             ],
             [
-                'name' => 'Poli Saraf',
-                'icon' => 'brain',
-                'description' => 'Pelayanan spesialis saraf untuk diagnosis dan penanganan gangguan sistem saraf.',
-                'operational_hours' => 'Senin - Jumat: 09:00 - 15:00',
+                'name' => 'Labor Klinik & Patologi Anatomi',
+                'icon' => 'microscope',
+                'description' => 'Pelayanan laboratorium modern untuk tes darah, urine, serta pemeriksaan jaringan tubuh (Patologi Anatomi).',
+                'operational_hours' => 'Senin - Sabtu: 07:00 - 20:00',
+                'status' => 'active'
+            ],
+            [
+                'name' => 'Radiologi',
+                'icon' => 'x-ray',
+                'description' => 'Pelayanan penunjang diagnostik berupa Rontgen, USG, dan CT-Scan untuk mendiagnosis penyakit secara presisi.',
+                'operational_hours' => '24 Jam',
+                'status' => 'active'
+            ],
+            [
+                'name' => 'IGD',
+                'icon' => 'ambulance',
+                'description' => 'Instalasi Gawat Darurat (IGD) yang siap melayani kasus kegawatdaruratan medis setiap saat.',
+                'operational_hours' => '24 Jam Non-Stop',
+                'status' => 'active'
+            ],
+            [
+                'name' => 'Bedah Minor',
+                'icon' => 'band-aid',
+                'description' => 'Tindakan bedah ringan yang dapat dilakukan di ruang tindakan tanpa memerlukan rawat inap.',
+                'operational_hours' => 'Senin - Sabtu: 08:00 - 16:00',
+                'status' => 'active'
+            ],
+            [
+                'name' => 'Pelayanan Rawat Inap',
+                'icon' => 'bed',
+                'description' => 'Fasilitas kamar perawatan inap yang nyaman dan bersih, didukung perawat yang ramah dan siaga.',
+                'operational_hours' => '24 Jam',
                 'status' => 'active'
             ]
         ];
+
+        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Service::truncate();
+        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         foreach ($services as $service) {
             Service::create($service);

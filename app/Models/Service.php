@@ -20,18 +20,19 @@ class Service extends Model
     public function getIconClassAttribute()
     {
         $icons = [
-            'stethoscope' => 'fas fa-stethoscope',
-            'tooth' => 'fas fa-tooth',
-            'baby' => 'fas fa-baby',
-            'syringe' => 'fas fa-syringe',
-            'ambulance' => 'fas fa-ambulance',
-            'flask' => 'fas fa-flask',
-            'heart' => 'fas fa-heart-pulse',
-            'eye' => 'fas fa-eye',
-            'brain' => 'fas fa-brain',
-            'lungs' => 'fas fa-lungs',
-            'bone' => 'fas fa-bone',
             'ear' => 'fas fa-ear-deaf',
+            'bone' => 'fas fa-bone',
+            'ribbon' => 'fas fa-ribbon',
+            'droplet' => 'fas fa-droplet',
+            'syringe' => 'fas fa-syringe',
+            'stethoscope' => 'fas fa-stethoscope',
+            'heart' => 'fas fa-heart-pulse',
+            'pills' => 'fas fa-pills',
+            'microscope' => 'fas fa-microscope',
+            'x-ray' => 'fas fa-x-ray',
+            'ambulance' => 'fas fa-ambulance',
+            'band-aid' => 'fas fa-band-aid',
+            'bed' => 'fas fa-bed',
         ];
 
         return $icons[$this->icon] ?? 'fas fa-medkit';
@@ -40,18 +41,19 @@ class Service extends Model
     public function getModernIconAttribute()
     {
         $modernIcons = [
-            'stethoscope' => '🩺',
-            'tooth' => '🦷',
-            'baby' => '👶',
-            'syringe' => '💉',
-            'ambulance' => '🚑',
-            'flask' => '🧪',
-            'heart' => '❤️',
-            'eye' => '👁️',
-            'brain' => '🧠',
-            'lungs' => '🫁',
-            'bone' => '🦴',
             'ear' => '👂',
+            'bone' => '🦴',
+            'ribbon' => '🎗️',
+            'droplet' => '💧',
+            'syringe' => '💉',
+            'stethoscope' => '🩺',
+            'heart' => '❤️',
+            'pills' => '💊',
+            'microscope' => '🔬',
+            'x-ray' => '🩻',
+            'ambulance' => '🚑',
+            'band-aid' => '🩹',
+            'bed' => '🛏️',
         ];
 
         return $modernIcons[$this->icon] ?? '🏥';
