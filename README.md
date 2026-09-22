@@ -24,7 +24,9 @@
 
 ## 📖 Tentang Proyek
 
-**Halo Ropanasuri** adalah aplikasi web modern berbasis *AI Virtual Assistant* yang dirancang khusus untuk menangani interaksi pelanggan/pasien di Rumah Sakit Khusus Bedah Ropanasuri. Sistem ini memadukan kemampuan Generative AI (menggunakan Groq Cloud Llama 3) dengan *knowledge base* (FAQ) lokal untuk memberikan jawaban yang cepat, ramah, dan sangat akurat.
+**Halo Ropanasuri** adalah aplikasi web modern berbasis *AI Virtual Assistant* yang dirancang khusus untuk menangani interaksi pelanggan/pasien di Rumah Sakit Khusus Bedah (RSKB) Ropanasuri. Sistem ini mengintegrasikan portal publikasi konten (artikel/berita edukasi) dengan fitur komunikasi interaktif (chat) yang ditenagai oleh Generative AI (Groq Cloud Llama 3).
+
+Melalui platform ini, masyarakat dapat membaca artikel kesehatan terpercaya dan berinteraksi secara langsung dengan AI Assistant yang berbasis pada *knowledge base* (FAQ) lokal rumah sakit untuk mendapatkan jawaban yang cepat, ramah, dan akurat. Sementara itu, administrator dapat dengan mudah mengelola seluruh konten dan memantau riwayat interaksi pengguna.
 
 Sistem ini didesain dengan menjunjung tinggi batasan hukum medis: **AI diprogram secara ketat untuk tidak memberikan diagnosa, tidak merekomendasikan resep obat, dan tidak menjanjikan rincian biaya medis spesifik yang di luar SOP rumah sakit. AI juga dibatasi hanya untuk informasi di dalam ruang lingkup RSKB Ropanasuri.**
 
