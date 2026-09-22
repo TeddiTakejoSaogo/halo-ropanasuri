@@ -1,152 +1,96 @@
 <div align="center">
-  <h1 align="center">🏥 Halo Ropanasuri - AI Virtual Assistant</h1>
+  <img src="https://img.shields.io/badge/Sistem_Informasi-Rumah_Sakit-blue?style=for-the-badge" alt="Sistem Informasi" />
+  
+  <h1>🏥 Sistem Halo Ropanasuri</h1>
+  <h3>AI Virtual Assistant & Portal Edukasi Kesehatan</h3>
 
-  <p align="center">
-    Sistem Asisten Virtual Berbasis AI untuk Rumah Sakit Khusus Bedah (RSKB) Ropanasuri.
-    <br />
-    <br />
-    <a href="#about-the-project">Tentang Sistem</a>
-    ·
-    <a href="#features">Fitur Utama</a>
-    ·
-    <a href="#getting-started">Mulai Cepat</a>
-  </p>
-
-  <p align="center">
-    <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel" />
-    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
-    <img src="https://img.shields.io/badge/Groq_API-000000?style=for-the-badge&logo=openai&logoColor=white" alt="Groq API" />
-    <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+  <p>
+    Sebuah platform digital modern yang dikembangkan secara khusus untuk <b>Rumah Sakit Khusus Bedah (RSKB) Ropanasuri</b>.
   </p>
 </div>
 
 ---
 
-## 📖 Tentang Proyek
+## 📑 Pendahuluan
 
-**Halo Ropanasuri** adalah aplikasi web modern berbasis *AI Virtual Assistant* yang dirancang khusus untuk menangani interaksi pelanggan/pasien di Rumah Sakit Khusus Bedah (RSKB) Ropanasuri. Sistem ini mengintegrasikan portal publikasi konten (artikel/berita edukasi) dengan fitur komunikasi interaktif (chat) yang ditenagai oleh Generative AI (Groq Cloud Llama 3).
+Di era digitalisasi informasi saat ini, aksesibilitas terhadap informasi kesehatan dan kemudahan komunikasi menjadi sangat penting. **Halo Ropanasuri** hadir sebagai solusi terpadu yang menjembatani komunikasi antara pihak rumah sakit dan pasien/masyarakat umum. 
 
-Melalui platform ini, masyarakat dapat membaca artikel kesehatan terpercaya dan berinteraksi secara langsung dengan AI Assistant yang berbasis pada *knowledge base* (FAQ) lokal rumah sakit untuk mendapatkan jawaban yang cepat, ramah, dan akurat. Sementara itu, administrator dapat dengan mudah mengelola seluruh konten dan memantau riwayat interaksi pengguna.
-
-Sistem ini didesain dengan menjunjung tinggi batasan hukum medis: **AI diprogram secara ketat untuk tidak memberikan diagnosa, tidak merekomendasikan resep obat, dan tidak menjanjikan rincian biaya medis spesifik yang di luar SOP rumah sakit. AI juga dibatasi hanya untuk informasi di dalam ruang lingkup RSKB Ropanasuri.**
-
-### 🚀 Teknologi yang Digunakan
-
-*   [Laravel 12](https://laravel.com) - Framework backend PHP.
-*   [Tailwind CSS 4](https://tailwindcss.com/) - Framework CSS berbasis utilitas.
-*   [Groq Cloud API](https://groq.com/) - Mesin pemroses LLM (Llama 3) yang sangat cepat.
-*   [Alpine.js](https://alpinejs.dev/) - Framework JS minimalis untuk interaktivitas UI frontend.
-*   [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze) - Sistem autentikasi.
+Sistem ini bukan sekadar portal berita, melainkan sebuah **Asisten Virtual Berbasis Kecerdasan Buatan (AI)** yang dirancang untuk memberikan pelayanan publik yang responsif, akurat, dan sangat manusiawi, selama 24 jam penuh.
 
 ---
 
-## ✨ Fitur Utama
+## 🎯 Tujuan & Solusi Utama
 
-1. **AI Chat Assistant (Pasien/User)**
-   - Algoritma pencocokan kata kunci dan *scoring* berbasis FAQ untuk mencari konteks.
-   - Pembangkitan bahasa alami (*natural language generation*) menggunakan Groq API.
-   - **Medical Guardrails:** Sistem dapat mendeteksi kata kunci kondisi darurat medis dan segera menyarankan IGD. AI juga secara cerdas menolak pertanyaan seputar diagnosis atau resep obat.
-   - Deteksi sentimen dasar (misalnya kata panik/cemas) akan memicu respon yang lebih empatik.
-   - Pilihan pertanyaan rekomendasi (Follow-ups) yang dinamis.
-   - Validasi ketat yang membatasi jawaban hanya di sekitar lingkup RSKB Ropanasuri, dan mengarahkan ke [website resmi](http://ropanasuri.com/) untuk info umum.
+Platform ini dirancang untuk menyelesaikan dua kebutuhan utama:
+1. **Penyebaran Informasi:** Memudahkan masyarakat mendapatkan informasi kesehatan yang valid dan terkurasi melalui sistem manajemen artikel yang baik.
+2. **Layanan Bantuan Cerdas:** Menyediakan layanan *Customer Service* otomatis berbasis AI yang mampu menjawab pertanyaan umum, menangani keluhan, dan memberikan panduan layanan rumah sakit secara *real-time*.
 
-2. **Panel Admin (Manajemen)**
-   - **Dashboard Statistik:** Ringkasan jumlah FAQ, log percakapan, dan metrik lainnya.
-   - **Manajemen FAQ & Keywords:** Kelola basis pengetahuan AI. Setiap FAQ bisa diikat dengan beberapa kata kunci beserta *weight* (bobotnya) untuk mengoptimalkan pencarian AI.
-   - **Riwayat Chat (Chat Logs):** Pemantauan seluruh pertanyaan yang diajukan oleh user beserta status kembalian (terjawab, darurat, di luar batas, dll) untuk evaluasi CS.
-   - **Manajemen Artikel:** Pusat informasi pendukung atau berita edukasi kesehatan dari rumah sakit.
+> [!IMPORTANT]
+> **Protokol Keselamatan Medis (Guardrails)**
+> Sistem AI ini didesain dengan menjunjung tinggi etika dan batasan hukum medis. AI diprogram secara ketat untuk **tidak memberikan diagnosa**, **tidak merekomendasikan resep obat**, dan akan segera menyarankan tindakan IGD apabila mendeteksi kata kunci kondisi darurat medis.
 
 ---
 
-## 📊 Kapasitas & Batasan Percakapan (Rate Limits)
+## ✨ Fungsionalitas Sistem
 
-Jika sistem "Halo Ropanasuri" ini dipublikasikan (di-deploy ke server produksi), jumlah percakapan yang bisa ditangani bergantung pada dua faktor utama:
+Sistem ini dibagi menjadi dua antarmuka utama yang disesuaikan dengan kebutuhan penggunanya:
 
-1. **Batasan dari API AI (Groq Cloud)**
-   Sistem ini memanggil API eksternal dari Groq Cloud untuk pemrosesan bahasa alami.
-   - **Akun Gratis (Free Tier):** Biasanya dibatasi hingga **14.400 percakapan per hari** (maksimal 30 *request* per menit). Kuota ini sudah sangat memadai untuk aktivitas harian standar.
-   - **Akun Berbayar (Pay-as-you-go):** Jika menggunakan sistem berbayar, batasannya praktis **tidak terbatas** dan akan mengikuti anggaran (*budget*) yang Anda atur.
+### 👤 Untuk Pengguna (Pasien / Masyarakat)
+* **🤖 AI Live Chat (Asisten Virtual):** Fasilitas obrolan interaktif. Pengguna dapat bertanya seputar jadwal dokter, layanan poli, hingga prosedur pendaftaran. AI akan menjawab secara natural berkat integrasi **Groq Cloud Llama 3**.
+* **📰 Portal Artikel Edukatif:** Halaman publikasi untuk membaca berbagai artikel, tips kesehatan, dan berita terbaru yang dirilis resmi oleh tim medis Ropanasuri.
+* **📱 Antarmuka Responsif:** Desain modern yang nyaman diakses melalui *smartphone* (mobile-friendly) maupun komputer *desktop*.
 
-2. **Kapasitas Server Internal (Hosting / Laravel)**
-   - Dari sisi kode (*backend* Laravel), **tidak ada batasan (*no hard limit*)** jumlah percakapan.
-   - Performa untuk menangani banyak pengunjung dalam waktu bersamaan (*concurrency*) murni ditentukan oleh spesifikasi RAM dan CPU dari server hosting Anda.
-   - Aplikasi juga telah dilengkapi sistem pertahanan (*error handling/fallback*) seandainya limit API Groq terlampaui (Error 429), sehingga aplikasi tidak akan crash.
+### 👨‍💻 Untuk Administrator (Staf RS)
+* **📊 Dashboard Analitik:** Panel ringkasan yang menyajikan statistik penggunaan aplikasi, jumlah interaksi chat, dan performa AI.
+* **🧠 Manajemen Knowledge Base (FAQ):** Modul untuk melatih AI. Admin dapat menambahkan pertanyaan dan jawaban (FAQ) beserta *keywords* dan pembobotannya (*weight*), yang akan langsung dipelajari oleh AI.
+* **📝 Content Management System (CMS):** Sistem untuk menulis, mengedit, dan mempublikasikan artikel edukasi kesehatan.
+* **🕵️‍♂️ Monitoring Riwayat Chat:** Akses penuh untuk meninjau seluruh percakapan antara pasien dan AI guna mengevaluasi kualitas layanan dan mengidentifikasi tren kebutuhan pasien.
 
 ---
 
-## 🛠️ Mulai Cepat (Getting Started)
+## 🛠️ Arsitektur Teknologi
 
-Langkah-langkah untuk menjalankan proyek ini di *local environment* Anda.
+Sistem dibangun menggunakan *stack* teknologi modern tingkat *Enterprise* untuk memastikan keamanan, kecepatan, dan skalabilitas jangka panjang:
 
-### Prasyarat
+- **Core Framework:** [Laravel 12](https://laravel.com) (PHP 8.2) - Menjamin keamanan data pasien dan ketangguhan sistem backend.
+- **AI Processing:** [Groq API](https://groq.com/) - Mesin inferensi LLM (Large Language Model) tercepat di dunia saat ini.
+- **Frontend & UI/UX:** [Tailwind CSS 4](https://tailwindcss.com/) & Alpine.js - Menghasilkan antarmuka yang sangat dinamis, ringan, dan elegan.
+- **Database:** MySQL/MariaDB yang dioptimalkan untuk pencarian relasional berbasis konteks.
 
-Pastikan komputer Anda memiliki:
-*   **PHP** >= 8.2
-*   **Composer**
-*   **Node.js & npm**
-*   **Database** (MySQL, MariaDB, dll.)
-*   **Akun Groq Cloud** (Untuk mendapatkan `GROQ_API_KEY`)
+---
 
-### Instalasi
+## 🚀 Panduan Instalasi (Untuk Developer)
 
-1. **Clone repository ini**
+Bagi tim IT yang ingin melakukan *deployment* atau pengembangan lanjutan, ikuti langkah berikut:
+
+1. **Persiapan:** Pastikan PHP 8.2+, Composer, Node.js, dan MySQL telah terinstal.
+2. **Kloning Repositori:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/TeddiTakejoSaogo/halo-ropanasuri.git
    cd halo-ropanasuri
    ```
-
-2. **Install dependensi PHP**
+3. **Instalasi Dependensi:**
    ```bash
    composer install
-   ```
-
-3. **Install dependensi Node**
-   ```bash
    npm install
    ```
-
-4. **Konfigurasi Environment**
-   Duplikat file `.env.example` menjadi `.env`.
+4. **Konfigurasi Environment:**
    ```bash
    cp .env.example .env
-   ```
-   Atur koneksi database Anda di file `.env`:
-   ```env
-   DB_DATABASE=db_halo_ropanasuri
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-   Tambahkan API Key Groq Anda:
-   ```env
-   GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxx
-   ```
-
-5. **Generate Application Key**
-   ```bash
    php artisan key:generate
    ```
-
-6. **Migrasi Database & Seeder**
-   Jalankan perintah ini untuk membangun tabel database dan menyuntikkan data *dummy* (termasuk FAQ default dan Akun Admin).
+   *Atur koneksi database Anda di file `.env`, dan jangan lupa masukkan `GROQ_API_KEY` Anda.*
+5. **Migrasi Data Dasar:**
    ```bash
    php artisan migrate --seed
    ```
-   *Akun Admin Default (Cek `AdminUserSeeder.php`):*
-   - Email: `admin@ropanasuri.id`
-   - Password: `ropanasuri2025`
-
-7. **Jalankan Development Server**
-   Anda bisa menggunakan satu perintah ini:
+6. **Jalankan Server:**
    ```bash
    composer run dev
    ```
-   Atau menjalankannya secara terpisah:
-   ```bash
-   php artisan serve
-   npm run dev
-   ```
-
-8. Buka browser dan akses: `http://localhost:8000`
 
 ---
-<p align="center">Dikembangkan untuk memberikan pelayanan prima bagi pasien RSKB Ropanasuri 🏥</p>
+<div align="center">
+  <p><b>Halo Ropanasuri</b> — <i>Melayani dengan Teknologi, Menyembuhkan dengan Hati.</i></p>
+  <p>© 2026 Rumah Sakit Khusus Bedah Ropanasuri</p>
+</div>
