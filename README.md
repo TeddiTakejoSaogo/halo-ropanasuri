@@ -91,6 +91,6 @@ Bagi tim IT yang ingin melakukan *deployment* atau pengembangan lanjutan, ikuti 
 
 ---
 <div align="center">
-  <p><b>Halo Ropanasuri</b> — <i>Melayani dengan Teknologi, Menyembuhkan dengan Hati.</i></p>
+  <p><b>Halo Ropanasuri</b></p>
   <p>© 2026 Rumah Sakit Khusus Bedah Ropanasuri</p>
 </div>
