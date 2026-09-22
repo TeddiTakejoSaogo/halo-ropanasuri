@@ -9,10 +9,10 @@
         <i class="fas fa-sync-alt mr-2"></i>
         Refresh
     </button>
-    <button class="px-4 py-2 bg-ropanasuri-600 text-white rounded-xl hover:bg-ropanasuri-700 transition flex items-center text-sm">
+    <a href="{{ route('admin.chat.export') }}" class="px-4 py-2 bg-ropanasuri-600 text-white rounded-xl hover:bg-ropanasuri-700 transition flex items-center text-sm">
         <i class="fas fa-download mr-2"></i>
         Export Laporan
-    </button>
+    </a>
 @endsection
 
 @section('content')
@@ -143,25 +143,8 @@
                 </div>
             </div>
             
-            <!-- Simple Bar Chart -->
-            <div class="space-y-3">
-                @foreach($weeklyStats ?? [] as $stat)
-                <div class="flex items-center">
-                    <div class="w-20 text-xs text-gray-600">{{ $stat['date'] }}</div>
-                    <div class="flex-1 flex items-center gap-1">
-                        <div class="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-ropanasuri-500 rounded-full" style="width: {{ $stat['found_percentage'] }}%"></div>
-                        </div>
-                        <div class="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-yellow-400 rounded-full" style="width: {{ $stat['not_found_percentage'] }}%"></div>
-                        </div>
-                        <span class="w-16 text-xs text-gray-700 text-right">
-                            {{ $stat['total'] }} chat
-                        </span>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+            <!-- ApexCharts Container -->
+            <div id="chatActivityChart" class="w-full h-72 mt-2"></div>
         </div>
         
         <!-- Top FAQ -->
@@ -358,10 +341,98 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    // Simple auto-refresh untuk dashboard (opsional)
-    // setTimeout(function() {
-    //     window.location.reload();
-    // }, 60000); // Refresh setiap 60 detik
+    document.addEventListener('DOMContentLoaded', function () {
+        const weeklyStats = @json($weeklyStats ?? []);
+        
+        // Membalik urutan agar dari hari terlama ke terbaru (kiri ke kanan)
+        const categories = weeklyStats.map(s => s.date).reverse();
+        const dataFound = weeklyStats.map(s => s.found).reverse();
+        const dataNotFound = weeklyStats.map(s => s.not_found).reverse();
+
+        var options = {
+            series: [{
+                name: 'Terjawab',
+                data: dataFound
+            }, {
+                name: 'Tidak ditemukan',
+                data: dataNotFound
+            }],
+            chart: {
+                type: 'bar',
+                height: 280,
+                stacked: true,
+                toolbar: {
+                    show: false
+                },
+                zoom: {
+                    enabled: false
+                }
+            },
+            colors: ['#10b981', '#fbbf24'], // Emerald-500 (Terjawab), Amber-400 (Tidak ditemukan)
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 4,
+                    columnWidth: '40%',
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                width: 0,
+            },
+            xaxis: {
+                categories: categories,
+                labels: {
+                    style: {
+                        colors: '#6b7280',
+                        fontSize: '12px',
+                        fontFamily: 'Inter, sans-serif'
+                    }
+                },
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                }
+            },
+            yaxis: {
+                labels: {
+                    formatter: function(val) {
+                        return Math.floor(val);
+                    },
+                    style: {
+                        colors: '#6b7280',
+                        fontSize: '12px',
+                        fontFamily: 'Inter, sans-serif'
+                    }
+                }
+            },
+            legend: {
+                show: false // Kita sudah punya legend custom di atas chart
+            },
+            fill: {
+                opacity: 1
+            },
+            grid: {
+                borderColor: '#f3f4f6',
+                strokeDashArray: 4,
+                yaxis: {
+                    lines: {
+                        show: true
+                    }
+                }
+            }
+        };
+
+        if (document.querySelector("#chatActivityChart")) {
+            var chart = new ApexCharts(document.querySelector("#chatActivityChart"), options);
+            chart.render();
+        }
+    });
 </script>
 @endpush

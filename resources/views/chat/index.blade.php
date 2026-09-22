@@ -1,342 +1,335 @@
 @extends('layouts.app')
 
-@section('title', 'Halo-Ropanasuri')
+@section('title', 'Halo-Ropanasuri - Pusat Informasi Kesehatan')
 
 @section('content')
 @php
     $hour = date('H');
     if ($hour < 11) {
         $greeting = 'Selamat Pagi';
+        $greetIcon = 'fa-sun';
     } elseif ($hour < 15) {
         $greeting = 'Selamat Siang';
+        $greetIcon = 'fa-sun';
     } elseif ($hour < 18) {
         $greeting = 'Selamat Sore';
+        $greetIcon = 'fa-cloud-sun';
     } else {
         $greeting = 'Selamat Malam';
+        $greetIcon = 'fa-moon';
     }
 @endphp
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 max-w-7xl mx-auto">
+
+<!-- Background Decoration -->
+<div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+    <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-ropanasuri-400/10 dark:bg-ropanasuri-600/10 rounded-full blur-[120px]"></div>
+    <div class="absolute top-[10%] -right-[10%] w-[40%] h-[40%] bg-emerald-400/10 dark:bg-emerald-600/10 rounded-full blur-[100px]"></div>
+</div>
+
+<div class="flex flex-col min-h-screen">
     
-    <!-- Sidebar Kiri: Info & Stats (Desktop) -->
-    <div class="hidden lg:flex lg:col-span-3 flex-col gap-6">
+    <!-- HERO SECTION & SMART SEARCH -->
+    <div id="top-section-wrapper" class="relative w-full max-w-[95rem] mx-auto pt-12 md:pt-16 pb-10 px-4 xl:px-8 flex flex-col lg:flex-row items-center justify-center lg:items-start gap-0 lg:gap-8 transition-all duration-700 ease-in-out">
         
-        <!-- Welcome Card -->
-        <div class="relative overflow-hidden rounded-[2rem] bg-white/60 dark:bg-gray-800/60 backdrop-blur-2xl border border-white/80 dark:border-gray-700 shadow-sm p-7 transition-all duration-500 hover:shadow-md hover:bg-white/80 dark:hover:bg-gray-800 group">
-            <div class="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-ropanasuri-400/20 to-emerald-400/20 dark:from-ropanasuri-600/20 dark:to-emerald-600/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
-            
-            <div class="flex flex-col mb-5 relative z-10">
-                <div class="w-12 h-12 bg-white dark:bg-gray-700 rounded-2xl flex items-center justify-center text-ropanasuri-600 dark:text-ropanasuri-400 shadow-sm border border-gray-100 dark:border-gray-600 mb-4 group-hover:-translate-y-1 transition-transform duration-300">
-                    <i class="fas fa-hand-holding-medical text-xl"></i>
+        <!-- LEFT WIDGETS (IDLE STATE) -->
+        <div id="left-floating-widgets" class="hidden xl:flex w-[280px] flex-col gap-6 shrink-0 transition-all duration-700 opacity-100 translate-x-0 mt-8">
+            <!-- Widget: Jam Besuk -->
+            <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-3xl p-5 border border-gray-100 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 transition-transform">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800 dark:text-gray-100">Jam Besuk</h4>
                 </div>
-                <div>
-                    <h3 class="text-xl font-extrabold text-gray-800 dark:text-gray-100 tracking-tight">{{ $greeting }}!</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">{{ now()->translatedFormat('l, d F Y') }}</p>
-                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Pagi: 10:00 - 12:00 WIB<br>Sore: 17:00 - 19:00 WIB</p>
             </div>
-            <p class="text-[13px] text-gray-600 dark:text-gray-300 leading-relaxed relative z-10 font-medium">
-                Asisten virtual Ropanasuri siap mendampingi Anda. Tanyakan seputar layanan, jadwal, maupun fasilitas.
+            
+            <!-- Widget: Call Center -->
+            <div class="bg-gradient-to-br from-ropanasuri-500 to-emerald-500 rounded-3xl p-5 border border-ropanasuri-400 shadow-xl shadow-ropanasuri-500/20 hover:-translate-y-1 transition-transform text-white">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4 class="font-bold">Call Center</h4>
+                </div>
+                <p class="text-sm text-white/90 font-medium mb-1">Layanan Informasi 24 Jam</p>
+                <p class="text-xl font-black tracking-wider">(0751) 123456</p>
+            </div>
+        </div>
+
+        <!-- HERO CONTENT -->
+        <div id="hero-content" class="w-full max-w-4xl lg:max-w-5xl flex flex-col items-center text-center transition-all duration-700 ease-in-out relative z-20 xl:mx-4">
+            <div id="hero-badge" class="inline-flex items-center space-x-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm mb-6 animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-bold text-gray-700 dark:text-gray-300">{{ __('messages.online_fast_response') }}</span>
+            </div>
+
+            <h1 id="hero-title" class="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 tracking-tight mb-6 leading-tight animate-fade-in-up transition-all duration-700" style="animation-delay: 0.1s;">
+                Apa yang ingin Anda ketahui <span class="bg-gradient-to-r from-ropanasuri-500 to-emerald-500 text-transparent bg-clip-text">hari ini?</span>
+            </h1>
+            
+            <p id="hero-desc" class="text-gray-500 dark:text-gray-400 text-base md:text-lg mb-10 max-w-2xl font-medium animate-fade-in-up transition-all duration-700" style="animation-delay: 0.2s;">
+                Cari informasi jadwal dokter, layanan spesialis, panduan BPJS, ketersediaan kamar, atau tanyakan langsung pada asisten AI kami.
             </p>
-            <div class="mt-5 pt-5 border-t border-gray-200/50 dark:border-gray-700/50 relative z-10">
-                <div class="flex items-center text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 w-fit px-3 py-1.5 rounded-xl border border-emerald-100/50 dark:border-emerald-800/50">
-                    <span class="relative flex h-2 w-2 mr-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    {{ __('messages.online_fast_response') }}
-                </div>
-            </div>
-        </div>
-        
-        <!-- Panduan Darurat -->
-        <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-red-50 to-rose-50/80 dark:from-red-900/30 dark:to-rose-900/20 backdrop-blur-xl border border-red-100/50 dark:border-red-800/30 shadow-sm p-7 group transition-all duration-500 hover:shadow-md">
-            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-red-400/10 dark:bg-red-500/10 rounded-full blur-2xl group-hover:bg-red-400/20 transition-colors duration-700"></div>
-            
-            <div class="flex items-center mb-4 relative z-10">
-                <div class="w-10 h-10 rounded-xl bg-red-100/80 dark:bg-red-900/50 text-red-600 dark:text-red-400 flex items-center justify-center mr-3 shadow-inner">
-                    <i class="fas fa-truck-medical text-sm animate-pulse"></i>
-                </div>
-                <h4 class="text-sm font-bold text-red-700 dark:text-red-300 tracking-tight">{{ __('messages.emergency_triage') }}</h4>
-            </div>
-            
-            <div class="space-y-4 relative z-10">
-                <p class="text-xs text-red-800/80 dark:text-red-300/80 leading-relaxed font-medium">{{ __('messages.emergency_triage_desc') }}</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-2.5 py-1 bg-white/90 dark:bg-gray-800 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800/50 rounded-lg text-[10px] font-bold shadow-sm cursor-default">{{ __('messages.bleeding') }}</span>
-                    <span class="px-2.5 py-1 bg-white/90 dark:bg-gray-800 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800/50 rounded-lg text-[10px] font-bold shadow-sm cursor-default">{{ __('messages.severe_pain') }}</span>
-                    <span class="px-2.5 py-1 bg-white/90 dark:bg-gray-800 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800/50 rounded-lg text-[10px] font-bold shadow-sm cursor-default">{{ __('messages.shortness_of_breath') }}</span>
-                    <span class="px-2.5 py-1 bg-white/90 dark:bg-gray-800 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-800/50 rounded-lg text-[10px] font-bold shadow-sm cursor-default">{{ __('messages.fainting') }}</span>
-                </div>
-                <p class="text-[10px] text-red-600/80 dark:text-red-400/90 leading-relaxed font-bold bg-red-100/50 dark:bg-red-900/30 p-2.5 rounded-xl border border-red-100/50 dark:border-red-800/30 flex items-start">
-                    <i class="fas fa-bolt text-amber-500 mr-1.5 mt-0.5"></i> {{ __('messages.instant_access_er') }}
-                </p>
-            </div>
-        </div>
-    </div>
-        
 
-
-    <!-- Kolom Tengah: Chat Area -->
-    <div class="lg:col-span-6 flex flex-col h-[calc(100vh-140px)] min-h-[600px]">
-        <div class="flex-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-[2rem] shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 border border-white dark:border-gray-700 flex flex-col overflow-hidden relative">
-            
-            <!-- Chat Header -->
-            <div class="px-6 py-4 flex items-center justify-between border-b border-gray-100/80 dark:border-gray-700/80 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md z-20">
-                <div class="flex items-center">
-                    <div class="relative group cursor-pointer">
-                        <div class="w-12 h-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-2xl flex items-center justify-center shadow-sm border border-gray-100 dark:border-gray-600 p-2 transition-transform duration-300 group-hover:scale-105">
-                            <img src="{{ asset("images/airopanasuri.png") }}" alt="AI" class="w-full h-full object-contain filter drop-shadow-sm">
+            <!-- Search Box / Chat Form (Hero) -->
+            <div id="hero-search-container" class="w-full max-w-3xl relative z-20 animate-fade-in-up transition-all duration-700" style="animation-delay: 0.3s;">
+                <form id="hero-chat-form" class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+                        <i class="fas fa-sparkles text-ropanasuri-500 text-xl group-focus-within:animate-pulse transition-transform"></i>
+                    </div>
+                    <input type="text" id="hero-question-input" autocomplete="off" 
+                        class="block w-full pl-16 pr-[100px] py-5 md:py-6 bg-white dark:bg-gray-800 border-2 border-white/50 dark:border-gray-700 shadow-xl shadow-gray-200/50 dark:shadow-gray-900/50 focus:border-ropanasuri-400 dark:focus:border-ropanasuri-500 rounded-full focus:ring-4 focus:ring-ropanasuri-50 dark:focus:ring-ropanasuri-900/30 transition-all duration-300 text-lg md:text-xl text-gray-800 dark:text-gray-100 placeholder-gray-400 font-medium" 
+                        placeholder="{{ __('messages.type_question_here') }}">
+                    <div class="absolute inset-y-0 right-3 flex items-center space-x-2">
+                        <button type="button" class="mic-btn p-3 text-gray-400 hover:text-ropanasuri-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all" title="{{ __('messages.use_voice') }}">
+                            <i class="fas fa-microphone text-xl"></i>
+                        </button>
+                        <button type="submit" class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-ropanasuri-500 to-emerald-500 dark:from-ropanasuri-600 dark:to-emerald-600 text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-ropanasuri-500/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
+                            <i class="fas fa-paper-plane text-lg md:text-xl ml-[-2px]"></i>
+                        </button>
+                    </div>
+                </form>
+                <div id="form-disclaimer" class="mt-4 flex items-center justify-center space-x-2 text-[11px] md:text-xs text-gray-400 dark:text-gray-500 font-medium transition-all duration-700">
+                    <i class="fas fa-lock"></i>
+                    <span>Percakapan aman & terenkripsi. Hindari membagikan data medis sensitif.</span>
+                </div>
+            </div>
+            <!-- QUICK CATEGORIES (Moved Inside Hero Content) -->
+            <div id="quick-categories" class="w-full mt-16 mb-4 px-2 relative z-10 transition-all duration-500 delay-150 animate-fade-in-up">
+                <h3 class="text-center lg:text-left text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-6 transition-all" id="quick-cat-title">Pencarian Cepat</h3>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" id="quick-categories-grid">
+                    <!-- Card 1 -->
+                    <button class="quick-question group flex flex-col items-center justify-center p-5 bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 border border-gray-100 dark:border-gray-700 hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-400 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-user-md text-xl"></i>
                         </div>
-                        <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                        <span class="font-bold text-gray-800 dark:text-gray-100 text-xs md:text-sm tracking-tight text-center">Jadwal Dokter</span>
+                    </button>
+                    <!-- Card 2 -->
+                    <button class="quick-question group flex flex-col items-center justify-center p-5 bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-emerald-500/10 border border-gray-100 dark:border-gray-700 hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 dark:text-emerald-400 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-bed text-xl"></i>
+                        </div>
+                        <span class="font-bold text-gray-800 dark:text-gray-100 text-xs md:text-sm tracking-tight text-center">Info Kamar</span>
+                    </button>
+                    <!-- Card 3 -->
+                    <button class="quick-question group flex flex-col items-center justify-center p-5 bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-blue-500/10 border border-gray-100 dark:border-gray-700 hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-id-card text-xl"></i>
+                        </div>
+                        <span class="font-bold text-gray-800 dark:text-gray-100 text-xs md:text-sm tracking-tight text-center">Info BPJS</span>
+                    </button>
+                    <!-- Card 4 (Emergency) -->
+                    <button class="quick-question group flex flex-col items-center justify-center p-5 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-red-500/10 border border-red-100 dark:border-red-800/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-red-400/10 dark:bg-red-500/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+                        <div class="w-12 h-12 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 relative z-10 shadow-inner">
+                            <i class="fas fa-truck-medical text-xl animate-pulse"></i>
+                        </div>
+                        <span class="font-bold text-red-700 dark:text-red-400 text-xs md:text-sm tracking-tight text-center relative z-10">Darurat</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Chat Results Area -->
+        <div id="chat-results-container" class="w-full relative z-30 transition-all duration-700 ease-in-out">
+            <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-[2rem] shadow-2xl shadow-gray-300/50 dark:shadow-black/50 border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col h-[500px]">
+                
+                <!-- Chat Header -->
+                <div class="px-6 py-4 bg-gray-50/80 dark:bg-gray-900/80 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center z-10 relative">
+                    <div class="flex items-center">
+                        <div class="relative mr-3">
+                            <div class="w-10 h-10 bg-white dark:bg-gray-700 rounded-xl flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600 p-1">
+                                <img src="{{ asset('images/airopanasuri.png') }}" alt="AI" class="w-full h-full object-contain filter drop-shadow-sm">
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-gray-800 dark:text-gray-100 tracking-tight text-sm md:text-base">Halo-Ropanasuri AI</h3>
+                            <p class="text-[10px] text-gray-500 dark:text-gray-400 font-medium">Asisten Virtual Interaktif</p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <h2 class="text-gray-800 dark:text-gray-100 font-extrabold text-lg flex items-center tracking-tight">
-                            Halo-Ropanasuri
-                            <span class="ml-2.5 px-2 py-0.5 bg-ropanasuri-50 dark:bg-ropanasuri-900/50 text-ropanasuri-600 dark:text-ropanasuri-400 rounded-md text-[9px] font-bold uppercase tracking-wider border border-ropanasuri-100 dark:border-ropanasuri-800/50">AI v1.0</span>
-                        </h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-[11px] font-medium mt-0.5 flex items-center">
-                            {{ __('messages.online_fast_response') }}
-                        </p>
-                    </div>
+                    <button type="button" id="close-chat" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-times text-sm"></i>
+                    </button>
                 </div>
                 
-                <!-- Action Buttons -->
-                <div class="flex space-x-1">
-                    <button class="p-2.5 hover:bg-gray-100 rounded-xl transition-colors text-gray-400 hover:text-gray-600">
-                        <i class="fas fa-ellipsis-h"></i>
+                <!-- Chat Messages -->
+                <div id="chat-messages" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 custom-scrollbar bg-transparent relative z-0 scroll-smooth">
+                    <!-- Welcome Message -->
+                    <div class="flex items-start animate-fade-in-up mb-4">
+                        <div class="w-9 h-9 bg-gradient-to-br from-ropanasuri-500 to-ropanasuri-600 rounded-2xl flex items-center justify-center text-white font-bold text-[10px] mr-3 flex-shrink-0 shadow-md">AI</div>
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-sm p-4 md:p-5 shadow-sm border border-gray-100 dark:border-gray-600 max-w-[85%]">
+                            <p class="text-gray-700 dark:text-gray-200 leading-relaxed text-[14px]">
+                                👋 {{ $greeting }}! {!! __('messages.ai_welcome') !!}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inner Chat Form (Active State) -->
+                <div class="p-4 bg-gray-50 dark:bg-gray-900/80 border-t border-gray-100 dark:border-gray-700">
+                    <form id="inner-chat-form" class="relative group">
+                        <input type="text" id="inner-question-input" autocomplete="off" 
+                            class="block w-full pl-4 pr-16 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-sm focus:border-ropanasuri-400 dark:focus:border-ropanasuri-500 rounded-xl focus:ring-2 focus:ring-ropanasuri-50 dark:focus:ring-ropanasuri-900/30 transition-all duration-300 text-sm text-gray-800 dark:text-gray-100 placeholder-gray-400 font-medium" 
+                            placeholder="{{ __('messages.type_question_here') }}">
+                        <div class="absolute inset-y-0 right-2 flex items-center space-x-1">
+                            <button type="button" class="mic-btn p-2 text-gray-400 hover:text-ropanasuri-500 rounded-lg transition-all">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button type="submit" class="w-8 h-8 bg-ropanasuri-500 hover:bg-ropanasuri-600 text-white rounded-lg shadow-sm transition-all flex items-center justify-center">
+                                <i class="fas fa-paper-plane text-xs"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT WIDGETS (IDLE STATE) -->
+        <div id="right-floating-widgets" class="hidden xl:flex w-[280px] flex-col gap-6 shrink-0 transition-all duration-700 opacity-100 translate-x-0 mt-8">
+            <!-- Widget: Layanan Cepat -->
+            <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-3xl p-5 border border-gray-100 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 transition-transform">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-900/40 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800 dark:text-gray-100">Poliklinik</h4>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="quickAsk('Jadwal Poli Penyakit Dalam')" class="w-full text-left text-sm text-gray-600 dark:text-gray-300 hover:text-ropanasuri-600 dark:hover:text-ropanasuri-400 font-medium flex justify-between items-center group">
+                        <span>Penyakit Dalam</span>
+                        <i class="fas fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                    <button onclick="quickAsk('Jadwal Poli Onkologi')" class="w-full text-left text-sm text-gray-600 dark:text-gray-300 hover:text-ropanasuri-600 dark:hover:text-ropanasuri-400 font-medium flex justify-between items-center group">
+                        <span>Spesialis Onkologi</span>
+                        <i class="fas fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                    <button onclick="quickAsk('Jadwal Poli Urologi')" class="w-full text-left text-sm text-gray-600 dark:text-gray-300 hover:text-ropanasuri-600 dark:hover:text-ropanasuri-400 font-medium flex justify-between items-center group">
+                        <span>Spesialis Urologi</span>
+                        <i class="fas fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                    <button onclick="quickAsk('Jadwal Poli THT')" class="w-full text-left text-sm text-gray-600 dark:text-gray-300 hover:text-ropanasuri-600 dark:hover:text-ropanasuri-400 font-medium flex justify-between items-center group">
+                        <span>Spesialis THT</span>
+                        <i class="fas fa-chevron-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                 </div>
             </div>
             
-            <!-- Chat Messages -->
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 bg-gray-50/30 dark:bg-gray-900/30 space-y-2 scroll-smooth relative z-10 custom-scrollbar">
-                <!-- Welcome Message -->
-                <div class="flex items-start group animate-fade-in-up mb-4">
-                    <div class="w-9 h-9 bg-gradient-to-br from-ropanasuri-500 to-ropanasuri-600 rounded-2xl flex items-center justify-center text-white font-bold text-[10px] mr-3 flex-shrink-0 shadow-md">
-                        AI
+            <!-- Widget: Greeting -->
+            <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-3xl p-5 border border-gray-100 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden group hover:-translate-y-1 transition-transform">
+                <div class="absolute -right-6 -top-6 w-24 h-24 bg-amber-400/20 dark:bg-amber-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                <div class="flex items-center space-x-3 mb-2 relative z-10">
+                    <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                        <i class="fas {{ $greetIcon }}"></i>
                     </div>
-                    <div class="flex-1 max-w-[85%]">
-                        <div class="bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm p-5 shadow-sm border border-gray-100 dark:border-gray-700 transition-shadow hover:shadow-md">
-                            <p class="text-gray-700 dark:text-gray-200 leading-relaxed text-[14px]">
-                                👋 {{ $greeting }}! {!! __('messages.ai_welcome') !!}
-                            </p>
-                            <p class="text-gray-500 dark:text-gray-400 mt-3 text-[13px] font-medium">
-                                {{ __('messages.ai_help') }}
-                            </p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <button type="button" class="px-3 py-1.5 bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl text-[11px] hover:bg-ropanasuri-50 dark:hover:bg-ropanasuri-900/50 hover:text-ropanasuri-700 dark:hover:text-ropanasuri-400 transition-all duration-300 font-medium border border-gray-200 dark:border-gray-600 hover:border-ropanasuri-200 dark:hover:border-ropanasuri-700 quick-question flex items-center gap-1.5 group/btn">
-                                    <div class="w-5 h-5 rounded-md bg-white dark:bg-gray-600 flex items-center justify-center shadow-sm group-hover/btn:text-ropanasuri-500 dark:group-hover/btn:text-ropanasuri-400"><i class="fas fa-clock text-[9px]"></i></div>
-                                    Jam besuk
-                                </button>
-                                <button type="button" class="px-3 py-1.5 bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl text-[11px] hover:bg-ropanasuri-50 dark:hover:bg-ropanasuri-900/50 hover:text-ropanasuri-700 dark:hover:text-ropanasuri-400 transition-all duration-300 font-medium border border-gray-200 dark:border-gray-600 hover:border-ropanasuri-200 dark:hover:border-ropanasuri-700 quick-question flex items-center gap-1.5 group/btn">
-                                    <div class="w-5 h-5 rounded-md bg-white dark:bg-gray-600 flex items-center justify-center shadow-sm group-hover/btn:text-ropanasuri-500 dark:group-hover/btn:text-ropanasuri-400"><i class="fas fa-laptop-medical text-[9px]"></i></div>
-                                    Cara daftar
-                                </button>
-                                <!-- <button type="button" class="px-3 py-1.5 bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl text-[11px] hover:bg-ropanasuri-50 dark:hover:bg-ropanasuri-900/50 hover:text-ropanasuri-700 dark:hover:text-ropanasuri-400 transition-all duration-300 font-medium border border-gray-200 dark:border-gray-600 hover:border-ropanasuri-200 dark:hover:border-ropanasuri-700 quick-question flex items-center gap-1.5 group/btn">
-                                    <div class="w-5 h-5 rounded-md bg-white dark:bg-gray-600 flex items-center justify-center shadow-sm group-hover/btn:text-ropanasuri-500 dark:group-hover/btn:text-ropanasuri-400"><i class="fas fa-file-invoice-dollar text-[9px]"></i></div>
-                                    Biaya
-                                </button> -->
-                            </div>
-                        </div>
-                        <span class="text-[10px] text-gray-400 mt-1.5 block ml-1 font-medium">{{ now()->format('H:i') }}</span>
-                    </div>
+                    <h4 class="font-bold text-gray-800 dark:text-gray-100 text-sm">{{ $greeting }}!</h4>
                 </div>
-            </div>
-            
-            <!-- Chat Input Area -->
-            <div class="p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border-t border-gray-100 dark:border-gray-700 z-20">
-                <form id="chat-form" class="relative">
-                    <div class="flex items-end gap-2 bg-white dark:bg-gray-700 p-2 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-600 focus-within:border-ropanasuri-400 dark:focus-within:border-ropanasuri-500 focus-within:ring-4 focus-within:ring-ropanasuri-50 dark:focus-within:ring-ropanasuri-900/30 transition-all duration-300">
-                        <!-- Mic Button -->
-                        <button type="button" id="mic-btn" class="p-2.5 text-gray-400 dark:text-gray-400 hover:text-ropanasuri-500 dark:hover:text-ropanasuri-400 hover:bg-ropanasuri-50 dark:hover:bg-ropanasuri-900/50 rounded-xl transition-all self-center ml-1" title="{{ __('messages.use_voice') }}">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        
-                        <!-- Textarea -->
-                        <textarea 
-                            id="question-input"
-                            rows="1"
-                            class="flex-1 py-3 px-2 bg-transparent border-none focus:outline-none focus:ring-0 resize-none overflow-hidden text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 text-[14px] leading-relaxed self-center custom-scrollbar"
-                            placeholder="{{ __('messages.type_question_here') }}"
-                            style="min-height: 44px; max-height: 120px;"
-                        ></textarea>
-                        
-                        <!-- Send Button -->
-                        <button type="submit" class="p-3 bg-gradient-to-br from-ropanasuri-500 to-emerald-500 dark:from-ropanasuri-600 dark:to-emerald-600 text-white rounded-xl shadow-md hover:shadow-lg hover:shadow-ropanasuri-500/30 hover:-translate-y-0.5 transition-all duration-300 self-center mr-1 disabled:opacity-50 disabled:cursor-not-allowed">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <div class="flex justify-between items-center mt-2 px-2">
-                        <span class="text-[10px] text-gray-400 dark:text-gray-500 font-medium flex items-center">
-                            <i class="fas fa-shield-alt mr-1.5 opacity-70"></i> {{ __('messages.safe_encrypted') }}
-                        </span>
-                        <div class="hidden md:flex gap-3 text-[9px] text-gray-400 dark:text-gray-500 font-medium uppercase tracking-wider">
-                            <span class="flex items-center"><i class="fas fa-level-down-alt rotate-90 mr-1"></i> {{ __('messages.enter_send') }}</span>
-                            <span class="flex items-center">{{ __('messages.shift_enter_newline') }}</span>
-                        </div>
-                    </div>
-                </form>
+                <p class="text-[13px] text-gray-500 dark:text-gray-400 font-medium relative z-10 leading-relaxed">Semoga Anda selalu dalam keadaan sehat. Asisten virtual RSKB Ropanasuri siap melayani pertanyaan medis Anda.</p>
             </div>
         </div>
     </div>
 
-    <!-- Kolom Kanan: Edukasi Pasien -->
-    <div class="hidden lg:flex lg:col-span-3 flex-col gap-6">
-        
-        <!-- Tips Cepat -->
-        <div class="relative overflow-hidden rounded-[2rem] bg-gray-900 dark:bg-gray-800 p-7 shadow-lg group">
-            <div class="absolute -right-6 -top-6 w-32 h-32 bg-ropanasuri-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
-            
-            <div class="flex items-center mb-5 relative z-10">
-                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                    <i class="fas fa-lightbulb text-sm text-yellow-400 animate-pulse"></i>
-                </div>
-                <h4 class="font-bold text-white tracking-tight text-sm">{{ __('messages.search_tips') }}</h4>
-            </div>
-            
-            <ul class="space-y-3 relative z-10">
-                <li class="flex items-start group/item">
-                    <div class="bg-white/10 rounded-full p-1 mr-3 group-hover/item:bg-ropanasuri-500 transition-colors">
-                        <i class="fas fa-check text-[9px] text-white"></i>
-                    </div>
-                    <span class="text-xs text-gray-400 font-medium pt-0.5">{{ __('messages.type') }} <span class="text-white font-bold">{!! __('messages.type_doctor_schedule') !!}</span></span>
-                </li>
-                <li class="flex items-start group/item">
-                    <div class="bg-white/10 rounded-full p-1 mr-3 group-hover/item:bg-ropanasuri-500 transition-colors">
-                        <i class="fas fa-check text-[9px] text-white"></i>
-                    </div>
-                    <span class="text-xs text-gray-400 font-medium pt-0.5">{{ __('messages.type') }} <span class="text-white font-bold">{!! __('messages.type_bpjs') !!}</span></span>
-                </li>
-                <li class="flex items-start group/item">
-                    <div class="bg-white/10 rounded-full p-1 mr-3 group-hover/item:bg-ropanasuri-500 transition-colors">
-                        <i class="fas fa-check text-[9px] text-white"></i>
-                    </div>
-                    <span class="text-xs text-gray-400 font-medium pt-0.5">{{ __('messages.type') }} <span class="text-white font-bold">{!! __('messages.type_kamarmaya') !!}</span></span>
-                </li>
-            </ul>
-        </div>
+    <!-- (Quick Categories dipindahkan ke dalam Hero Content) -->
 
-        <!-- Header Edukasi -->
-        <div class="flex items-center justify-between px-1">
+    <!-- ARTIKEL MEDIS & BERITA -->
+    <div id="artikel-section" class="max-w-[85rem] mx-auto w-full mt-32 md:mt-48 mb-16 px-4 xl:px-8 animate-fade-in-up transition-all duration-500 delay-300 flex-1">
+        <div class="flex items-center justify-between mb-8">
             <div>
-                <h3 class="text-base font-extrabold text-gray-800 dark:text-gray-100 flex items-center tracking-tight">
-                    <span class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-400 flex items-center justify-center mr-3 border border-indigo-100 dark:border-indigo-800/50">
-                        <i class="fas fa-book-open text-[13px]"></i>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white flex items-center tracking-tight">
+                    <span class="w-10 h-10 rounded-xl bg-ropanasuri-50 dark:bg-ropanasuri-900/30 text-ropanasuri-500 dark:text-ropanasuri-400 flex items-center justify-center mr-3 border border-ropanasuri-100 dark:border-ropanasuri-800/50">
+                        <i class="fas fa-book-medical text-lg"></i>
                     </span>
-                    {{ __('messages.medical_education') }}
-                </h3>
-                <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-1 font-medium ml-11">{{ __('messages.articles_guide') }}</p>
+                    Edukasi & Artikel Medis
+                </h2>
+                <p class="text-gray-500 dark:text-gray-400 mt-2 font-medium text-sm md:text-base ml-14">Informasi kesehatan terpercaya yang disusun oleh tim medis profesional kami.</p>
             </div>
         </div>
-
-        <!-- Artikel Cards -->
-        <div class="space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto pr-2 custom-scrollbar">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             @forelse($artikels ?? [] as $index => $artikel)
             @php
-                $colors = ['text-blue-500 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400', 'text-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-400', 'text-purple-500 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-400', 'text-rose-500 bg-rose-50 dark:bg-rose-900/30 dark:text-rose-400', 'text-amber-500 bg-amber-50 dark:bg-amber-900/30 dark:text-amber-400'];
+                $colors = ['text-blue-500 bg-blue-50 dark:bg-blue-900/30', 'text-emerald-500 bg-emerald-50 dark:bg-emerald-900/30', 'text-purple-500 bg-purple-50 dark:bg-purple-900/30', 'text-rose-500 bg-rose-50 dark:bg-rose-900/30', 'text-amber-500 bg-amber-50 dark:bg-amber-900/30'];
                 $icons = ['fa-heart-pulse', 'fa-brain', 'fa-lungs', 'fa-bone', 'fa-capsules'];
                 $color = $colors[$index % count($colors)];
                 $icon = $icons[$index % count($icons)];
             @endphp
-            <a href="{{ route('artikel.show', $artikel->slug) }}" class="block group">
-                <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-[1.5rem] p-3.5 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-md hover:bg-white dark:hover:bg-gray-800 hover:-translate-y-1">
-                    <div class="flex gap-3.5">
-                        <!-- Thumbnail -->
+            <a href="{{ route('artikel.show', $artikel->slug) }}" class="group block h-full outline-none">
+                <div class="bg-white dark:bg-gray-800 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 relative focus:ring-4 focus:ring-ropanasuri-500/20">
+                    <div class="h-48 md:h-52 overflow-hidden relative">
                         @if($artikel->gambar)
-                            <div class="w-14 h-14 rounded-xl flex-shrink-0 overflow-hidden shadow-sm border border-gray-100 dark:border-gray-600">
-                                <img src="{{ asset('storage/'.$artikel->gambar) }}" alt="{{ $artikel->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                            </div>
+                            <img src="{{ asset('storage/'.$artikel->gambar) }}" alt="{{ $artikel->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         @else
-                            <div class="w-14 h-14 rounded-xl flex-shrink-0 flex items-center justify-center {{ $color }} border border-white/50 dark:border-gray-600/50">
-                                <i class="fas {{ $icon }} text-xl"></i>
+                            <div class="w-full h-full flex items-center justify-center {{ $color }} transition-colors duration-500">
+                                <i class="fas {{ $icon }} text-5xl opacity-40 group-hover:scale-110 transition-transform duration-500 group-hover:opacity-60"></i>
                             </div>
                         @endif
-                        
-                        <!-- Content -->
-                        <div class="flex-1 min-w-0">
-                            <h4 class="text-[13px] font-bold text-gray-800 dark:text-gray-100 leading-tight mb-1 group-hover:text-ropanasuri-600 dark:group-hover:text-ropanasuri-400 transition-colors line-clamp-2">
-                                {{ $artikel->judul }}
-                            </h4>
-                            <div class="flex items-center text-[9px] text-gray-500 dark:text-gray-400 font-medium">
-                                <span class="flex items-center">
-                                    <i class="far fa-calendar-alt mr-1 opacity-70"></i>
-                                    {{ $artikel->created_at->translatedFormat('d M') }}
-                                </span>
-                                <span class="mx-1.5 opacity-50">•</span>
-                                <span class="flex items-center">
-                                    <i class="far fa-eye mr-1 opacity-70"></i>
-                                    {{ $artikel->view_count ?? rand(100, 500) }}
-                                </span>
-                            </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-bold text-ropanasuri-600 dark:text-ropanasuri-400 uppercase tracking-widest shadow-sm">
+                            Artikel Baru
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-7 flex flex-col flex-1 relative bg-white dark:bg-gray-800">
+                        <h3 class="text-lg md:text-xl font-extrabold text-gray-800 dark:text-gray-100 leading-snug mb-3 group-hover:text-ropanasuri-600 dark:group-hover:text-ropanasuri-400 transition-colors line-clamp-2 tracking-tight">
+                            {{ $artikel->judul }}
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-4 font-medium leading-relaxed">
+                            {{ strip_tags($artikel->konten) }}
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 font-bold mt-auto pt-5 border-t border-gray-100 dark:border-gray-700/50">
+                            <span class="flex items-center"><i class="far fa-calendar-alt mr-2 opacity-70"></i> {{ $artikel->created_at->translatedFormat('d M Y') }}</span>
+                            <span class="flex items-center bg-gray-50 dark:bg-gray-700/50 px-2 py-1 rounded-lg"><i class="far fa-eye mr-1.5 opacity-70"></i> {{ $artikel->view_count ?? rand(100, 500) }}</span>
                         </div>
                     </div>
                 </div>
             </a>
             @empty
-            <div class="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-[2rem] p-8 text-center border border-dashed border-gray-200 dark:border-gray-700">
-                <div class="w-12 h-12 bg-white dark:bg-gray-700 rounded-2xl flex items-center justify-center text-xl mx-auto shadow-sm mb-3 text-gray-300 dark:text-gray-600">
+            <div class="col-span-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200 dark:border-gray-700">
+                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner mb-4 text-gray-300 dark:text-gray-500">
                     <i class="fas fa-folder-open"></i>
                 </div>
-                <p class="text-[10px] text-gray-400 mt-1">Edukasi medis akan segera hadir.</p>
+                <h4 class="text-lg font-bold text-gray-700 dark:text-gray-300 mb-2">Belum ada artikel</h4>
+                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Edukasi medis akan segera hadir di sini.</p>
             </div>
             @endforelse
         </div>
-        
-        <!-- Minimalist Copyright -->
-        <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 text-center">
-            <p class="text-[10px] text-gray-400 dark:text-gray-500 font-medium">
-                © {{ date('Y') }} IT RSKB Ropanasuri.<br>All rights reserved.
-            </p>
-        </div>
     </div>
-</div>
 
-<!-- Quick Question Mobile (Visible only on mobile) -->
-<div class="fixed bottom-24 right-4 lg:hidden z-50">
-    <button class="bg-gray-900 text-white p-4 rounded-full shadow-2xl hover:bg-ropanasuri-600 transition-all duration-300 transform hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-    </button>
+    <!-- FOOTER -->
+    <footer class="w-full text-center py-8 mt-10 border-t border-gray-200/40 dark:border-gray-700/40">
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">
+            &copy; {{ date('Y') }} Rumah Sakit Khusus Bedah Ropanasuri. Hak Cipta Dilindungi.<br>
+            <span class="text-[11px] mt-2 inline-block opacity-60">Dikembangkan oleh Departemen IT RSKB Ropanasuri (Teddi Takejo Saogok)</span>
+        </p>
+    </footer>
 </div>
 
 @push('styles')
 <style>
-    @keyframes blob {
-        0% { transform: translate(0px, 0px) scale(1); }
-        33% { transform: translate(30px, -50px) scale(1.1); }
-        66% { transform: translate(-20px, 20px) scale(0.9); }
-        100% { transform: translate(0px, 0px) scale(1); }
-    }
-    .animate-blob {
-        animation: blob 7s infinite;
-    }
-    .animation-delay-2000 {
-        animation-delay: 2s;
-    }
-    .animation-delay-4000 {
-        animation-delay: 4s;
-    }
     .custom-scrollbar::-webkit-scrollbar {
-        width: 5px;
+        width: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
         background: transparent;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: #e5e7eb;
+        background-color: rgba(156, 163, 175, 0.5);
         border-radius: 10px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background-color: #d1d5db;
+        background-color: rgba(156, 163, 175, 0.8);
     }
     .animate-fade-in-up {
-        animation: fadeInUp 0.4s ease-out forwards;
+        animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
     @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
     .line-clamp-2 {
@@ -345,70 +338,174 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+
+    /* CSS Transition Layout for Chat */
+    #chat-results-container {
+        width: 0;
+        opacity: 0;
+        visibility: hidden;
+        height: 0;
+        transform: translateX(2rem);
+    }
+    
+    @media (min-width: 1024px) {
+        .chat-active #top-section-wrapper {
+            max-width: 85rem;
+        }
+        .chat-active #left-floating-widgets, .chat-active #right-floating-widgets {
+            opacity: 0;
+            width: 0;
+            margin: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+        .chat-active #hero-content {
+            width: 35%;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .chat-active #hero-title {
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+        .chat-active #hero-desc {
+            font-size: 0.875rem;
+        }
+        .chat-active #quick-cat-title {
+            text-align: left;
+        }
+        .chat-active #quick-categories-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .chat-active #chat-results-container {
+            width: 65%;
+            max-width: 1000px;
+            opacity: 1;
+            visibility: visible;
+            height: auto;
+            transform: translateX(0);
+        }
+        .chat-active #hero-search-container {
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+            transform: scale(0.95);
+            margin-top: 0;
+            padding: 0;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .chat-active #chat-results-container {
+            width: 100%;
+            opacity: 1;
+            visibility: visible;
+            height: auto;
+            transform: translateY(0);
+            margin-top: 1rem;
+        }
+        .chat-active #hero-search-container {
+            display: none;
+        }
+        #chat-results-container {
+            transform: translateY(1rem);
+        }
+    }
 </style>
 @endpush
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // ============== AUTO-RESIZE TEXTAREA ==============
-        const textarea = document.getElementById('question-input');
-        if (textarea) {
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
+        const topSection = document.getElementById('top-section-wrapper');
+        const closeChatBtn = document.getElementById('close-chat');
+        const heroForm = document.getElementById('hero-chat-form');
+        const innerForm = document.getElementById('inner-chat-form');
+        const heroInput = document.getElementById('hero-question-input');
+        const innerInput = document.getElementById('inner-question-input');
+        
+        let isChatOpen = false;
+
+        function openChatArea() {
+            if (!isChatOpen) {
+                topSection.classList.add('chat-active');
+                
+                // Focus the inner input immediately after transition starts
+                setTimeout(() => {
+                    innerInput.focus();
+                }, 100);
+                
+                // Pada mobile, scroll otomatis ke chat box
+                if (window.innerWidth < 1024) {
+                    setTimeout(() => {
+                        document.getElementById('chat-results-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+                
+                isChatOpen = true;
+            }
         }
 
-        // ============== ENTER KEY HANDLER (FIX BUG) ==============
-        const chatForm = document.getElementById('chat-form');
-        const questionInput = document.getElementById('question-input');
-        
-        if (chatForm && questionInput) {
-            questionInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault(); 
-                    chatForm.dispatchEvent(new Event('submit')); 
-                }
-            });
+        function closeChatArea() {
+            if (isChatOpen) {
+                topSection.classList.remove('chat-active');
+                isChatOpen = false;
+            }
         }
+
+        closeChatBtn.addEventListener('click', closeChatArea);
 
         // ============== QUICK QUESTION BUTTONS ==============
         document.querySelectorAll('.quick-question').forEach(button => {
-            button.addEventListener('click', function() {
-                const question = this.textContent.trim();
-                const input = document.getElementById('question-input');
-                if (input) {
-                    input.value = question;
-                    input.style.height = 'auto';
-                    input.style.height = input.scrollHeight + 'px';
-                    document.getElementById('chat-form').dispatchEvent(new Event('submit'));
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const questionText = this.querySelector('span').textContent.trim();
+                
+                if (questionText === 'Layanan Darurat') {
+                    openChatArea();
+                    renderEmergencyResponse("Segera hubungi IGD RSKB Ropanasuri untuk penanganan darurat.");
+                    return;
                 }
+
+                submitQuestion(questionText);
             });
         });
 
         // ============== CHAT FORM SUBMISSION ==============
-        document.getElementById('chat-form').addEventListener('submit', function(e) {
+        heroForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            submitQuestion(heroInput.value);
+            heroInput.value = '';
+        });
+
+        innerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitQuestion(innerInput.value);
+            innerInput.value = '';
+        });
+
+        function submitQuestion(questionText) {
+            const question = questionText.trim();
+            if (!question) return;
+
+            // Pastikan semua kolom input dibersihkan otomatis
+            heroInput.value = '';
+            innerInput.value = '';
+
+            // Open chat area if not open
+            openChatArea();
             
-            const input = document.getElementById('question-input');
-            const question = input.value.trim();
-            const messagesDiv = document.getElementById('chat-messages');
+            // Ubah state input menjadi memproses
+            window.isFetching = true;
+            heroInput.placeholder = "Sedang menjawab pertanyaan Anda...";
+            innerInput.placeholder = "Sedang menjawab pertanyaan Anda...";
+            heroInput.disabled = true;
+            innerInput.disabled = true;
             
-            if (!question) {
-                appendMessage('user', '(pesan kosong)');
-                appendMessage('bot', '{{ __('messages.ai_empty') }}', true);
-                input.value = '';
-                input.style.height = 'auto';
-                scrollToBottom();
-                return;
-            }
-            
+            // Append user message
             appendMessage('user', question);
-            
-            input.value = '';
-            input.style.height = 'auto';
-            
             scrollToBottom();
             
             const loadingId = showLoading();
@@ -423,9 +520,7 @@
                 body: JSON.stringify({ question: question })
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
             })
             .then(data => {
@@ -433,7 +528,9 @@
                 
                 if (data.status === 'emergency') {
                     renderEmergencyResponse(data.answer);
+                    resetInputState(); // Langsung reset karena darurat tidak diketik
                 } else {
+                    // resetInputState() dipanggil nanti setelah efek ketik selesai di appendMessage
                     appendMessage('bot', data.answer, true, data.follow_ups || []);
                 }
                 
@@ -442,20 +539,30 @@
             .catch(error => {
                 console.error('Error:', error);
                 removeLoading(loadingId);
-                appendMessage('bot', 'Maaf, terjadi gangguan. Silakan coba lagi.', true);
+                resetInputState();
+                appendMessage('bot', 'Maaf, terjadi gangguan saat menyambungkan ke server. Silakan coba lagi.', true);
                 scrollToBottom();
             });
-        });
+        }
+
+        function resetInputState() {
+            window.isFetching = false;
+            heroInput.placeholder = "{{ __('messages.type_question_here') }}";
+            innerInput.placeholder = "{{ __('messages.type_question_here') }}";
+            heroInput.disabled = false;
+            innerInput.disabled = false;
+            // Kembalikan fokus ke input aktif jika chat terbuka
+            if (isChatOpen) {
+                innerInput.focus();
+            } else {
+                heroInput.focus();
+            }
+        }
 
         // ============== FUNGSI-FUNGSI CHAT ==============
-        
         function appendMessage(sender, message, isTyping = false, followUps = []) {
             const messagesDiv = document.getElementById('chat-messages');
-            const time = new Date().toLocaleTimeString('id-ID', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false 
-            });
+            const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
             const msgId = 'msg-' + Date.now() + Math.floor(Math.random() * 1000);
             
             let speakerBtnHtml = '';
@@ -472,11 +579,11 @@
             if (followUps && followUps.length > 0) {
                 let pills = followUps.map(f => {
                     const escapedFaq = escapeHtml(f).replace(/'/g, "\\'").replace(/"/g, '\\"');
-                    return `<button type="button" onclick="quickAsk('${escapedFaq}')" class="flex items-center text-left bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-ropanasuri-50 dark:hover:bg-ropanasuri-900/50 hover:border-ropanasuri-200 dark:hover:border-ropanasuri-700 px-3.5 py-2 rounded-xl text-[11px] transition-all shadow-sm w-full font-medium hover:-translate-y-0.5"><i class="fas fa-sparkles text-amber-500 mr-2 text-[10px]"></i>${escapeHtml(f)}</button>`;
+                    return `<button type="button" onclick="quickAsk('${escapedFaq}')" class="flex items-center text-left bg-gray-50 dark:bg-gray-600 border border-gray-200 dark:border-gray-500 text-gray-700 dark:text-gray-200 hover:bg-ropanasuri-50 dark:hover:bg-ropanasuri-900/50 hover:border-ropanasuri-200 dark:hover:border-ropanasuri-700 px-3 py-2 rounded-xl text-[12px] transition-all shadow-sm w-full font-medium hover:-translate-y-0.5"><i class="fas fa-sparkles text-amber-500 mr-2 text-[10px]"></i>${escapeHtml(f)}</button>`;
                 }).join('');
                 followUpsHtml = `
-                    <div class="mt-4 pt-4 border-t border-gray-100/80 dark:border-gray-700/80 w-full animate-fade-in-up" style="animation-delay: 0.5s;">
-                        <p class="text-[9px] font-bold text-gray-400 dark:text-gray-500 mb-2 uppercase tracking-widest">Saran Pertanyaan:</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100/80 dark:border-gray-600/80 w-full animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <p class="text-[10px] font-bold text-gray-400 dark:text-gray-400 mb-2 uppercase tracking-widest">Saran Pertanyaan:</p>
                         <div class="space-y-2">
                             ${pills}
                         </div>
@@ -484,27 +591,26 @@
                 `;
             }
             
+            const formattedMessage = formatMessageText(message);
+            
             const messageHtml = `
                 <div class="flex items-start group animate-fade-in-up ${sender === 'user' ? 'justify-end' : 'w-full'} mb-4">
                     ${sender === 'bot' ? 
-                        '<div class="w-9 h-9 bg-gradient-to-br from-ropanasuri-500 to-ropanasuri-600 rounded-2xl flex items-center justify-center text-white font-bold text-[10px] mr-3 flex-shrink-0 shadow-md">AI</div>' 
+                        '<div class="w-9 h-9 bg-gradient-to-br from-ropanasuri-500 to-ropanasuri-600 rounded-2xl flex items-center justify-center text-white font-bold text-[10px] mr-3 flex-shrink-0 shadow-md mt-1">AI</div>' 
                         : ''}
                     <div class="${sender === 'user' ? 
                         'bg-gray-900 dark:bg-gray-700 text-white rounded-2xl rounded-tr-sm shadow-md max-w-[85%]' 
-                        : 'bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm w-full md:max-w-[85%]'} 
-                        p-5 shadow-sm border ${sender === 'user' ? 'border-gray-800 dark:border-gray-600' : 'border-gray-100 dark:border-gray-700'} transition-shadow hover:shadow-md">
+                        : 'bg-white dark:bg-gray-700 rounded-2xl rounded-tl-sm w-full md:max-w-[85%]'} 
+                        p-4 md:p-5 shadow-sm border ${sender === 'user' ? 'border-gray-800 dark:border-gray-600' : 'border-gray-100 dark:border-gray-600'} transition-shadow hover:shadow-md">
                         
-                        <p id="${msgId}" class="${sender === 'user' ? 'text-white' : 'text-gray-700 dark:text-gray-200'} leading-relaxed whitespace-pre-wrap text-[14px]">${isTyping ? '' : escapeHtml(message)}</p>
+                        <p id="${msgId}" class="${sender === 'user' ? 'text-white' : 'text-gray-700 dark:text-gray-200'} leading-relaxed whitespace-pre-wrap text-[14px] md:text-[15px] font-medium">${isTyping ? '' : formattedMessage}</p>
                         
                         ${sender === 'bot' && !isTyping ? speakerBtnHtml : ''}
                         ${sender === 'bot' && !isTyping ? followUpsHtml : ''}
                     </div>
                     ${sender === 'user' ? 
-                        '<div class="w-9 h-9 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center text-gray-400 dark:text-gray-500 font-bold text-[12px] ml-3 flex-shrink-0 shadow-sm border border-gray-200 dark:border-gray-700"><i class="fas fa-user"></i></div>' 
+                        '<div class="w-9 h-9 bg-gray-100 dark:bg-gray-600 rounded-2xl flex items-center justify-center text-gray-400 dark:text-gray-300 font-bold text-[12px] ml-3 flex-shrink-0 shadow-sm border border-gray-200 dark:border-gray-500 mt-1"><i class="fas fa-user"></i></div>' 
                         : ''}
-                </div>
-                <div class="flex ${sender === 'user' ? 'justify-end mr-14' : 'justify-start ml-14'} -mt-3 mb-4">
-                    <span class="text-[10px] text-gray-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity">${time}</span>
                 </div>
             `;
             
@@ -513,11 +619,33 @@
             if (isTyping) {
                 const p = document.getElementById(msgId);
                 let i = 0;
-                const speed = 15;
+                let currentHTML = '';
+                const speed = 10;
                 function typeWriter() {
-                    if (i < message.length) {
-                        p.textContent += message.charAt(i);
-                        i++;
+                    if (i < formattedMessage.length) {
+                        if (formattedMessage.charAt(i) === '<') {
+                            let tagEnd = formattedMessage.indexOf('>', i);
+                            if (tagEnd !== -1) {
+                                currentHTML += formattedMessage.substring(i, tagEnd + 1);
+                                i = tagEnd + 1;
+                            } else {
+                                currentHTML += formattedMessage.charAt(i);
+                                i++;
+                            }
+                        } else if (formattedMessage.charAt(i) === '&') {
+                            let entityEnd = formattedMessage.indexOf(';', i);
+                            if (entityEnd !== -1 && entityEnd - i < 10) {
+                                currentHTML += formattedMessage.substring(i, entityEnd + 1);
+                                i = entityEnd + 1;
+                            } else {
+                                currentHTML += formattedMessage.charAt(i);
+                                i++;
+                            }
+                        } else {
+                            currentHTML += formattedMessage.charAt(i);
+                            i++;
+                        }
+                        p.innerHTML = currentHTML;
                         scrollToBottom();
                         setTimeout(typeWriter, speed);
                     } else {
@@ -529,6 +657,8 @@
                                 insertPoint.insertAdjacentHTML('afterend', followUpsHtml);
                             }
                             scrollToBottom();
+                            // Reset state input setelah efek ketikan bot selesai
+                            if (typeof resetInputState === 'function') resetInputState();
                         }
                     }
                 }
@@ -541,13 +671,13 @@
             const messagesDiv = document.getElementById('chat-messages');
             
             const loadingHtml = `
-                <div id="${id}" class="flex items-start animate-fade-in-up mb-4">
-                    <div class="w-9 h-9 bg-gradient-to-br from-ropanasuri-500 to-ropanasuri-600 rounded-2xl flex items-center justify-center text-white font-bold text-[10px] mr-3 flex-shrink-0 shadow-md">AI</div>
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl rounded-tl-sm p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                        <div class="flex space-x-1.5">
-                            <div class="w-2 h-2 bg-ropanasuri-400 rounded-full animate-bounce"></div>
-                            <div class="w-2 h-2 bg-ropanasuri-500 rounded-full animate-bounce" style="animation-delay: 0.15s"></div>
-                            <div class="w-2 h-2 bg-ropanasuri-600 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+                <div id="${id}" class="flex items-start animate-fade-in-up mb-4 mt-1">
+                    <div class="w-9 h-9 bg-gradient-to-br from-ropanasuri-500 to-ropanasuri-600 rounded-2xl flex items-center justify-center text-white font-bold text-[10px] mr-3 flex-shrink-0 shadow-md mt-1">AI</div>
+                    <div class="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-sm p-4 md:p-5 shadow-sm border border-gray-100 dark:border-gray-600">
+                        <div class="flex space-x-1.5 items-center h-4">
+                            <div class="w-2.5 h-2.5 bg-ropanasuri-400 rounded-full animate-bounce"></div>
+                            <div class="w-2.5 h-2.5 bg-ropanasuri-500 rounded-full animate-bounce" style="animation-delay: 0.15s"></div>
+                            <div class="w-2.5 h-2.5 bg-ropanasuri-600 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
                         </div>
                     </div>
                 </div>
@@ -579,26 +709,34 @@
                 .replace(/'/g, "&#039;");
         }
         
+        function formatMessageText(text) {
+            if (!text) return '';
+            let escaped = escapeHtml(text);
+            escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" class="text-emerald-500 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300 underline font-bold transition-colors">$1</a>');
+            escaped = escaped.replace(/(^|[^"'])(https?:\/\/[^\s<]+)/g, function(match, p1, p2) {
+                return p1 + '<a href="' + p2 + '" target="_blank" class="text-emerald-500 dark:text-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300 underline font-bold transition-colors">' + p2 + '</a>';
+            });
+            return escaped;
+        }
+        
         // ==========================================
         // FITUR RED FLAG TRIAGE
         // ==========================================
         function renderEmergencyResponse(message) {
             const messagesDiv = document.getElementById('chat-messages');
-            
-            document.body.classList.add('bg-red-50');
-            setTimeout(() => document.body.classList.remove('bg-red-50'), 1000);
+            const safeMessage = formatMessageText(message);
             
             const emergencyHtml = `
                 <div class="flex items-start group animate-fade-in-up w-full mt-4 mb-6">
-                    <div class="w-10 h-10 bg-red-600 dark:bg-red-700 rounded-2xl flex items-center justify-center text-white text-lg mr-3 flex-shrink-0 shadow-lg ring-4 ring-red-100 dark:ring-red-900/30 animate-pulse">
+                    <div class="w-10 h-10 bg-red-600 dark:bg-red-700 rounded-2xl flex items-center justify-center text-white text-lg mr-3 flex-shrink-0 shadow-lg ring-4 ring-red-100 dark:ring-red-900/30 animate-pulse mt-1">
                         <i class="fas fa-truck-medical"></i>
                     </div>
-                    <div class="bg-red-50 dark:bg-red-900/30 rounded-[2rem] rounded-tl-sm p-6 shadow-xl border-2 border-red-200 dark:border-red-800/50 w-full relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 w-20 h-20 bg-red-500/10 dark:bg-red-400/10 rounded-full blur-xl animate-ping"></div>
-                        <h4 class="font-extrabold text-red-700 dark:text-red-400 text-base mb-2 flex items-center relative z-10 tracking-tight">
+                    <div class="bg-red-50 dark:bg-red-900/30 rounded-[2rem] rounded-tl-sm p-5 md:p-6 shadow-xl border-2 border-red-200 dark:border-red-800/50 w-full relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-red-500/10 dark:bg-red-400/10 rounded-full blur-xl animate-ping"></div>
+                        <h4 class="font-black text-red-700 dark:text-red-400 text-base mb-2 flex items-center relative z-10 tracking-tight">
                             <i class="fas fa-exclamation-triangle mr-2"></i> PERINGATAN DARURAT
                         </h4>
-                        <p class="text-red-900 dark:text-red-200 font-medium leading-relaxed mb-5 relative z-10 text-[14px]">${message}</p>
+                        <p class="text-red-900 dark:text-red-200 font-medium leading-relaxed mb-5 relative z-10 text-[14px] md:text-[15px]">${safeMessage}</p>
                         
                         <a href="tel:075131938" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-md text-sm hover:-translate-y-0.5 relative z-10">
                             <i class="fas fa-ambulance mr-2 animate-bounce"></i> IGD: (0751) 31938
@@ -612,89 +750,83 @@
         // ==========================================
         // FITUR VOICE TO TEXT (Web Speech API)
         // ==========================================
-        const micBtn = document.getElementById('mic-btn');
-        const form = document.getElementById('chat-form');
-        const input = document.getElementById('question-input');
+        const micBtns = document.querySelectorAll('.mic-btn');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         
-        if (SpeechRecognition && micBtn) {
+        if (SpeechRecognition && micBtns.length > 0) {
             const recognition = new SpeechRecognition();
             recognition.lang = 'id-ID'; 
             recognition.continuous = false;
             recognition.interimResults = false;
-            
             let isRecording = false;
+            let activeInput = null;
+            let activeBtn = null;
 
-            micBtn.addEventListener('click', () => {
-                if (isRecording) {
-                    recognition.stop();
-                } else {
-                    recognition.start();
-                }
+            micBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    activeBtn = btn;
+                    activeInput = isChatOpen ? innerInput : heroInput;
+                    
+                    if (isRecording) {
+                        recognition.stop();
+                    } else {
+                        recognition.start();
+                    }
+                });
             });
 
             recognition.onstart = function() {
                 isRecording = true;
-                micBtn.classList.add('text-red-500', 'animate-pulse', 'bg-red-50');
-                micBtn.classList.remove('text-gray-400');
-                input.placeholder = "Mendengarkan suara Anda...";
+                if(activeBtn) {
+                    activeBtn.classList.add('text-red-500', 'animate-pulse', 'bg-red-50');
+                    activeBtn.classList.remove('text-gray-400');
+                }
+                if(activeInput) {
+                    activeInput.placeholder = "Mendengarkan...";
+                }
             };
 
             recognition.onresult = function(event) {
                 const transcript = event.results[0][0].transcript;
-                input.value = transcript;
-                input.style.height = 'auto';
-                input.style.height = (input.scrollHeight) + 'px';
-                
-                setTimeout(() => form.dispatchEvent(new Event('submit')), 500);
+                if(activeInput) {
+                    activeInput.value = transcript;
+                    setTimeout(() => submitQuestion(transcript), 500);
+                }
             };
 
             recognition.onerror = function(event) {
-                console.error("Speech recognition error", event.error);
-                input.placeholder = "Gagal mendengarkan. Coba lagi.";
-                setTimeout(() => input.placeholder = "Tulis pertanyaan Anda di sini...", 2000);
+                if(activeInput) {
+                    activeInput.placeholder = "Gagal mendengarkan.";
+                    setTimeout(() => activeInput.placeholder = "{{ __('messages.type_question_here') }}", 2000);
+                }
             };
 
             recognition.onend = function() {
                 isRecording = false;
-                micBtn.classList.remove('text-red-500', 'animate-pulse', 'bg-red-50');
-                micBtn.classList.add('text-gray-400');
-                if(!input.value) {
-                    input.placeholder = "Tulis pertanyaan Anda di sini...";
+                if(activeBtn) {
+                    activeBtn.classList.remove('text-red-500', 'animate-pulse', 'bg-red-50');
+                    activeBtn.classList.add('text-gray-400');
+                }
+                if(activeInput && !window.isFetching) {
+                    activeInput.placeholder = "{{ __('messages.type_question_here') }}";
                 }
             };
-        } else if (micBtn) {
-            micBtn.style.display = 'none';
         }
 
         // ==========================================
         // FITUR TEXT-TO-SPEECH (TTS) BACA JAWABAN
         // ==========================================
         window.speakText = function(text) {
-            if (!('speechSynthesis' in window)) {
-                alert("Maaf, browser Anda tidak mendukung fitur suara.");
-                return;
-            }
-            
+            if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-            
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'id-ID'; 
-            utterance.rate = 1.0; 
-            utterance.pitch = 1.0;
-            
             window.speechSynthesis.speak(utterance);
         };
 
-        // ==========================================
-        // QUICK ASK (DARI FOLLOW UP / SUGGESTION)
-        // ==========================================
         window.quickAsk = function(question) {
-            input.value = question;
-            form.dispatchEvent(new Event('submit'));
+            submitQuestion(question);
         };
-
-        setTimeout(scrollToBottom, 100);
     });
 </script>
 @endpush

@@ -56,6 +56,22 @@ Sistem ini didesain dengan menjunjung tinggi batasan hukum medis: **AI diprogram
 
 ---
 
+## 📊 Kapasitas & Batasan Percakapan (Rate Limits)
+
+Jika sistem "Halo Ropanasuri" ini dipublikasikan (di-deploy ke server produksi), jumlah percakapan yang bisa ditangani bergantung pada dua faktor utama:
+
+1. **Batasan dari API AI (Groq Cloud)**
+   Sistem ini memanggil API eksternal dari Groq Cloud untuk pemrosesan bahasa alami.
+   - **Akun Gratis (Free Tier):** Biasanya dibatasi hingga **14.400 percakapan per hari** (maksimal 30 *request* per menit). Kuota ini sudah sangat memadai untuk aktivitas harian standar.
+   - **Akun Berbayar (Pay-as-you-go):** Jika menggunakan sistem berbayar, batasannya praktis **tidak terbatas** dan akan mengikuti anggaran (*budget*) yang Anda atur.
+
+2. **Kapasitas Server Internal (Hosting / Laravel)**
+   - Dari sisi kode (*backend* Laravel), **tidak ada batasan (*no hard limit*)** jumlah percakapan.
+   - Performa untuk menangani banyak pengunjung dalam waktu bersamaan (*concurrency*) murni ditentukan oleh spesifikasi RAM dan CPU dari server hosting Anda.
+   - Aplikasi juga telah dilengkapi sistem pertahanan (*error handling/fallback*) seandainya limit API Groq terlampaui (Error 429), sehingga aplikasi tidak akan crash.
+
+---
+
 ## 🛠️ Mulai Cepat (Getting Started)
 
 Langkah-langkah untuk menjalankan proyek ini di *local environment* Anda.

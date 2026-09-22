@@ -370,6 +370,11 @@ class AdminArtikelController extends Controller
                 $file = $request->file('gambar');
                 $fileName = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
                 $data['gambar'] = $file->storeAs('artikel', $fileName, 'public');
+            } elseif ($request->has('delete_gambar')) {
+                if ($artikel->gambar) {
+                    Storage::disk('public')->delete($artikel->gambar);
+                }
+                $data['gambar'] = null;
             }
             
             // Set published_at if just published
