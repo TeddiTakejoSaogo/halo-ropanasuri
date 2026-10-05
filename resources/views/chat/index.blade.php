@@ -53,7 +53,7 @@
                     <h4 class="font-bold">Call Center</h4>
                 </div>
                 <p class="text-sm text-white/90 font-medium mb-1">Layanan Informasi 24 Jam</p>
-                <p class="text-xl font-black tracking-wider">(0751) 123456</p>
+                <p class="text-xl font-black tracking-wider">(0751) 31938</p>
             </div>
         </div>
 
