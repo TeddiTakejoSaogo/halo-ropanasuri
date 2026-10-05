@@ -303,7 +303,7 @@
     <footer class="w-full text-center py-8 mt-10 border-t border-gray-200/40 dark:border-gray-700/40">
         <p class="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">
             &copy; {{ date('Y') }} Rumah Sakit Khusus Bedah Ropanasuri. Hak Cipta Dilindungi.<br>
-            <span class="text-[11px] mt-2 inline-block opacity-60">Dikembangkan oleh Departemen IT RSKB Ropanasuri (Teddi Takejo Saogok)</span>
+            <span class="text-[11px] mt-2 inline-block opacity-60">Dikembangkan oleh Departemen IT RSKB Ropanasuri (Teddi Takejo Saogok & Luthfi Ariesto Prayoga) </span>
         </p>
     </footer>
 </div>
