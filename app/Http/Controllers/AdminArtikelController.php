@@ -302,6 +302,13 @@ class AdminArtikelController extends Controller
     
             $url = asset('storage/artikel/konten/' . $fileName);
             
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            if ($CKEditorFuncNum) {
+                $msg = 'Gambar berhasil diupload';
+                return response("<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>")
+                    ->header('Content-Type', 'text/html');
+            }
+            
             return response()->json([
                 'fileName' => $fileName,
                 'uploaded' => 1,
@@ -315,8 +322,8 @@ class AdminArtikelController extends Controller
         $config = HTMLPurifier_Config::createDefault();
         $config->set('HTML.Allowed', 
             'p,br,strong,em,u,ol,ul,li,blockquote,h2,h3,h4,h5,pre,' .
-            'a[href|target],img[src|alt|width|height],table,thead,tbody,tr,td,th,' .
-            'span[style],div[style]'
+            'a[href|target],img[src|alt|width|height|style|class],table,thead,tbody,tr,td,th,' .
+            'span[style|class],div[style|class]'
         );
         $config->set('HTML.TargetBlank', true);
         $config->set('Attr.AllowedFrameTargets', ['_blank', '_self']);
