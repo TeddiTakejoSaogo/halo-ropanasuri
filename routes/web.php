@@ -22,8 +22,8 @@ Route::get('/artikel/{slug}', [AdminArtikelController::class, 'show'])->name('ar
 
 // ===== LOGIN ROUTES (GUEST ONLY) =====
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    Route::get('/portal-rahasia-ropanasuri', [AuthenticatedSessionController::class, 'create'])->name('admin.login');
+    Route::post('/portal-rahasia-ropanasuri', [AuthenticatedSessionController::class, 'store']);
 });
 
 // ===== LOGOUT ROUTE =====
