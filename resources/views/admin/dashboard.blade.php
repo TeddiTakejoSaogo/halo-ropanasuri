@@ -19,7 +19,62 @@
 <div class="space-y-8">
     
     <!-- === STATISTIK CARDS === -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        
+        <!-- Card: Token AI -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Sisa Token AI</p>
+                    @if($groqTokenLimit > 0)
+                        <p class="text-2xl lg:text-3xl font-bold text-gray-800 mt-2">
+                            @php
+                                // Jika nilainya jutaan/ratusan ribu, bisa diformat lebih pendek
+                                $remaining = (int)$groqTokenRemaining;
+                                if($remaining > 999999) echo number_format($remaining / 1000000, 1) . 'M';
+                                elseif($remaining > 999) echo number_format($remaining / 1000, 1) . 'K';
+                                else echo number_format($remaining);
+                            @endphp
+                        </p>
+                        @php 
+                            $usedTokens = max(0, $groqTokenLimit - $groqTokenRemaining);
+                            $percentage = $groqTokenLimit > 0 ? ($usedTokens / $groqTokenLimit) * 100 : 0;
+                        @endphp
+                        <p class="text-xs text-gray-500 mt-2">
+                            Limit: {{ number_format((int)$groqTokenLimit) }}
+                        </p>
+                    @else
+                        <p class="text-xl font-bold text-gray-400 mt-2">
+                            N/A
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                            Menunggu chat...
+                        </p>
+                    @endif
+                </div>
+                <div class="bg-indigo-100 p-3 rounded-2xl">
+                    <i class="fas fa-microchip text-indigo-600 text-2xl"></i>
+                </div>
+            </div>
+            
+            @if($groqTokenLimit > 0)
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs text-gray-500">Terpakai</span>
+                        <span class="text-xs font-medium {{ $percentage > 80 ? 'text-red-500' : ($percentage > 50 ? 'text-amber-500' : 'text-emerald-500') }}">{{ number_format($percentage, 1) }}%</span>
+                    </div>
+                    <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full transition-all duration-1000 {{ $percentage > 80 ? 'bg-red-500' : ($percentage > 50 ? 'bg-amber-500' : 'bg-emerald-500') }}" style="width: {{ $percentage }}%"></div>
+                    </div>
+                </div>
+            @else
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <span class="text-xs text-indigo-600 flex items-center">
+                        <i class="fas fa-info-circle mr-1"></i> Groq API Standby
+                    </span>
+                </div>
+            @endif
+        </div>
         
         <!-- Card: Total FAQ -->
         <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">

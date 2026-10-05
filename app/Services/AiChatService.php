@@ -274,6 +274,13 @@ CONTEXT RESMI RS ROPANASURI:
 
             if ($response->successful()) {
                 $data = $response->json();
+                
+                // Simpan informasi token ke cache
+                if ($response->header('x-ratelimit-limit-tokens') && $response->header('x-ratelimit-remaining-tokens')) {
+                    \Illuminate\Support\Facades\Cache::put('groq_token_limit', $response->header('x-ratelimit-limit-tokens'), now()->addHours(24));
+                    \Illuminate\Support\Facades\Cache::put('groq_token_remaining', $response->header('x-ratelimit-remaining-tokens'), now()->addHours(24));
+                }
+                
                 return $data['choices'][0]['message']['content'] ?? null;
             }
 

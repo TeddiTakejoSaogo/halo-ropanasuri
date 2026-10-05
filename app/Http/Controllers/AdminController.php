@@ -68,6 +68,10 @@ class AdminController extends Controller
             ];
         }
         
+        // Informasi Token Groq
+        $groqTokenLimit = \Illuminate\Support\Facades\Cache::get('groq_token_limit', 0);
+        $groqTokenRemaining = \Illuminate\Support\Facades\Cache::get('groq_token_remaining', 0);
+        
         return view('admin.dashboard', compact(
             'totalFaq',
             'totalArtikel', 
@@ -80,7 +84,9 @@ class AdminController extends Controller
             'chatHariIni',
             'pertanyaanTidakDitemukan',
             'chatTerbaru',
-            'weeklyStats'
+            'weeklyStats',
+            'groqTokenLimit',
+            'groqTokenRemaining'
         ));
     }
 }
